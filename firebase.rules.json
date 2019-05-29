@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "tasks": {
+      ".read": true,
+      ".write": true
+    },
+    "contacts": {
+      ".read": true,
+      ".write": true
+    },
+    "emails": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
