@@ -2,17 +2,21 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Loading from 'react-loading-bar';
+import { bindActionCreators } from 'redux';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
-import { bindActionCreators } from 'redux';
-import JssProvider from 'react-jss/lib/JssProvider';
+import { StylesProvider, jssPreset } from '@material-ui/styles';
 import {
   withTheme, withStyles,
-  createMuiTheme, MuiThemeProvider,
-  createGenerateClassName, jssPreset
+  createMuiTheme, MuiThemeProvider
 } from '@material-ui/core/styles';
-import { changeModeAction } from 'enl-redux/actions/uiActions';
 import 'enl-styles/vendors/react-loading-bar/index.css';
+import {
+  changeThemeAction,
+  changeModeAction,
+  changeLayoutAction,
+  changeDirectionAction
+} from 'enl-redux/actions/uiActions';
 import applicationTheme from '../../styles/theme/applicationTheme';
 
 const styles = {
@@ -26,9 +30,6 @@ const styles = {
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
-
-// Custom Material-UI class name generator.
-const generateClassName = createGenerateClassName();
 
 // Export context for themeing mode
 export const AppContext = React.createContext();
@@ -82,7 +83,7 @@ class ThemeWrapper extends React.Component {
     } = this.props;
     const { pageLoaded, theme } = this.state;
     return (
-      <JssProvider jss={jss} generateClassName={generateClassName}>
+      <StylesProvider jss={jss}>
         <MuiThemeProvider theme={theme}>
           <div className={classes.root}>
             <div className={classes.pageLoader}>
@@ -90,7 +91,6 @@ class ThemeWrapper extends React.Component {
                 show={pageLoaded}
                 color={theme.palette.primary.main}
                 showSpinner={false}
-
               />
             </div>
             <AppContext.Provider value={this.handleChangeMode}>
@@ -98,7 +98,7 @@ class ThemeWrapper extends React.Component {
             </AppContext.Provider>
           </div>
         </MuiThemeProvider>
-      </JssProvider>
+      </StylesProvider>
     );
   }
 }
@@ -116,14 +116,16 @@ const reducer = 'ui';
 const mapStateToProps = state => ({
   force: state, // force state from reducer
   color: state.getIn([reducer, 'theme']),
-  palette: state.getIn([reducer, 'palette']),
   mode: state.getIn([reducer, 'type']),
   layout: state.getIn([reducer, 'layout']),
   direction: state.getIn([reducer, 'direction']),
 });
 
 const dispatchToProps = dispatch => ({
+  changeTheme: bindActionCreators(changeThemeAction, dispatch),
   changeMode: bindActionCreators(changeModeAction, dispatch),
+  changeLayout: bindActionCreators(changeLayoutAction, dispatch),
+  changeDirection: bindActionCreators(changeDirectionAction, dispatch),
 });
 
 const ThemeWrapperMapped = connect(
@@ -131,4 +133,4 @@ const ThemeWrapperMapped = connect(
   dispatchToProps
 )(ThemeWrapper);
 
-export default withTheme()(withStyles(styles)(ThemeWrapperMapped));
+export default withTheme((withStyles(styles)(ThemeWrapperMapped)));

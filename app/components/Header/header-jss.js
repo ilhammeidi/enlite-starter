@@ -45,13 +45,13 @@ const styles = theme => ({
       zIndex: 10,
     },
     '& $headerTitle': {
-      left: theme.spacing.unit * 3,
+      left: theme.spacing(3),
     }
   },
   attachedbar: {
     position: 'relative',
     '& $menuButton': {
-      margin: `0 ${theme.spacing.unit * 2}px`
+      margin: `0 ${theme.spacing(2)}px`
     },
   },
   floatingBar: {
@@ -67,13 +67,13 @@ const styles = theme => ({
     boxShadow: theme.shadows[3],
     color: theme.palette.text.primary,
     [theme.breakpoints.down('md')]: {
-      padding: `${theme.spacing.unit / 2}px 0`,
+      padding: `${theme.spacing(0.5)}px 0`,
     },
     [theme.breakpoints.up('lg')]: {
       background: fade(theme.palette.background.paper, 0.8),
     },
     '& $brand': {
-      marginLeft: theme.spacing.unit * 3
+      marginLeft: theme.spacing(3)
     }
   },
   flex: {
@@ -90,7 +90,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     '& $headerAction': {
-      marginLeft: theme.spacing.unit * 4
+      marginLeft: theme.spacing(4)
     },
     '&$darker': {
       '& $menuButton': {
@@ -99,7 +99,7 @@ const styles = theme => ({
     },
     '& $headerTitle': {
       [theme.breakpoints.up('lg')]: {
-        left: theme.spacing.unit * 8
+        left: theme.spacing(8)
       }
     }
   },
@@ -108,8 +108,8 @@ const styles = theme => ({
     display: 'none',
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     width: 200,
   },
   container: {
@@ -119,9 +119,10 @@ const styles = theme => ({
   dark: {},
   light: {},
   inputLang: {
-    maxWidth: 110,
+    maxWidth: 160,
     background: fade(theme.palette.text.primary, 0.05),
     border: 'none',
+    paddingRight: theme.spacing(4),
     '& i': {
       ...flagIcon
     }
@@ -138,8 +139,8 @@ const styles = theme => ({
   wrapper: {
     fontFamily: theme.typography.fontFamily,
     position: 'relative',
-    marginLeft: theme.spacing.unit,
-    borderRadius: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    borderRadius: theme.spacing(1),
     display: 'inline-block',
     background: fade(theme.palette.text.primary, 0.05),
     '& $miniInput': {
@@ -153,7 +154,7 @@ const styles = theme => ({
     }
   },
   search: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -188,7 +189,7 @@ const styles = theme => ({
     left: 0,
     top: 0,
     [theme.breakpoints.up('lg')]: {
-      top: theme.spacing.unit * -8,
+      top: theme.spacing(1) * -8,
     },
     '& nav': {
       padding: '16px 0'
@@ -248,25 +249,25 @@ const styles = theme => ({
   },
   brandWrap: {
     display: 'flex',
-    paddingLeft: theme.spacing.unit * 1.5,
+    paddingLeft: theme.spacing(1.5),
     '& svg': {
       fill: theme.palette.type === 'dark' ? fade(theme.palette.primary.light, 0.64) : fade(theme.palette.primary.dark, 0.64)
     }
   },
   dense: {
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: theme.spacing.unit * 4,
+      paddingLeft: theme.spacing(4),
     },
     '& $brand': {
       [theme.breakpoints.up('lg')]: {
-        marginLeft: theme.spacing.unit * 4,
-        marginRight: theme.spacing.unit,
+        marginLeft: theme.spacing(4),
+        marginRight: theme.spacing(1),
       }
     }
   },
   mainMenu: {
     backgroundColor: theme.palette.background.paper,
-    padding: `${theme.spacing.unit}px 0`,
+    padding: `${theme.spacing(1)}px 0`,
     boxShadow: theme.shadows[3],
     position: 'relative',
     transition: 'padding 0.3s ease',
@@ -277,9 +278,9 @@ const styles = theme => ({
   },
   headMenu: {
     fontSize: 12,
-    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit}px ${theme.spacing.unit / 2}px ${theme.spacing.unit * 2}px`,
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px ${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
     minHeight: 'auto',
-    margin: `0 ${theme.spacing.unit / 2}px`
+    margin: `0 ${theme.spacing(0.5)}px`
   },
   opened: {
     color: theme.palette.primary.main,
@@ -289,7 +290,7 @@ const styles = theme => ({
     }
   },
   rightIcon: {
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: theme.spacing(0.5),
     opacity: 0.3
   },
   selected: {
@@ -316,7 +317,7 @@ const styles = theme => ({
   title: {
     fontSize: 10,
     textTransform: 'uppercase',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     display: 'block',
     color: theme.palette.secondary.main,
     lineHeight: '28px',
@@ -325,11 +326,11 @@ const styles = theme => ({
   },
   dropDownMenu: {
     minWidth: 300,
-    marginTop: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1.5),
     position: 'relative',
     '& nav': {
       paddingTop: 0,
-      paddingBottom: theme.spacing.unit * 3
+      paddingBottom: theme.spacing(3)
     }
   },
   active: {},
@@ -348,17 +349,17 @@ const styles = theme => ({
     }
   },
   megaMenu: {
-    padding: `0 ${theme.spacing.unit * 2}px`,
+    padding: `0 ${theme.spacing(2)}px`,
     '& $title': {
-      paddingLeft: theme.spacing.unit * 2
+      paddingLeft: theme.spacing(2)
     }
   },
   megaItem: {
     display: 'inline-block',
     width: 'auto',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     borderRadius: theme.rounded.big,
-    padding: `${theme.spacing.unit / 4}px ${theme.spacing.unit}px`,
+    padding: `${theme.spacing(0.25)}px ${theme.spacing(1)}px`,
     '& span': {
       fontSize: 14,
     },
@@ -388,9 +389,9 @@ const styles = theme => ({
   },
   button: {},
   buttonTop: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
+    margin: `0 ${theme.spacing(2)}px`,
     '& svg': {
-      marginRight: theme.spacing.unit
+      marginRight: theme.spacing(1)
     }
   },
   headerProperties: {
@@ -404,7 +405,7 @@ const styles = theme => ({
   fadeOut: {},
   invert: {},
   headerAction: {
-    margin: `0 ${theme.spacing.unit * 5}px`,
+    margin: `0 ${theme.spacing(5)}px`,
     transition: 'opacity 0.5s ease',
     '& $button': {
       '& svg': {
@@ -427,7 +428,7 @@ const styles = theme => ({
   show: {},
   headerTitle: {
     transition: 'all 0.3s ease',
-    fontSize: theme.spacing.unit * 3,
+    fontSize: theme.spacing(3),
     position: 'absolute',
     textTransform: 'capitalize',
     fontWeight: 700,
@@ -435,7 +436,7 @@ const styles = theme => ({
     color: theme.palette.type === 'dark' ? theme.palette.secondary.light : theme.palette.primary.dark,
     opacity: 0,
     '&$show': {
-      top: theme.spacing.unit,
+      top: theme.spacing(1),
       opacity: 0.87
     }
   },
@@ -449,11 +450,11 @@ const styles = theme => ({
     alignItems: 'center'
   },
   userToolbar: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
     '& > *': {
-      marginRight: theme.spacing.unit
+      marginRight: theme.spacing(0.5)
     },
     '& $buttonTop': {
       [theme.breakpoints.down('xs')]: {

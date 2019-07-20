@@ -17,7 +17,11 @@ import messages from 'enl-api/ui/menuMessages';
 import MenuProfile from './MenuProfile';
 import styles from './sidebarBig-jss';
 
-class MainMenuBig extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class MainMenuBig extends React.Component { // eslint-disable-line
   state = { selectedMenu: [], menuLoaded: true };
 
   handleLoadMenu(menu) {
@@ -97,7 +101,7 @@ class MainMenuBig extends React.Component {
           key={index.toString()}
           focusRipple
           className={classNames(classes.menuHead, open.indexOf(item.key) > -1 ? classes.active : '')}
-          component={NavLink}
+          component={LinkBtn}
           to={item.link}
         >
           <Icon className={classes.icon}>{item.icon}</Icon>
@@ -135,7 +139,7 @@ class MainMenuBig extends React.Component {
           exact
           className={classes.item}
           activeClassName={classes.active}
-          component={NavLink}
+          component={LinkBtn}
           to={item.link}
           onClick={() => this.handleLoadPage()}
         >

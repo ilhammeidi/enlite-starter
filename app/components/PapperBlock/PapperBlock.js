@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import classNames from 'classnames';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
@@ -86,7 +86,4 @@ PapperBlock.defaultProps = {
   icon: 'flag'
 };
 
-export default compose(
-  withTheme(),
-  withStyles(styles)
-)(PapperBlock);
+export default compose(withStyles(styles))(PapperBlock);

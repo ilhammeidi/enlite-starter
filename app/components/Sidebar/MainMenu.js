@@ -19,7 +19,11 @@ import Icon from '@material-ui/core/Icon';
 import messages from 'enl-api/ui/menuMessages';
 import styles from './sidebar-jss';
 
-class MainMenu extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class MainMenu extends React.Component { // eslint-disable-line
   handleClick() {
     const { toggleDrawerOpen, loadTransition } = this.props;
     toggleDrawerOpen();
@@ -105,7 +109,7 @@ class MainMenu extends React.Component {
           exact
           className={classes.nested}
           activeClassName={classes.active}
-          component={NavLink}
+          component={LinkBtn}
           to={item.link}
           onClick={() => this.handleClick()}
         >
@@ -159,4 +163,4 @@ const MainMenuMapped = connect(
   mapDispatchToProps
 )(MainMenu);
 
-export default withTheme()(withStyles(styles)(injectIntl(MainMenuMapped)));
+export default withTheme((withStyles(styles)(injectIntl(MainMenuMapped))));

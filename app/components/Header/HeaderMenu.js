@@ -33,7 +33,11 @@ import SearchUi from '../Search/SearchUi';
 
 const elem = document.documentElement;
 
-class HeaderMenu extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <Link to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class HeaderMenu extends React.Component { // eslint-disable-line
   state = {
     fullScreen: false,
     status: dummy.user.status,
@@ -193,7 +197,7 @@ class HeaderMenu extends React.Component {
                 <Button
                   color="primary"
                   className={classes.buttonTop}
-                  component={Link}
+                  component={LinkBtn}
                   to={link.login}
                   variant="contained"
                 >

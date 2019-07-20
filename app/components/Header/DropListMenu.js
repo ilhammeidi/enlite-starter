@@ -20,12 +20,17 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import messages from 'enl-api/ui/menuMessages';
 import styles from './header-jss';
 
-class MainMenu extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class MainMenu extends React.Component { // eslint-disable-line
   constructor(props) {
     super(props);
     this.state = {
       active: [],
       openMenu: [],
+      anchorEl: null
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
@@ -41,6 +46,9 @@ class MainMenu extends React.Component {
   handleOpenMenu = (event, key, keyParent) => {
     const { openSubMenu } = this.props;
     openSubMenu(key, keyParent);
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
     setTimeout(() => {
       this.setState({
         openMenu: this.props.open, // eslint-disable-line
@@ -48,12 +56,9 @@ class MainMenu extends React.Component {
     }, 50);
   };
 
-  handleClose = event => {
+  handleClose = () => {
     const { closeAll } = this.props;
     closeAll();
-    if (this.anchorEl.contains(event.target)) {
-      return;
-    }
     this.setState({ openMenu: [] });
   }
 
@@ -71,7 +76,7 @@ class MainMenu extends React.Component {
       dataMenu,
       intl
     } = this.props;
-    const { active, openMenu } = this.state;
+    const { active, openMenu, anchorEl } = this.state;
     const getMenus = (parent, menuArray) => menuArray.map((item, index) => {
       if (item.multilevel) {
         return false;
@@ -81,9 +86,6 @@ class MainMenu extends React.Component {
           <div key={index.toString()}>
             <Button
               aria-owns={open ? 'menu-list-grow' : undefined}
-              buttonRef={node => {
-                this.anchorEl = node;
-              }}
               className={
                 classNames(
                   classes.headMenu,
@@ -104,6 +106,7 @@ class MainMenu extends React.Component {
               open={openMenu.indexOf(item.key) > -1}
               transition
               disablePortal
+              anchorEl={anchorEl}
             >
               {({ TransitionProps, placement }) => (
                 <Grow
@@ -142,7 +145,7 @@ class MainMenu extends React.Component {
           exact
           className={classes.menuItem}
           activeClassName={classes.active}
-          component={NavLink}
+          component={LinkBtn}
           to={item.link}
           onClick={() => this.handleActiveParent(parent)}
         >
@@ -193,4 +196,4 @@ const MainMenuMapped = connect(
   mapDispatchToProps
 )(MainMenu);
 
-export default withTheme()(withStyles(styles)(injectIntl(MainMenuMapped)));
+export default withTheme((withStyles(styles)(injectIntl(MainMenuMapped))));

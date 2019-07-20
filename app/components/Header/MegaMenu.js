@@ -22,12 +22,17 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import styles from './header-jss';
 
-class MegaMenu extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class MegaMenu extends React.Component { // eslint-disable-line
   constructor(props) {
     super(props);
     this.state = {
       active: [],
-      openMenu: []
+      openMenu: [],
+      anchorEl: null
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
@@ -43,6 +48,9 @@ class MegaMenu extends React.Component {
   handleOpenMenu = (event, key, keyParent) => {
     const { openSubMenu } = this.props;
     openSubMenu(key, keyParent);
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
     setTimeout(() => {
       this.setState({
         openMenu: this.props.open, // eslint-disable-line
@@ -50,12 +58,9 @@ class MegaMenu extends React.Component {
     }, 50);
   };
 
-  handleClose = event => {
+  handleClose = () => {
     const { closeAll } = this.props;
     closeAll();
-    if (this.anchorEl.contains(event.target)) {
-      return;
-    }
     this.setState({ openMenu: [] });
   }
 
@@ -73,7 +78,7 @@ class MegaMenu extends React.Component {
       dataMenu,
       intl
     } = this.props;
-    const { active, openMenu } = this.state;
+    const { active, openMenu, anchorEl } = this.state;
     const getMenus = (parent, menuArray) => menuArray.map((item, index) => {
       if (item.multilevel) {
         return false;
@@ -83,9 +88,6 @@ class MegaMenu extends React.Component {
           <div key={index.toString()}>
             <Button
               aria-haspopup="true"
-              buttonRef={node => {
-                this.anchorEl = node;
-              }}
               className={
                 classNames(
                   classes.headMenu,
@@ -106,6 +108,7 @@ class MegaMenu extends React.Component {
               open={openMenu.indexOf(item.key) > -1}
               transition
               disablePortal
+              anchorEl={anchorEl}
             >
               {({ TransitionProps, placement }) => (
                 <Fade
@@ -158,7 +161,7 @@ class MegaMenu extends React.Component {
           exact
           className={classes.megaItem}
           activeClassName={classes.active}
-          component={NavLink}
+          component={LinkBtn}
           to={item.link}
           onClick={() => this.handleActiveParent(parent)}
         >
@@ -209,4 +212,4 @@ const MegaMenuMapped = connect(
   mapDispatchToProps
 )(MegaMenu);
 
-export default withTheme()(withStyles(styles)(injectIntl(MegaMenuMapped)));
+export default withTheme((withStyles(styles)(injectIntl(MegaMenuMapped))));

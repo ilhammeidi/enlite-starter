@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { Checkbox, TextField } from 'redux-form-material-ui';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import brand from 'enl-api/dummy/brand';
@@ -26,6 +25,7 @@ import {
   signInWithTwitter,
   closeMsgAction
 } from 'enl-redux/actions/authActions';
+import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
 import styles from './user-jss';
@@ -45,7 +45,11 @@ const passwordsMatch = (value, allValues) => {
   return undefined;
 };
 
-class RegisterForm extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class RegisterForm extends React.Component { // eslint-disable-line
   handleClickShowPassword = () => {
     const { showPassword } = this.state;
     this.setState({ showPassword: !showPassword });
@@ -84,7 +88,7 @@ class RegisterForm extends React.Component {
             <FormattedMessage {...messages.register} />
           </Typography>
           <Hidden mdDown>
-            <Button size="small" className={classes.buttonLink} component={NavLink} to="/login">
+            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
               <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
               <FormattedMessage {...messages.toAccount} />
             </Button>
@@ -108,7 +112,7 @@ class RegisterForm extends React.Component {
               <FormControl className={classes.formControl}>
                 <Field
                   name="name"
-                  component={TextField}
+                  component={TextFieldRedux}
                   placeholder={intl.formatMessage(messages.loginFieldName)}
                   label={intl.formatMessage(messages.loginFieldName)}
                   required
@@ -120,7 +124,7 @@ class RegisterForm extends React.Component {
               <FormControl className={classes.formControl}>
                 <Field
                   name="email"
-                  component={TextField}
+                  component={TextFieldRedux}
                   placeholder={intl.formatMessage(messages.loginFieldEmail)}
                   label={intl.formatMessage(messages.loginFieldEmail)}
                   required
@@ -129,12 +133,12 @@ class RegisterForm extends React.Component {
                 />
               </FormControl>
             </div>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <FormControl className={classes.formControl}>
                   <Field
                     name="password"
-                    component={TextField}
+                    component={TextFieldRedux}
                     type="password"
                     label={intl.formatMessage(messages.loginFieldPassword)}
                     required
@@ -147,7 +151,7 @@ class RegisterForm extends React.Component {
                 <FormControl className={classes.formControl}>
                   <Field
                     name="passwordConfirm"
-                    component={TextField}
+                    component={TextFieldRedux}
                     type="password"
                     label={intl.formatMessage(messages.loginFieldRetypePassword)}
                     required
@@ -158,7 +162,7 @@ class RegisterForm extends React.Component {
               </Grid>
             </Grid>
             <div>
-              <FormControlLabel control={<Field name="checkbox" required component={Checkbox} className={classes.agree} />} label={intl.formatMessage(messages.aggree)} />
+              <FormControlLabel control={<Field name="checkbox" required component={CheckboxRedux} className={classes.agree} />} label={intl.formatMessage(messages.aggree)} />
               <a href="/terms-conditions" target="_blank" className={classes.link}>
                 <FormattedMessage {...messages.terms} />
               </a>

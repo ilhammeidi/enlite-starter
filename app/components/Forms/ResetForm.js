@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowForward from '@material-ui/icons/ArrowForward';
@@ -16,6 +15,7 @@ import logo from 'enl-images/logo.svg';
 import Type from 'enl-styles/Typography.scss';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { closeMsgAction } from 'enl-redux/actions/authActions';
+import { TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
 import styles from './user-jss';
@@ -51,7 +51,7 @@ class ResetForm extends React.Component {
           <Typography variant="h4" className={classNames(classes.title, Type.textCenter)} gutterBottom>
             <FormattedMessage {...messages.resetTitle} />
           </Typography>
-          <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+          <Typography variant="caption" component="p" className={classes.subtitle} gutterBottom align="center">
             <FormattedMessage {...messages.resetSubtitle} />
           </Typography>
           <section className={classes.formWrap}>
@@ -72,7 +72,7 @@ class ResetForm extends React.Component {
                 <FormControl className={classes.formControl}>
                   <Field
                     name="email"
-                    component={TextField}
+                    component={TextFieldRedux}
                     placeholder={intl.formatMessage(messages.loginFieldEmail)}
                     label={intl.formatMessage(messages.loginFieldEmail)}
                     required

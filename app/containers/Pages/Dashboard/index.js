@@ -19,12 +19,12 @@ class BasicTable extends Component {
           <meta property="twitter:title" content={title} />
           <meta property="twitter:description" content={description} />
         </Helmet>
-        <PapperBlock title="Statistic Chart" icon="ios-stats-outline" desc="" overflowX>
+        <PapperBlock title="Statistic Chart" icon="insert_chart" desc="" overflowX>
           <div>
             <CompossedLineBarArea />
           </div>
         </PapperBlock>
-        <PapperBlock title="Table" whiteBg icon="ios-menu-outline" desc="UI Table when no data to be shown">
+        <PapperBlock title="Table" whiteBg icon="grid_on" desc="UI Table when no data to be shown">
           <div>
             <StrippedTable />
           </div>

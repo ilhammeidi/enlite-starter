@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -15,11 +15,11 @@ import styles from './guide-jss';
 
 const maxStepsSwipe = guideData.length;
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) { // eslint-disable-line
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-class GuideSlider extends React.Component {
+class GuideSlider extends Component { // eslint-disable-line
   state = {
     activeStepSwipe: 0,
   };

@@ -27,7 +27,7 @@ const styles = theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     position: 'relative',
-    margin: `${theme.spacing.unit * 3}px auto`,
+    margin: `${theme.spacing(3)}px auto`,
     '&$invert': {
       '& h1, h5': {
         color: theme.palette.common.white
@@ -44,7 +44,7 @@ const styles = theme => ({
     fontWeight: 700,
     [theme.breakpoints.down('sm')]: {
       fontSize: '4rem',
-      marginBottom: theme.spacing.unit * 2
+      marginBottom: theme.spacing(2)
     },
   },
   deco: {

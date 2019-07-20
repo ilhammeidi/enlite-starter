@@ -122,9 +122,6 @@ const applicationTheme = (color, mode, direction) => ({
         borderRadius: 8,
         fontWeight: 600,
       },
-      fab: {
-        boxShadow: '0 2px 20px -3px rgb(128, 128, 128)',
-      },
       sizeSmall: {
         padding: '7px 12px',
       },
@@ -206,6 +203,9 @@ const applicationTheme = (color, mode, direction) => ({
         top: 'calc(50% - 10px)',
         right: 0,
       },
+      selectMenu: {
+        paddingRight: '24px',
+      }
     },
     MuiFormControl: {
       root: {
@@ -215,7 +215,7 @@ const applicationTheme = (color, mode, direction) => ({
             alignItems: 'flex-start',
           },
           paddingBottom: 4,
-          '& input, select, > div > div': {
+          '& input, > div, > select': {
             padding: '24px 8px 0',
           },
         },
@@ -224,18 +224,27 @@ const applicationTheme = (color, mode, direction) => ({
     MuiInputAdornment: {
       root: {
         alignItems: 'flex-end',
+        paddingLeft: 0,
+        paddingRight: 0,
         '& button': {
           width: 32,
           height: 32,
           padding: 0,
         },
+        '& p': {
+          minWidth: 24,
+          lineHeight: '16px'
+        },
+        '& svg': {
+          top: 3,
+          position: 'relative'
+        }
       },
       positionStart: {
-        marginLeft: 8,
+        marginLeft: 0,
       },
       positionEnd: {
-        marginRight: 8,
-        marginTop: 32,
+        marginRight: 0,
       },
     },
     MuiToolbar: {
@@ -321,13 +330,13 @@ const applicationTheme = (color, mode, direction) => ({
           borderBottomLeftRadius: 8,
           borderBottomRightRadius: 8,
         },
-      },
-      expanded: {
-        borderRadius: 8,
-        boxShadow: `0px 0px 0px 1px ${themePalette(color, mode).palette.primary.main}`,
-        '& + div': {
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
+        '&$expanded': {
+          borderRadius: 8,
+          boxShadow: `0px 0px 0px 1px ${themePalette(color, mode).palette.primary.main}`,
+          '& + div': {
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+          },
         },
       },
     },
@@ -381,6 +390,7 @@ const applicationTheme = (color, mode, direction) => ({
     },
     MuiToggleButtonGroup: {
       root: {
+        overflow: 'hidden',
         borderRadius: 8,
         boxShadow: 'none',
         border: `1px solid ${themePalette(color, mode).palette.secondary.main}`,
@@ -388,6 +398,7 @@ const applicationTheme = (color, mode, direction) => ({
     },
     MuiToggleButton: {
       root: {
+        height: 32,
         boxShadow: 'none !important',
       }
     },
@@ -416,14 +427,6 @@ const applicationTheme = (color, mode, direction) => ({
         direction: 'ltr'
       }
     },
-    MuiSlider: {
-      trackBefore: {
-        transformOrigin: direction === 'rtl' ? 'right bottom' : 'left bottom'
-      },
-      trackAfter: {
-        transformOrigin: direction === 'rtl' ? 'left bottom' : 'right bottom'
-      }
-    }
   },
 });
 

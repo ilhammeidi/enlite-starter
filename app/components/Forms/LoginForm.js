@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { Checkbox, TextField } from 'redux-form-material-ui';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
@@ -29,6 +28,7 @@ import {
   signInWithTwitter,
   closeMsgAction
 } from 'enl-redux/actions/authActions';
+import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
 import styles from './user-jss';
@@ -41,7 +41,11 @@ const email = value => (
     : undefined
 );
 
-class LoginForm extends React.Component {
+const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
+  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+});
+
+class LoginForm extends React.Component { // eslint-disable-line
   state = {
     showPassword: false,
   }
@@ -85,7 +89,7 @@ class LoginForm extends React.Component {
             <FormattedMessage {...messages.login} />
           </Typography>
           <Hidden mdDown>
-            <Button size="small" className={classes.buttonLink} component={NavLink} to="/register">
+            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
               <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
               <FormattedMessage {...messages.createNewAccount} />
             </Button>
@@ -109,7 +113,7 @@ class LoginForm extends React.Component {
               <FormControl className={classes.formControl}>
                 <Field
                   name="email"
-                  component={TextField}
+                  component={TextFieldRedux}
                   placeholder={intl.formatMessage(messages.loginFieldEmail)}
                   label={intl.formatMessage(messages.loginFieldEmail)}
                   required
@@ -122,7 +126,7 @@ class LoginForm extends React.Component {
               <FormControl className={classes.formControl}>
                 <Field
                   name="password"
-                  component={TextField}
+                  component={TextFieldRedux}
                   type={showPassword ? 'text' : 'password'}
                   label={intl.formatMessage(messages.loginFieldPassword)}
                   InputProps={{
@@ -147,10 +151,10 @@ class LoginForm extends React.Component {
             <div className={classes.optArea}>
               <FormControlLabel
                 className={classes.label}
-                control={<Field name="checkbox" component={Checkbox} />}
+                control={<Field name="checkbox" component={CheckboxRedux} />}
                 label={intl.formatMessage(messages.loginRemember)}
               />
-              <Button size="small" component={NavLink} to="/reset-password" className={classes.buttonLink}>
+              <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>
                 <FormattedMessage {...messages.loginForgotPassword} />
               </Button>
             </div>
@@ -241,9 +245,9 @@ const mapStateToProps = state => ({
   ...state,
 });
 
-const FormInit = connect(
+const LoginFormMapped = connect(
   mapStateToProps,
   mapDispatchToProps
 )(LoginFormReduxed);
 
-export default withStyles(styles)(injectIntl(FormInit));
+export default withStyles(styles)(injectIntl(LoginFormMapped));

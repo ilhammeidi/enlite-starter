@@ -11,7 +11,7 @@ const styles = theme => ({
   header: {
     textAlign: 'center',
     height: 50,
-    paddingLeft: theme.spacing.unit * 4,
+    paddingLeft: theme.spacing(4),
     marginBottom: 20,
     backgroundColor: theme.palette.background.default,
   },
@@ -35,9 +35,9 @@ const styles = theme => ({
     textAlign: 'center'
   },
   text: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     '& h2': {
-      marginBottom: theme.spacing.unit * 2
+      marginBottom: theme.spacing(2)
     }
   },
   slider: {
