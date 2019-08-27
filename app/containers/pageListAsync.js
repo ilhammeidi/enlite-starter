@@ -13,6 +13,18 @@ export const Form = Loadable({
   loader: () => import('./Pages/Forms/ReduxForm'),
   loading: Loading,
 });
+export const LoginFullstack = Loadable({
+  loader: () => import('./Pages/UsersFullstack/Login'),
+  loading: Loading,
+});
+export const RegisterFullstack = Loadable({
+  loader: () => import('./Pages/UsersFullstack/Register'),
+  loading: Loading,
+});
+export const ResetPasswordFullstack = Loadable({
+  loader: () => import('./Pages/UsersFullstack/ResetPassword'),
+  loading: Loading,
+});
 export const Login = Loadable({
   loader: () => import('./Pages/Users/Login'),
   loading: Loading,

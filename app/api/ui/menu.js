@@ -6,7 +6,7 @@ module.exports = [
     child: [
       {
         key: 'account_page',
-        name: 'Auth Page',
+        name: 'Sttaic Auth Page',
         title: true,
       },
       {
@@ -26,6 +26,29 @@ module.exports = [
         name: 'Reset Password',
         icon: 'undo',
         link: '/reset-password'
+      },
+      {
+        key: 'account_page_firebase',
+        name: 'Firebase Auth Page',
+        title: true,
+      },
+      {
+        key: 'login',
+        name: 'Login',
+        icon: 'account_box',
+        link: '/login-firebase'
+      },
+      {
+        key: 'register',
+        name: 'Register',
+        icon: 'border_color',
+        link: '/register-firebase'
+      },
+      {
+        key: 'reset',
+        name: 'Reset Password',
+        icon: 'undo',
+        link: '/reset-password-firebase'
       },
     ]
   },

@@ -19,7 +19,12 @@ import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Ionicon from 'react-ionicons';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import { closeMsgAction } from 'enl-redux/actions/authActions';
+import {
+  signInWithGithub,
+  signInWithGoogle,
+  signInWithTwitter,
+  closeMsgAction
+} from 'enl-redux/actions/authActions';
 import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
@@ -44,7 +49,7 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
 
-class RegisterForm extends React.Component { // eslint-disable-line
+class RegisterFormFirebase extends React.Component { // eslint-disable-line
   handleClickShowPassword = () => {
     const { showPassword } = this.state;
     this.setState({ showPassword: !showPassword });
@@ -61,6 +66,9 @@ class RegisterForm extends React.Component { // eslint-disable-line
       pristine,
       submitting,
       intl,
+      signInWithGithubFn,
+      signInWithGoogleFn,
+      signInWithTwitterFn,
       messagesAuth,
       closeMsg,
       loading
@@ -177,6 +185,7 @@ class RegisterForm extends React.Component { // eslint-disable-line
             className={classes.redBtn}
             type="button"
             size="large"
+            onClick={signInWithGoogleFn}
           >
             <Ionicon icon="logo-google" />
             Google
@@ -186,6 +195,7 @@ class RegisterForm extends React.Component { // eslint-disable-line
             className={classes.cyanBtn}
             type="button"
             size="large"
+            onClick={signInWithTwitterFn}
           >
             <Ionicon icon="logo-twitter" />
             Twitter
@@ -195,6 +205,7 @@ class RegisterForm extends React.Component { // eslint-disable-line
             className={classes.greyBtn}
             type="button"
             size="large"
+            onClick={signInWithGithubFn}
           >
             <Ionicon icon="logo-github" />
             Github
@@ -205,7 +216,7 @@ class RegisterForm extends React.Component { // eslint-disable-line
   }
 }
 
-RegisterForm.propTypes = {
+RegisterFormFirebase.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
@@ -214,18 +225,24 @@ RegisterForm.propTypes = {
   messagesAuth: PropTypes.string,
   closeMsg: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  signInWithGithubFn: PropTypes.func.isRequired,
+  signInWithGoogleFn: PropTypes.func.isRequired,
+  signInWithTwitterFn: PropTypes.func.isRequired
 };
 
-RegisterForm.defaultProps = {
+RegisterFormFirebase.defaultProps = {
   messagesAuth: null
 };
 
 const RegisterFormReduxed = reduxForm({
   form: 'immutableExample',
   enableReinitialize: true,
-})(RegisterForm);
+})(RegisterFormFirebase);
 
 const mapDispatchToProps = {
+  signInWithGithubFn: signInWithGithub,
+  signInWithGoogleFn: signInWithGoogle,
+  signInWithTwitterFn: signInWithTwitter,
   closeMsg: closeMsgAction
 };
 

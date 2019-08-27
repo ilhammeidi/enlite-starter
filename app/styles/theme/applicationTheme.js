@@ -12,14 +12,14 @@ const applicationTheme = (color, mode, direction) => ({
   },
   typography: {
     useNextVariants: true,
-    fontFamily: ['Lato', 'sans-serif'].join(','),
+    fontFamily: ['Maven Pro', 'sans-serif'].join(','),
     title: {
-      fontWeight: 600,
+      fontWeight: 700,
     },
     body2: {
-      fontWeight: 500,
+      fontWeight: 400,
     },
-    fontWeightMedium: 600,
+    fontWeightMedium: 700,
   },
   shade: {
     light: '0 10px 15px -5px rgba(62, 57, 107, .07)',

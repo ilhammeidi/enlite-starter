@@ -1,34 +1,36 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
 import { NavLink } from 'react-router-dom';
+import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from '@material-ui/core/styles';
-import { LoginForm, SelectLanguage } from 'enl-components';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { RegisterFormFirebase, SelectLanguage } from 'enl-components';
+import styles from 'enl-components/Forms/user-jss';
+import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import styles from 'enl-components/Forms/user-jss';
 import { FormattedMessage } from 'react-intl';
+import { registerWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
-class Login extends React.Component {
+class Register extends React.Component {
   state = {
     valueForm: []
   }
 
   submitForm(values) {
-    const { valueForm } = this.state;
     setTimeout(() => {
       this.setState({ valueForm: values });
-      console.log(`You submitted:\n\n${valueForm}`);
-      window.location.href = '/app';
+      console.log(`You submitted:\n\n${this.state.valueForm.get('email')}`); // eslint-disable-line
+      this.props.handleRegisterWithEmail(this.state.valueForm.get('name'), this.state.valueForm.get('email'), this.state.valueForm.get('password')); // eslint-disable-line
     }, 500); // simulate server latency
   }
 
   render() {
-    const title = brand.name + ' - Login';
+    const title = brand.name + ' - Register';
     const description = brand.desc;
     const { classes } = this.props;
     return (
@@ -51,13 +53,11 @@ class Login extends React.Component {
                     {brand.name}
                   </NavLink>
                 </div>
-                <Typography variant="h3" component="h1" gutterBottom>
-                  <FormattedMessage {...messages.welcomeTitle} />
-                  &nbsp;
-                  {brand.name}
+                <Typography variant="h3" component="h1" className={classes.opening} gutterBottom>
+                  <FormattedMessage {...messages.greetingTitle} />
                 </Typography>
                 <Typography variant="h6" component="p" className={classes.subpening}>
-                  <FormattedMessage {...messages.welcomeSubtitle} />
+                  <FormattedMessage {...messages.greetingSubtitle} />
                 </Typography>
               </div>
               <div className={classes.openingFooter}>
@@ -72,7 +72,7 @@ class Login extends React.Component {
             </div>
           </Hidden>
           <div className={classes.sideFormWrap}>
-            <LoginForm onSubmit={(values) => this.submitForm(values)} />
+            <RegisterFormFirebase onSubmit={(values) => this.submitForm(values)} />
           </div>
         </div>
       </div>
@@ -80,8 +80,20 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+Register.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleRegisterWithEmail: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Login);
+const mapStateToProps = state => state.get('authReducer');
+
+const mapDispatchToProps = dispatch => ({
+  handleRegisterWithEmail: bindActionCreators(registerWithEmail, dispatch)
+});
+
+const RegisterMapped = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);
+
+export default withStyles(styles)(RegisterMapped);

@@ -3,23 +3,25 @@ import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { ResetForm } from 'enl-components';
+import { LockForm } from 'enl-components';
 import styles from '../../../components/Forms/user-jss';
 
-class ResetPassword extends React.Component {
+class LockScreen extends React.Component {
   state = {
     valueForm: []
   }
 
   submitForm(values) {
+    const { valueForm } = this.state;
     setTimeout(() => {
       this.setState({ valueForm: values });
-      console.log(`You submitted:\n\n${this.state.valueForm}`); // eslint-disable-line
+      console.log(`You submitted:\n\n${valueForm}`);
+      window.location.href = '/app';
     }, 500); // simulate server latency
   }
 
   render() {
-    const title = brand.name + ' - Reset Password';
+    const title = brand.name + ' - Lock Screen';
     const description = brand.desc;
     const { classes } = this.props;
     return (
@@ -34,7 +36,7 @@ class ResetPassword extends React.Component {
         </Helmet>
         <div className={classes.container}>
           <div className={classes.userFormWrap}>
-            <ResetForm onSubmit={(values) => this.submitForm(values)} />
+            <LockForm onSubmit={(values) => this.submitForm(values)} />
           </div>
         </div>
       </div>
@@ -42,8 +44,8 @@ class ResetPassword extends React.Component {
   }
 }
 
-ResetPassword.propTypes = {
+LockScreen.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ResetPassword);
+export default withStyles(styles)(LockScreen);

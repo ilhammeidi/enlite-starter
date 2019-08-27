@@ -182,8 +182,8 @@ const styles = theme => ({
   },
   iconed: {},
   head: {
-    padding: `${theme.spacing(1)}px 0 0`,
-    margin: `${theme.spacing(2)}px 0 0`,
+    padding: `${theme.spacing(1)}px 0`,
+    margin: `${theme.spacing(1)}px 0 0`,
     borderRadius: `0 ${theme.spacing(1)}px ${theme.spacing(1)}px 0`,
     paddingLeft: theme.spacing(3),
     textAlign: 'left',

@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import { NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { LoginForm, SelectLanguage } from 'enl-components';
+import { LoginFormFirebase, SelectLanguage } from 'enl-components';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import styles from 'enl-components/Forms/user-jss';
 import { FormattedMessage } from 'react-intl';
+import { loginWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 class Login extends React.Component {
@@ -23,7 +26,7 @@ class Login extends React.Component {
     setTimeout(() => {
       this.setState({ valueForm: values });
       console.log(`You submitted:\n\n${valueForm}`);
-      window.location.href = '/app';
+      this.props.handleLoginWithEmail(this.state.valueForm.get('email'), this.state.valueForm.get('password')); // eslint-disable-line
     }, 500); // simulate server latency
   }
 
@@ -72,7 +75,7 @@ class Login extends React.Component {
             </div>
           </Hidden>
           <div className={classes.sideFormWrap}>
-            <LoginForm onSubmit={(values) => this.submitForm(values)} />
+            <LoginFormFirebase onSubmit={(values) => this.submitForm(values)} />
           </div>
         </div>
       </div>
@@ -82,6 +85,21 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLoginWithEmail: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Login);
+const reducer = 'authReducer';
+const mapStateToProps = state => ({
+  state: state.get(reducer)
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleLoginWithEmail: bindActionCreators(loginWithEmail, dispatch)
+});
+
+const LoginMapped = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
+
+export default withStyles(styles)(LoginMapped);

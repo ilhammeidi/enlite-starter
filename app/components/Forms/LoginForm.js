@@ -22,12 +22,7 @@ import Ionicon from 'react-ionicons';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import {
-  signInWithGithub,
-  signInWithGoogle,
-  signInWithTwitter,
-  closeMsgAction
-} from 'enl-redux/actions/authActions';
+import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
@@ -66,9 +61,6 @@ class LoginForm extends React.Component { // eslint-disable-line
       pristine,
       submitting,
       intl,
-      signInWithGithubFn,
-      signInWithGoogleFn,
-      signInWithTwitterFn,
       messagesAuth,
       closeMsg,
       loading
@@ -176,7 +168,6 @@ class LoginForm extends React.Component { // eslint-disable-line
             className={classes.redBtn}
             type="button"
             size="large"
-            onClick={signInWithGoogleFn}
           >
             <Ionicon icon="logo-google" />
             Google
@@ -186,7 +177,6 @@ class LoginForm extends React.Component { // eslint-disable-line
             className={classes.cyanBtn}
             type="button"
             size="large"
-            onClick={signInWithTwitterFn}
           >
             <Ionicon icon="logo-twitter" />
             Twitter
@@ -196,7 +186,6 @@ class LoginForm extends React.Component { // eslint-disable-line
             className={classes.greyBtn}
             type="button"
             size="large"
-            onClick={signInWithGithubFn}
           >
             <Ionicon icon="logo-github" />
             Github
@@ -214,9 +203,6 @@ LoginForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   intl: intlShape.isRequired,
   messagesAuth: PropTypes.string,
-  signInWithGithubFn: PropTypes.func.isRequired,
-  signInWithGoogleFn: PropTypes.func.isRequired,
-  signInWithTwitterFn: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   closeMsg: PropTypes.func.isRequired,
 };
@@ -232,9 +218,6 @@ const LoginFormReduxed = reduxForm({
 })(LoginForm);
 
 const mapDispatchToProps = {
-  signInWithGithubFn: signInWithGithub,
-  signInWithGoogleFn: signInWithGoogle,
-  signInWithTwitterFn: signInWithTwitter,
   closeMsg: closeMsgAction
 };
 

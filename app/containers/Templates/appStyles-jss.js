@@ -19,7 +19,7 @@ const styles = theme => ({
     position: 'relative'
   },
   appFrameInner: {
-    background: theme.palette.type === 'dark' ? darken(theme.palette.primary.dark, 0.9) : lighten(theme.palette.primary.light, 0.9),
+    background: theme.palette.type === 'dark' ? darken(theme.palette.primary.dark, 0.8) : lighten(theme.palette.primary.light, 0.9),
     color: theme.palette.text.primary,
     ...appFrame,
   },
