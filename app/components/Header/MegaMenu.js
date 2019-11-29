@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { closeAllAction } from 'enl-redux/actions/uiActions';
 import Button from '@material-ui/core/Button';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 import Popper from '@material-ui/core/Popper';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -212,4 +212,4 @@ const MegaMenuMapped = connect(
   mapDispatchToProps
 )(MegaMenu);
 
-export default withTheme((withStyles(styles)(injectIntl(MegaMenuMapped))));
+export default withStyles(styles)(injectIntl(MegaMenuMapped));

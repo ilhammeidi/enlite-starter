@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -163,4 +163,4 @@ const MainMenuMapped = connect(
   mapDispatchToProps
 )(MainMenu);
 
-export default withTheme((withStyles(styles)(injectIntl(MainMenuMapped))));
+export default withStyles(styles)(injectIntl(MainMenuMapped));

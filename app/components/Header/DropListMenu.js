@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { closeAllAction } from 'enl-redux/actions/uiActions';
 import Button from '@material-ui/core/Button';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
@@ -196,4 +196,4 @@ const MainMenuMapped = connect(
   mapDispatchToProps
 )(MainMenu);
 
-export default withTheme((withStyles(styles)(injectIntl(MainMenuMapped))));
+export default withStyles(styles)(injectIntl(MainMenuMapped));
