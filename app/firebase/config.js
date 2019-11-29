@@ -1,6 +1,6 @@
 const firebaseConfig = {
   apiKey: 'ccraSyBT9MFsTOdDG5Cx0skAOtef8uzIBLJQ2xA',
-  authDomain: 'yourapp-3a841.firebaseapp.com',
+  authDomain: 'yourapp-1234e.firebaseapp.com',
   databaseURL: 'https://youreapp-1234e.firebaseio.com',
   projectId: 'youreapp-1234e',
   storageBucket: 'youreapp-1234e.appspot.com',
