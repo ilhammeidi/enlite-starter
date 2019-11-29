@@ -25,7 +25,7 @@ https://ilhammeidi.github.io/enlite-docs/#firebase
 -   And many more…
 
 # Get Prime Version
-![enlite prime](https://s3.envato.com/files/271288733/01_preview.jpg)
+![enlite prime](https://cdn.dribbble.com/users/1866020/screenshots/6824785/enlite_4x.jpg)
 
 [GET IT NOW on Envato Market](https://themeforest.net/item/enlite-prime-reactjs-fullstack-website-template/23803960)
 
