@@ -1,13 +1,11 @@
-### Enlite Starter - React Admin Dashboard Template For Full-Stack Developer
+# Enlite Starter - React Admin Dashboard Template For Full-Stack Developer
 ----------
-
-# enlite-starter
 Enlite Starter - React Dashboard Starter Template with Firebase Auth http://enlite.ux-maestro.com
 
-# Read documentation here
+### Read documentation here
 https://ilhammeidi.github.io/enlite-docs/#firebase
 
-# Template Feature
+### Template Feature
 -   Modern Technologies. Built with one of most popular javascript library React.JS and Redux
 -   Premium designs. Simple and elegant theme color along with dark and lightmode
 -   Multiple layout and RTL Support. Sidebar and Topbar navigation layout. Auto RTL adjustment styling with jss-rtl
@@ -33,7 +31,7 @@ https://ilhammeidi.github.io/enlite-docs/#firebase
 
 [SEE DEMO](http://enlite.ux-maestro.com)
 
- Installation
+### Installation
 
  - Clone this project
  - Install module dependencies by run this script in terminal
@@ -44,7 +42,7 @@ https://ilhammeidi.github.io/enlite-docs/#firebase
 	 `npm start`
  - Navigate to  [http://localhost:3001](http://localhost:3001)
 
-# Deployment
+### Deployment
 
  - First you need to build the production assets first
     `npm run build`
@@ -54,7 +52,7 @@ https://ilhammeidi.github.io/enlite-docs/#firebase
     `node node_modules/.bin/cross-env NODE_ENV=production pm2 start server`
  - Navigate to  [http://localhost:3001](http://localhost:3001)
 
-# Enable Direct Code Preview
+### Enable Direct Code Preview
 To make documenation easy and effective to access and implement, we attached source code in every component demos. We call it Direct Code Preview. This feature can be used in purchased product only (not available in demo).
 
  - Open config file  `/app/config/codePreview.js`
@@ -65,5 +63,5 @@ To make documenation easy and effective to access and implement, we attached sou
 -   The source code of that components will show as well.
 -   You can see through, copy and paste directly any component in front of your eyes.
 
-## License
+### License
 This project is licensed under the terms of the [MIT license](https://github.com/ilhammeidi/boss-lite/blob/master/LICENSE.txt).
