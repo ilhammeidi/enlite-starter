@@ -226,6 +226,7 @@ const applicationTheme = (color, mode, direction) => ({
         alignItems: 'flex-end',
         paddingLeft: 0,
         paddingRight: 0,
+        height: 'auto',
         '& button': {
           width: 32,
           height: 32,
@@ -235,9 +236,9 @@ const applicationTheme = (color, mode, direction) => ({
           minWidth: 24,
           lineHeight: '16px'
         },
-        '& svg': {
-          top: 3,
-          position: 'relative'
+        '& > svg': {
+          position: 'relative',
+          top: 3
         }
       },
       positionStart: {
@@ -400,6 +401,9 @@ const applicationTheme = (color, mode, direction) => ({
       root: {
         height: 32,
         boxShadow: 'none !important',
+        '&$selected': {
+          backgroundColor: mode === 'dark' ? themePalette(color, mode).palette.primary.dark : themePalette(color, mode).palette.primary.light
+        }
       }
     },
     MUIDataTableToolbarSelect: {
@@ -427,6 +431,28 @@ const applicationTheme = (color, mode, direction) => ({
         direction: 'ltr'
       }
     },
+    MUIDataTable: {
+      responsiveStacked: {
+        overflow: 'auto !important',
+        overflowX: 'auto !important',
+      },
+      tableRoot: {
+        minWidth: 360
+      }
+    },
+    MUIDataTablePagination: {
+      toolbar: {
+        padding: 0,
+        '& > p:nth-child(2)': {
+          '@media (max-width: 400px)': {
+            display: 'none'
+          }
+        },
+      },
+      root: {
+        padding: 0
+      }
+    }
   },
 });
 
