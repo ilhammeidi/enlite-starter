@@ -71,6 +71,9 @@ const styles = theme => ({
     display: 'flex',
     marginBottom: theme.spacing(2),
     paddingBottom: theme.spacing(1),
+    maxWidth: 480,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     borderBottom: `1px solid ${theme.palette.divider}`,
     justifyContent: 'space-between',
     '& $icon': {
@@ -124,7 +127,9 @@ const styles = theme => ({
   },
   headLogo: {
     textAlign: 'center',
+    marginBottom: theme.spacing(4),
     '& $brand': {
+      display: 'inline-block',
       color: theme.palette.text.primary
     }
   },
@@ -393,6 +398,9 @@ const styles = theme => ({
   },
   signArrow: {
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    }
   },
   lockForm: {
     display: 'flex',

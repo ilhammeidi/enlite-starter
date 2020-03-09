@@ -34,7 +34,7 @@ import messages from './messages';
 import styles from './user-jss';
 
 // validation functions
-const required = value => (value == null ? 'Required' : undefined);
+const required = value => (value === null ? 'Required' : undefined);
 const email = value => (
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
@@ -76,24 +76,22 @@ class LoginForm extends React.Component { // eslint-disable-line
     const { showPassword } = this.state;
     return (
       <Paper className={classes.sideWrap}>
+        <Hidden mdUp>
+          <div className={classes.headLogo}>
+            <NavLink to="/" className={classes.brand}>
+              <img src={logo} alt={brand.name} />
+              {brand.name}
+            </NavLink>
+          </div>
+        </Hidden>
         <div className={classes.topBar}>
-          <Hidden mdUp>
-            <div className={classes.headLogo}>
-              <NavLink to="/" className={classes.brand}>
-                <img src={logo} alt={brand.name} />
-                {brand.name}
-              </NavLink>
-            </div>
-          </Hidden>
           <Typography variant="h4" className={classes.title}>
             <FormattedMessage {...messages.login} />
           </Typography>
-          <Hidden mdDown>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
-              <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
-              <FormattedMessage {...messages.createNewAccount} />
-            </Button>
-          </Hidden>
+          <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register-firebase">
+            <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
+            <FormattedMessage {...messages.createNewAccount} />
+          </Button>
         </div>
         {
           messagesAuth !== null || ''
