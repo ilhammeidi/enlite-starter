@@ -6,6 +6,9 @@ import grey from '@material-ui/core/colors/grey';
 
 const drawerWidth = 240;
 const styles = theme => ({
+  drawer: {
+    width: drawerWidth
+  },
   drawerPaper: {
     position: 'relative',
     height: '100%',
@@ -13,7 +16,6 @@ const styles = theme => ({
     border: 'none',
     background: 'none',
     color: theme.palette.text.primary,
-    width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { closeAllAction } from 'enl-redux/actions/uiActions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
@@ -53,14 +52,12 @@ class MegaMenu extends React.Component { // eslint-disable-line
     });
     setTimeout(() => {
       this.setState({
-        openMenu: this.props.open, // eslint-disable-line
+        openMenu: [key]
       });
     }, 50);
   };
 
   handleClose = () => {
-    const { closeAll } = this.props;
-    closeAll();
     this.setState({ openMenu: [] });
   }
 
@@ -189,7 +186,6 @@ MegaMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.object.isRequired,
   openSubMenu: PropTypes.func.isRequired,
-  closeAll: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
   intl: intlShape.isRequired
 };
@@ -203,8 +199,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  openSubMenu: bindActionCreators(openAction, dispatch),
-  closeAll: () => dispatch(closeAllAction),
+  openSubMenu: bindActionCreators(openAction, dispatch)
 });
 
 const MegaMenuMapped = connect(

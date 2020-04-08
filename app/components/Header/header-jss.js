@@ -218,7 +218,8 @@ const styles = theme => ({
     '& span': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis'
+      textOverflow: 'ellipsis',
+      display: 'block'
     }
   },
   notifIcon: {

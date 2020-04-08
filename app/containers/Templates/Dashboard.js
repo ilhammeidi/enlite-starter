@@ -9,15 +9,22 @@ import { toggleAction, openAction, playTransitionAction } from 'enl-redux/action
 import { logout } from 'enl-redux/actions/authActions';
 import dummy from 'enl-api/dummy/dummyContents';
 import LeftSidebarLayout from './layouts/LeftSidebar';
+import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
+import MegaMenuLayout from './layouts/MegaMenu';
+import DropMenuLayout from './layouts/DropMenu';
 import styles from './appStyles-jss';
 
 class Dashboard extends React.Component {
   state = {
-    openGuide: false
+    openGuide: false,
+    appHeight: 0
   };
 
   componentDidMount = () => {
     const { history, initialOpen, loadTransition } = this.props;
+
+    // Adjust min height
+    this.setState({ appHeight: window.innerHeight + 112 });
 
     // Set expanded sidebar menu
     const currentPath = history.location.pathname;
@@ -58,7 +65,7 @@ class Dashboard extends React.Component {
       user,
       isAuthenticated
     } = this.props;
-    const { openGuide } = this.state;
+    const { openGuide, appHeight } = this.state;
     const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
     const parts = history.location.pathname.split('/');
     const place = parts[parts.length - 1].replace('-', ' ');
@@ -76,6 +83,7 @@ class Dashboard extends React.Component {
     };
     return (
       <div
+        style={{ minHeight: appHeight }}
         className={
           classNames(
             classes.appFrameInner,
@@ -104,6 +112,69 @@ class Dashboard extends React.Component {
             >
               { children }
             </LeftSidebarLayout>
+          )
+        }
+        { /* Left Big-Sidebar Layout */
+          layout === 'big-sidebar' && (
+            <LeftSidebarBigLayout
+              history={history}
+              toggleDrawer={toggleDrawer}
+              loadTransition={loadTransition}
+              changeMode={changeMode}
+              sidebarOpen={sidebarOpen}
+              pageLoaded={pageLoaded}
+              mode={mode}
+              place={place}
+              titleException={titleException}
+              handleOpenGuide={this.handleOpenGuide}
+              signOut={signOut}
+              isLogin={isAuthenticated}
+              userAttr={profile(user)}
+            >
+              { children }
+            </LeftSidebarBigLayout>
+          )
+        }
+        { /* Top Bar with Dropdown Menu */
+          layout === 'top-navigation' && (
+            <DropMenuLayout
+              history={history}
+              toggleDrawer={toggleDrawer}
+              loadTransition={loadTransition}
+              changeMode={changeMode}
+              sidebarOpen={sidebarOpen}
+              pageLoaded={pageLoaded}
+              mode={mode}
+              place={place}
+              titleException={titleException}
+              handleOpenGuide={this.handleOpenGuide}
+              signOut={signOut}
+              isLogin={isAuthenticated}
+              userAttr={profile(user)}
+            >
+              { children }
+            </DropMenuLayout>
+          )
+        }
+        { /* Top Bar with Mega Menu */
+          layout === 'mega-menu' && (
+            <MegaMenuLayout
+              history={history}
+              toggleDrawer={toggleDrawer}
+              loadTransition={loadTransition}
+              changeMode={changeMode}
+              sidebarOpen={sidebarOpen}
+              pageLoaded={pageLoaded}
+              mode={mode}
+              place={place}
+              titleException={titleException}
+              handleOpenGuide={this.handleOpenGuide}
+              signOut={signOut}
+              isLogin={isAuthenticated}
+              userAttr={profile(user)}
+            >
+              { children }
+            </MegaMenuLayout>
           )
         }
       </div>
