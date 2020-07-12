@@ -2,7 +2,7 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 import { reducer as form } from 'redux-form/immutable';
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router/immutable';
 import history from 'utils/history';
 
@@ -17,12 +17,8 @@ import initval from './modules/initFormReducer';
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
-    form,
     ui: uiReducer,
-    initval,
-    authReducer,
     language: languageProviderReducer,
-    router: connectRouter(history),
     ...injectedReducers,
   });
 

@@ -30,15 +30,15 @@ module.exports = options => ({
         You can enable it to maintain and keep clean your code.
         NOTE: By enable eslint running app process at beginning will slower
       */
-      {
-        enforce: 'pre',
-        test: /\.js?$/,
-        exclude: [/node_modules/],
-        loader: 'eslint-loader',
-        options: {
-          quiet: true,
-        }
-      },
+      //      {
+      //        enforce: 'pre',
+      //        test: /\.js?$/,
+      //        exclude: [/node_modules/],
+      //        loader: 'eslint-loader',
+      //        options: {
+      //          quiet: true,
+      //        }
+      //      },
       {
         test: /\.jsx?$/, // Transform all .js files required somewhere with Babel
         exclude: /node_modules/,
