@@ -1,12 +1,10 @@
-import { fromJS, Map } from 'immutable';
 import { INIT, CLEAR } from '../constants/reduxFormConstants';
 
 const initialState = {
-  formValues: Map()
+  formValues: []
 };
 
-const initialImmutableState = fromJS(initialState);
-export default function reducer(state = initialImmutableState, action = {}) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case INIT:
       return state.withMutations((mutableState) => {

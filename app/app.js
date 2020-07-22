@@ -37,11 +37,15 @@ const initialState = {};
 const { store, persistor } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
-const render = () => {
+const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <LanguageProvider messages={messages}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </LanguageProvider>
       </PersistGate>
     </Provider>,
     MOUNT_NODE,

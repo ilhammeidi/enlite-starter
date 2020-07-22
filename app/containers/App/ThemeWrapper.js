@@ -113,13 +113,16 @@ ThemeWrapper.propTypes = {
 };
 
 const reducer = 'ui';
-const mapStateToProps = state => ({
-  force: state, // force state from reducer
-  color: state.getIn([reducer, 'theme']),
-  mode: state.getIn([reducer, 'type']),
-  layout: state.getIn([reducer, 'layout']),
-  direction: state.getIn([reducer, 'direction']),
-});
+const mapStateToProps = state => {
+  console.log(state[reducer].get('theme'));
+  return {
+    force: state, // force state from reducer
+    color: state[reducer].get('theme'),
+    mode: state[reducer].get('type'),
+    layout: state[reducer].get('layout'),
+    direction: state[reducer].get('direction'),
+  }
+}
 
 const dispatchToProps = dispatch => ({
   changeTheme: bindActionCreators(changeThemeAction, dispatch),

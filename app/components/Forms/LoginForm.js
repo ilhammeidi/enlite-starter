@@ -220,11 +220,13 @@ const mapDispatchToProps = {
 };
 
 const reducerAuth = 'authReducer';
-const mapStateToProps = state => ({
-  messagesAuth: state.get(reducerAuth).message,
-  loading: state.get(reducerAuth).loading,
-  ...state,
-});
+const mapStateToProps = state => {
+  return {
+    messagesAuth: state[reducerAuth].message,
+    loading: state[reducerAuth].loading,
+    ...state,
+  };
+};
 
 const LoginFormMapped = connect(
   mapStateToProps,

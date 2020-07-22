@@ -7,14 +7,13 @@ import { persistReducer, persistStore } from 'redux-persist';
 // import { persistStore } from 'redux-persist-immutable';
 import storage from 'redux-persist/lib/storage';
 import immutableTransform from 'redux-persist-transform-immutable';
-import { fromJS } from 'immutable';
-import { routerMiddleware } from 'connected-react-router/immutable';
+import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 import sagas from '../utils/sagas';
 
 const persistConfig = {
-  transforms: [immutableTransform(createReducer())],
+  transforms: [immutableTransform()],
   key: 'root',
   storage,
   whitelist: ['ui']
@@ -47,7 +46,7 @@ export default function configureStore(initialState = {}, history) {
   /* eslint-enable */
   const store = createStore(
     persistedReducer,
-    fromJS(initialState),
+    initialState,
     composeEnhancers(...enhancers),
   );
 
