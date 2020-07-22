@@ -121,8 +121,8 @@ const mapStateToProps = state => {
     mode: state[reducer].get('type'),
     layout: state[reducer].get('layout'),
     direction: state[reducer].get('direction'),
-  }
-}
+  };
+};
 
 const dispatchToProps = dispatch => ({
   changeTheme: bindActionCreators(changeThemeAction, dispatch),
