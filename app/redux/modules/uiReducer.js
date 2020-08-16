@@ -20,15 +20,8 @@ const initialState = {
   layout: 'sidebar',
   /* End settings */
   palette: List([
-    { name: 'Red', value: 'redTheme' },
-    { name: 'Green', value: 'greenTheme' },
-    { name: 'Blue', value: 'blueTheme' },
-    { name: 'Purple', value: 'purpleTheme' },
-    { name: 'Orange', value: 'orangeTheme' },
     { name: 'Grey', value: 'greyTheme' },
-    { name: 'Green Light', value: 'lightGreenTheme' },
     { name: 'Blue Light', value: 'lightBlueTheme' },
-    { name: 'Brown', value: 'brownTheme' },
   ]),
   sidebarOpen: true,
   pageLoaded: false,
