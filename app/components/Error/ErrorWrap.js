@@ -15,7 +15,7 @@ const styles = theme => ({
   errorWrap: {
     background: `url(${theme.palette.type === 'dark' ? borderHexaWhite : borderHexaGrey}) no-repeat`,
     backgroundSize: '100% 100%',
-    backgroundPosition: -10,
+    backgroundPosition: '-4px center',
     width: 500,
     height: 500,
     [theme.breakpoints.down('sm')]: {
@@ -78,7 +78,7 @@ const ErrorWrap = (props) => (
             color="secondary"
             className={classes.button}
             component={Link}
-            to="/app/"
+            to="/app"
           >
             <FormattedMessage {...messages.button} />
           </Button>

@@ -75,7 +75,7 @@ module.exports = [
       },
       {
         key: 'dashboard',
-        name: 'dashboard',
+        name: 'Dashboard',
         icon: 'settings_brightness',
         link: '/app/dashboard'
       },

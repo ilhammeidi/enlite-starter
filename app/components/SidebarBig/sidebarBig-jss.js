@@ -32,7 +32,7 @@ const styles = theme => ({
     overflow: 'auto',
     height: '100%',
     [theme.breakpoints.up('lg')]: {
-      height: 'calc(100% - 64px)',
+      height: 'calc(100% - 80px)',
     },
     '&::-webkit-scrollbar': {
       width: 8,
@@ -141,6 +141,7 @@ const styles = theme => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
+      display: 'block',
       fontSize: 12,
       color: theme.palette.text.secondary
     }
@@ -170,7 +171,8 @@ const styles = theme => ({
       '& span': {
         overflow: 'hidden',
         whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
+        textOverflow: 'ellipsis',
+        display: 'block',
       }
     },
     '& $item': {

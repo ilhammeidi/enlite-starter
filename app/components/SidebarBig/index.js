@@ -6,50 +6,49 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import styles from './sidebarBig-jss';
 import MainMenuBig from './MainMenuBig';
 
-class SidebarBig extends React.Component {
-  render() {
-    const {
-      classes,
-      dataMenu,
-      loadTransition,
-      open,
-      userAttr,
-      toggleDrawerOpen,
-    } = this.props;
-    return (
-      <Fragment>
-        <Hidden lgUp>
-          <SwipeableDrawer
-            onClose={toggleDrawerOpen}
-            onOpen={toggleDrawerOpen}
-            open={!open}
-            anchor="left"
-          >
-            <div className={classes.swipeDrawerPaper}>
-              <MainMenuBig
-                dataMenu={dataMenu}
-                loadTransition={loadTransition}
-                drawerPaper="true"
-                userAttr={userAttr}
-                toggleDrawerOpen={toggleDrawerOpen}
-                mobile
-              />
-            </div>
-          </SwipeableDrawer>
-        </Hidden>
-        <Hidden mdDown>
-          <div>
+function SidebarBig(props) {
+  const {
+    classes,
+    dataMenu,
+    loadTransition,
+    open,
+    userAttr,
+    toggleDrawerOpen,
+  } = props;
+
+  return (
+    <Fragment>
+      <Hidden lgUp>
+        <SwipeableDrawer
+          onClose={toggleDrawerOpen}
+          onOpen={toggleDrawerOpen}
+          open={!open}
+          anchor="left"
+        >
+          <div className={classes.swipeDrawerPaper}>
             <MainMenuBig
               dataMenu={dataMenu}
               loadTransition={loadTransition}
-              drawerPaper={open}
+              drawerPaper="true"
               userAttr={userAttr}
+              toggleDrawerOpen={toggleDrawerOpen}
+              mobile
             />
           </div>
-        </Hidden>
-      </Fragment>
-    );
-  }
+        </SwipeableDrawer>
+      </Hidden>
+      <Hidden mdDown>
+        <div>
+          <MainMenuBig
+            dataMenu={dataMenu}
+            loadTransition={loadTransition}
+            drawerPaper={open}
+            userAttr={userAttr}
+          />
+        </div>
+      </Hidden>
+    </Fragment>
+  );
 }
 
 SidebarBig.propTypes = {

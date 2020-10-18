@@ -5,15 +5,12 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import { NavLink } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { LoginFormFirebase, SelectLanguage } from 'enl-components';
+import { LoginForm, SelectLanguage } from 'enl-components';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import styles from 'enl-components/Forms/user-jss';
 import { FormattedMessage } from 'react-intl';
-import { loginWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 class Login extends React.Component {
@@ -26,7 +23,7 @@ class Login extends React.Component {
     setTimeout(() => {
       this.setState({ valueForm: values });
       console.log(`You submitted:\n\n${valueForm}`);
-      this.props.handleLogin(this.state.valueForm.get('email'), this.state.valueForm.get('password')); // eslint-disable-line
+      window.location.href = '/app';
     }, 500); // simulate server latency
   }
 
@@ -75,7 +72,7 @@ class Login extends React.Component {
             </div>
           </Hidden>
           <div className={classes.sideFormWrap}>
-            <LoginFormFirebase onSubmit={(values) => this.submitForm(values)} />
+            <LoginForm onSubmit={(values) => this.submitForm(values)} />
           </div>
         </div>
       </div>
@@ -85,33 +82,6 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleLogin: PropTypes.func.isRequired,
 };
 
-function LoginWrap(props) {
-  const { handleLoginWithEmail } = props;
-  const LoginStyled = withStyles(styles)(Login);
-  return (
-    <LoginStyled handleLogin={handleLoginWithEmail} />
-  );
-}
-
-LoginWrap.propTypes = {
-  handleLoginWithEmail: PropTypes.func.isRequired,
-};
-
-const reducer = 'authReducer';
-const mapStateToProps = state => ({
-  state: state.get(reducer)
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleLoginWithEmail: bindActionCreators(loginWithEmail, dispatch)
-});
-
-const LoginMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginWrap);
-
-export default LoginMapped;
+export default withStyles(styles)(Login);

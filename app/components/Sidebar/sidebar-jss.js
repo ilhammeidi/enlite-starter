@@ -6,6 +6,9 @@ import grey from '@material-ui/core/colors/grey';
 
 const drawerWidth = 240;
 const styles = theme => ({
+  user: {
+    justifyContent: 'center'
+  },
   drawer: {
     width: drawerWidth
   },
@@ -26,33 +29,31 @@ const styles = theme => ({
   },
   opened: {
     '& $primary, & $icon': {
-      color: theme.palette.type === 'dark' ? theme.palette.primary.main : theme.palette.primary.dark,
-    }
+      color: theme.palette.primary.main,
+    },
   },
   drawerPaperClose: {
-    width: 64,
+    width: theme.spacing(8),
     position: 'absolute',
     overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create(['width', 'background-color'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    '& $profile': {
-      flexDirection: 'row',
-      '& h4': {
-        textAlign: 'left'
-      },
-      '& button': {
-        width: 'auto'
-      }
+    '& $user': {
+      justifyContent: 'flex-start'
+    },
+    '& $bigAvatar': {
+      width: 40,
+      height: 40,
     },
     '& nav': {
-      display: 'none',
+      display: 'none'
     },
     '&:hover': {
       width: drawerWidth,
-      background: theme.palette.background.paper,
-      boxShadow: theme.shadows[4],
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[6],
       '& nav': {
         display: 'block'
       }
@@ -60,9 +61,17 @@ const styles = theme => ({
     '& $brand': {
       display: 'none'
     },
+    '& $profile': {
+      flexDirection: 'row',
+      top: theme.spacing(6),
+      padding: theme.spacing(0.5),
+      textAlign: 'left',
+      '& button': {
+        width: 'auto'
+      }
+    },
     '& $avatar': {
-      width: 32,
-      height: 32,
+      marginRight: theme.spacing(3)
     },
     '& $menuContainer': {
       '&$menuContainer': {
@@ -76,32 +85,26 @@ const styles = theme => ({
     height: '100%',
     position: 'fixed',
   },
-  drawerHeader: {
-    padding: '0',
-    zIndex: 1,
-    position: 'absolute',
-    width: '100%',
-    [theme.breakpoints.up('lg')]: {
-      paddingTop: theme.spacing(8),
-      position: 'relative',
-    },
-    ...theme.mixins.toolbar,
-  },
   drawerInnerMobile: {
     // Make the items inside not wrap when transitioning:
     height: '100%',
     backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.background.paper, 0.75) : fade(theme.palette.background.paper, 0.95),
-    '& $drawerHeader': {
-      paddingTop: 0
+  },
+  drawerHeader: {
+    zIndex: 1,
+    position: 'relative',
+    minHeight: theme.spacing(3),
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: theme.spacing(8),
     }
   },
   avatar: {
-    margin: 10,
+    margin: '10px 12px',
   },
   bigAvatar: {
     width: 80,
     height: 80,
-    boxShadow: theme.shadows[4]
+    boxShadow: theme.shadows[2]
   },
   brandBar: {
     transition: theme.transitions.create(['width', 'margin', 'background'], {
@@ -116,117 +119,114 @@ const styles = theme => ({
     }
   },
   darker: {
-    backgroundColor: theme.palette.background.paper,
+    background: 'none',
   },
   nested: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    margin: `${theme.spacing(1)}px 0`,
-    [theme.breakpoints.down('lg')]: {
-      paddingLeft: theme.spacing(3),
-    }
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    margin: `${theme.spacing(0.5)}px 0`,
+    paddingLeft: theme.spacing(7)
   },
   child: {
     '& a': {
-      paddingLeft: theme.spacing(8)
+      paddingLeft: theme.spacing(8),
     }
   },
   title: {
     fontSize: 10,
     textTransform: 'uppercase',
-    padding: `16px 16px 0 ${theme.spacing(10)}px`,
+    paddingLeft: theme.spacing(7),
+    marginTop: theme.spacing(3),
     display: 'block',
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     lineHeight: '28px',
-    fontWeight: '900'
+    fontWeight: 'bold'
   },
   dense: {
-    marginLeft: -15,
+    padding: theme.spacing(),
     '& > $title:first-child': {
-      marginTop: 0
+      margin: '0'
     },
     '& $head': {
-      paddingLeft: theme.spacing(10)
+      paddingLeft: theme.spacing(7)
     }
   },
   active: {
-    backgroundColor: fade(theme.palette.secondary.light, 0.24),
+    backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
     '& $primary': {
-      color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
+      color: theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
     },
-    '&:hover': {
-      backgroundColor: fade(theme.palette.secondary.light, 0.24)
+    '& $icon svg': {
+      fill: theme.palette.primary.dark,
     },
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      width: 5,
-      height: 35,
-      top: 0,
-      borderRadius: 5,
-      left: 15,
-      background: theme.palette.primary.dark
-    },
-    '&:focus': {
-      backgroundColor: fade(theme.palette.secondary.light, 0.24)
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
     }
   },
   nolist: {
     listStyle: 'none',
   },
   primary: {
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap'
   },
   icon: {
-    minWidth: 'auto',
-    marginRight: theme.spacing(2),
-    color: fade(theme.palette.text.hint, 0.48),
+    minWidth: theme.spacing(5),
+    color: fade(theme.palette.text.hint, 0.48)
   },
-  iconed: {},
+  iconed: {
+    '&$opened': {
+      '&:before': {
+        content: '""',
+        position: 'absolute',
+        width: 5,
+        height: theme.spacing(6),
+        top: 0,
+        left: 0,
+        background: fade(theme.palette.primary.main, 0.5)
+      }
+    }
+  },
   head: {
     padding: `${theme.spacing(1)}px 0`,
-    margin: `${theme.spacing(1)}px 0 0`,
+    margin: `${theme.spacing(1)}px 0`,
     borderRadius: `0 ${theme.spacing(1)}px ${theme.spacing(1)}px 0`,
     paddingLeft: theme.spacing(3),
-    textAlign: 'left',
     '&$iconed': {
-      paddingLeft: theme.spacing(3)
+      paddingLeft: theme.spacing(3),
     },
-    '& > svg': {
+    '& svg[class^="MuiSvgIcon"]': {
       left: -10,
       position: 'relative'
     },
   },
   headCapital: {
-    padding: `${theme.spacing(1)}px 0 ${theme.spacing(1)}px ${theme.spacing(3)}px`,
-    left: theme.spacing(1) * -1.5,
+    padding: `${theme.spacing(1)}px 0 ${theme.spacing(1)}px ${theme.spacing(9)}px`,
+    left: theme.spacing(1) * -2,
     position: 'relative',
     textTransform: 'uppercase',
-    borderRadius: `0 ${theme.spacing(3)}px ${theme.spacing(3)}px 0`,
+    borderRadius: `0 ${theme.spacing(1)}px ${theme.spacing(1)}px 0`,
     margin: `${theme.spacing(1)}px`,
     '& span': {
       fontSize: 14
     }
   },
-  highlightLink: {
-    color: theme.palette.secondary.main
-  },
   copyright: {
     color: theme.palette.text.secondary,
     background: theme.palette.background.paper,
     padding: theme.spacing(2),
+    position: 'fixed',
     [theme.breakpoints.up('lg')]: {
       background: 'none',
       position: 'absolute',
     },
-    marginLeft: theme.spacing(5),
+    left: theme.spacing(3),
     lineHeight: '24px',
   },
   brand: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '4px 10px 4px',
+    padding: '10px 10px 5px',
     height: 64,
     position: 'relative',
     textDecoration: 'none',
@@ -254,37 +254,36 @@ const styles = theme => ({
     }
   },
   profile: {
-    height: 100,
+    height: 120,
     width: '100%',
     display: 'flex',
     fontSize: 14,
     padding: 10,
     flexDirection: 'column',
+    textAlign: 'center',
     alignItems: 'center',
     position: 'absolute',
     margin: `${theme.spacing(2)}px 0`,
     zIndex: 0,
     '& h4': {
-      fontSize: 16,
+      fontSize: 18,
       marginBottom: 0,
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
-      width: 110,
-      textAlign: 'center',
-      marginLeft: theme.spacing(1),
+      width: 110
     },
     '& button': {
       fontSize: 12,
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
+      width: 110,
       display: 'block',
       overflow: 'hidden',
       textTransform: 'capitalize',
       padding: 0,
       minHeight: 20,
       marginTop: 4,
-      width: '100%'
     }
   },
   statusMenu: {
@@ -315,36 +314,28 @@ const styles = theme => ({
   landingNav: {},
   withProfile: {},
   menuContainer: {
-    overflowY: 'auto',
-    overflowX: 'hidden',
+    overflow: 'auto',
+    height: 'calc(100% - 64px)',
     width: drawerWidth,
     position: 'relative',
     display: 'block',
-    [theme.breakpoints.up('lg')]: {
-      height: `calc(100% - ${theme.spacing(8)}px)`,
-    },
     padding: `${theme.spacing(5)}px 0`,
-    height: '100%',
     '&$withProfile': {
       paddingTop: theme.spacing(19)
     },
     '&$landingNav': {
-      padding: 0,
       [theme.breakpoints.up('lg')]: {
         paddingTop: theme.spacing(5)
       },
       [theme.breakpoints.down('lg')]: {
-        height: '100%'
+        height: 'calc(100% - 164px)',
+        paddingTop: theme.spacing(5)
       }
     },
     '&$rounded': {
+      paddingRight: theme.spacing(1.5),
       '& a': {
-        borderRadius: theme.spacing(1),
-        paddingTop: 0,
-        paddingBottom: theme.spacing(0.5),
-        '& > div:first-child': {
-          paddingLeft: theme.spacing(7)
-        }
+        borderRadius: theme.spacing(),
       },
       '& $opened': {
         '&:before': {
@@ -361,8 +352,8 @@ const styles = theme => ({
     },
     '&:hover': {
       '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0,0,0,0.2)',
-        border: '1px solid rgba(255,255,255,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        border: '1px solid rgba(255,255,255,0.4)',
       }
     }
   },

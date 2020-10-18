@@ -5,15 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from '@material-ui/core/styles';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { RegisterFormFirebase, SelectLanguage } from 'enl-components';
+import { RegisterForm, SelectLanguage } from 'enl-components';
 import styles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { FormattedMessage } from 'react-intl';
-import { registerWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 class Register extends React.Component {
@@ -25,7 +22,7 @@ class Register extends React.Component {
     setTimeout(() => {
       this.setState({ valueForm: values });
       console.log(`You submitted:\n\n${this.state.valueForm.get('email')}`); // eslint-disable-line
-      this.props.handleRegister(this.state.valueForm.get('name'), this.state.valueForm.get('email'), this.state.valueForm.get('password')); // eslint-disable-line
+      window.location.href = '/app';
     }, 500); // simulate server latency
   }
 
@@ -72,7 +69,7 @@ class Register extends React.Component {
             </div>
           </Hidden>
           <div className={classes.sideFormWrap}>
-            <RegisterFormFirebase onSubmit={(values) => this.submitForm(values)} />
+            <RegisterForm onSubmit={(values) => this.submitForm(values)} />
           </div>
         </div>
       </div>
@@ -82,30 +79,6 @@ class Register extends React.Component {
 
 Register.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleRegister: PropTypes.func.isRequired,
 };
 
-function RegisterWrap(props) {
-  const { handleRegisterWithEmail } = props;
-  const RegisterStyled = withStyles(styles)(Register);
-  return (
-    <RegisterStyled handleRegister={handleRegisterWithEmail} />
-  );
-}
-
-RegisterWrap.propTypes = {
-  handleRegisterWithEmail: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => state.get('authReducer');
-
-const mapDispatchToProps = dispatch => ({
-  handleRegisterWithEmail: bindActionCreators(registerWithEmail, dispatch)
-});
-
-const RegisterMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegisterWrap);
-
-export default RegisterMapped;
+export default withStyles(styles)(Register);

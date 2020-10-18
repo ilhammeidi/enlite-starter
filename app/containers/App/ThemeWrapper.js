@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Loading from 'react-loading-bar';
@@ -11,12 +11,7 @@ import {
   createMuiTheme, MuiThemeProvider
 } from '@material-ui/core/styles';
 import 'enl-styles/vendors/react-loading-bar/index.css';
-import {
-  changeThemeAction,
-  changeModeAction,
-  changeLayoutAction,
-  changeDirectionAction
-} from 'enl-redux/actions/uiActions';
+import { changeModeAction } from 'enl-redux/actions/uiActions';
 import applicationTheme from '../../styles/theme/applicationTheme';
 
 const styles = {
@@ -34,73 +29,64 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 // Export context for themeing mode
 export const AppContext = React.createContext();
 
-class ThemeWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageLoaded: true,
-      theme: createMuiTheme(applicationTheme(props.color, props.mode, props.direction)),
-    };
-  }
+function ThemeWrapper(props) {
+  const {
+    changeMode,
+    classes,
+    children,
+    color,
+    direction,
+    mode,
+  } = props;
+  const [pageLoaded, setPageLoaded] = useState(true);
+  const [theme, setTheme] = useState(createMuiTheme(applicationTheme(color, mode, direction)));
 
-  componentWillMount = () => {
-    this.onProgressShow();
-  }
-
-  componentDidMount = () => {
-    this.playProgress();
-  }
-
-  componentWillUnmount() {
-    this.onProgressShow();
-  }
-
-  onProgressShow = () => {
-    this.setState({ pageLoaded: true });
-  }
-
-  onProgressHide = () => {
-    this.setState({ pageLoaded: false });
-  }
-
-  playProgress = () => {
-    this.onProgressShow();
-    setTimeout(() => {
-      this.onProgressHide();
-    }, 500);
-  }
-
-  handleChangeMode = mode => {
-    const { color, changeMode, direction } = this.props;
-    this.setState({ theme: createMuiTheme(applicationTheme(color, mode, direction)) });
-    changeMode(mode);
+  const onProgressShow = () => {
+    setPageLoaded(true);
   };
 
-  render() {
-    const {
-      classes,
-      children,
-    } = this.props;
-    const { pageLoaded, theme } = this.state;
-    return (
-      <StylesProvider jss={jss}>
-        <MuiThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <div className={classes.pageLoader}>
-              <Loading
-                show={pageLoaded}
-                color={theme.palette.primary.main}
-                showSpinner={false}
-              />
-            </div>
-            <AppContext.Provider value={this.handleChangeMode}>
-              {children}
-            </AppContext.Provider>
+  const onProgressHide = () => {
+    setPageLoaded(false);
+  };
+
+  const playProgress = () => {
+    onProgressShow();
+    setTimeout(() => {
+      onProgressHide();
+    }, 500);
+  };
+
+  const handleChangeMode = newMode => {
+    setTheme(createMuiTheme(applicationTheme(color, newMode, direction)));
+    changeMode(newMode);
+  };
+
+  useEffect(() => {
+    playProgress();
+
+    return () => {
+      onProgressShow();
+    };
+  }, []);
+
+  return (
+    <StylesProvider jss={jss}>
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <div className={classes.pageLoader}>
+            <Loading
+              show={pageLoaded}
+              color={theme.palette.primary.main}
+              showSpinner={false}
+            />
           </div>
-        </MuiThemeProvider>
-      </StylesProvider>
-    );
-  }
+          <AppContext.Provider value={handleChangeMode}>
+            {children}
+          </AppContext.Provider>
+        </div>
+      </MuiThemeProvider>
+    </StylesProvider>
+  );
 }
 
 ThemeWrapper.propTypes = {
@@ -114,18 +100,14 @@ ThemeWrapper.propTypes = {
 
 const reducer = 'ui';
 const mapStateToProps = state => ({
-  force: state, // force state from reducer
+  ...state, // force state from reducer
   color: state.getIn([reducer, 'theme']),
   mode: state.getIn([reducer, 'type']),
-  layout: state.getIn([reducer, 'layout']),
   direction: state.getIn([reducer, 'direction']),
 });
 
 const dispatchToProps = dispatch => ({
-  changeTheme: bindActionCreators(changeThemeAction, dispatch),
   changeMode: bindActionCreators(changeModeAction, dispatch),
-  changeLayout: bindActionCreators(changeLayoutAction, dispatch),
-  changeDirection: bindActionCreators(changeDirectionAction, dispatch),
 });
 
 const ThemeWrapperMapped = connect(

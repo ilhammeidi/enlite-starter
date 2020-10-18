@@ -4,12 +4,12 @@ import {
   TOGGLE_SIDEBAR,
   OPEN_MENU,
   OPEN_SUBMENU,
-  CLOSE_ALL_SUBMENU,
   CHANGE_THEME,
   CHANGE_MODE,
   CHANGE_LAYOUT,
   CHANGE_DIRECTION,
-  LOAD_PAGE
+  LOAD_PAGE,
+  CLOSE_MENU
 } from '../constants/uiConstants';
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   theme: 'lightBlueTheme',
   type: 'light', // light or dark
   direction: 'ltr', // ltr or rtl
-  layout: 'sidebar',
+  layout: 'sidebar', // sidebar, big-sidebar, top-navigation, mega-menu
   /* End settings */
   palette: List([
     { name: 'Grey', value: 'greyTheme' },
@@ -59,6 +59,10 @@ export default function reducer(state = initialImmutableState, action = {}) {
       return state.withMutations((mutableState) => {
         mutableState.set('sidebarOpen', true);
       });
+    case CLOSE_MENU:
+      return state.withMutations((mutableState) => {
+        mutableState.set('sidebarOpen', false);
+      });
     case OPEN_SUBMENU:
       return state.withMutations((mutableState) => {
         // Set initial open parent menu
@@ -84,10 +88,6 @@ export default function reducer(state = initialImmutableState, action = {}) {
         } else {
           mutableState.set('subMenuOpen', List([action.key, action.keyParent]));
         }
-      });
-    case CLOSE_ALL_SUBMENU:
-      return state.withMutations((mutableState) => {
-        mutableState.set('subMenuOpen', List([]));
       });
     case CHANGE_THEME:
       return state.withMutations((mutableState) => {

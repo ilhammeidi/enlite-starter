@@ -13,44 +13,41 @@ const styles = theme => ({
   },
 });
 
-class Notification extends React.Component {
-  handleClose = (event, reason) => {
-    const { close } = this.props;
+function Notification(props) {
+  const { classes, close, message } = props;
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     close('crudTableDemo');
   };
 
-  render() {
-    const { classes, message } = this.props;
-    return (
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={message !== ''}
-        autoHideDuration={3000}
-        onClose={() => this.handleClose()}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={message}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={() => this.handleClose()}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
-      />
-    );
-  }
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={message !== ''}
+      autoHideDuration={3000}
+      onClose={() => handleClose()}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={message}
+      action={[
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          className={classes.close}
+          onClick={() => handleClose()}
+        >
+          <CloseIcon />
+        </IconButton>,
+      ]}
+    />
+  );
 }
 
 Notification.propTypes = {

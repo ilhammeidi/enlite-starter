@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -30,44 +30,48 @@ import styles from './header-jss';
 
 const elem = document.documentElement;
 
-class Header extends React.Component {
-  state = {
-    open: false,
-    fullScreen: false,
-    turnDarker: false,
-    showTitle: false
-  };
+function Header(props) {
+  const {
+    changeMode,
+    classes,
+    toggleDrawerOpen,
+    margin,
+    mode,
+    title,
+    openGuide,
+    history,
+    signOut,
+    dense,
+    isLogin,
+    avatar,
+    intl
+  } = props;
+  const [open] = useState(false);
+  const [fullScreen, setFullScreen] = useState(false);
+  const [turnDarker, setTurnDarker] = useState(false);
+  const [showTitle, setShowTitle] = useState(false);
 
   // Initial header style
-  flagDarker = false;
+  let flagDarker = false;
+  let flagTitle = false;
 
-  flagTitle = false;
-
-  componentDidMount = () => {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
+  const handleScroll = () => {
     const doc = document.documentElement;
     const scroll = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     const newFlagDarker = (scroll > 30);
     const newFlagTitle = (scroll > 40);
-    if (this.flagDarker !== newFlagDarker) {
-      this.setState({ turnDarker: newFlagDarker });
-      this.flagDarker = newFlagDarker;
+    if (flagDarker !== newFlagDarker) {
+      setTurnDarker(newFlagDarker);
+      flagDarker = newFlagDarker;
     }
-    if (this.flagTitle !== newFlagTitle) {
-      this.setState({ showTitle: newFlagTitle });
-      this.flagTitle = newFlagTitle;
+    if (flagTitle !== newFlagTitle) {
+      setShowTitle(newFlagTitle);
+      flagTitle = newFlagTitle;
     }
-  }
+  };
 
-  openFullScreen = () => {
-    this.setState({ fullScreen: true });
+  const openFullScreen = () => {
+    setFullScreen(true);
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {
@@ -82,8 +86,8 @@ class Header extends React.Component {
     }
   };
 
-  closeFullScreen = () => {
-    this.setState({ fullScreen: false });
+  const closeFullScreen = () => {
+    setFullScreen(false);
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
@@ -95,149 +99,132 @@ class Header extends React.Component {
     }
   };
 
-  turnMode = mode => {
-    const { changeMode } = this.props;
-    if (mode === 'light') {
+  const turnMode = newMode => {
+    if (newMode === 'light') {
       changeMode('dark');
     } else {
       changeMode('light');
     }
   };
 
-  render() {
-    const {
-      classes,
-      toggleDrawerOpen,
-      margin,
-      mode,
-      title,
-      openGuide,
-      history,
-      signOut,
-      dense,
-      isLogin,
-      avatar,
-      intl
-    } = this.props;
-    const {
-      fullScreen,
-      open,
-      turnDarker,
-      showTitle
-    } = this.state;
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-    return (
-      <AppBar
-        className={classNames(
-          classes.appBar,
-          classes.floatingBar,
-          margin && classes.appBarShift,
-          turnDarker && classes.darker,
-        )}
-      >
-        <Toolbar disableGutters={!open}>
-          <div className={classNames(classes.brandWrap, dense && classes.dense)}>
-            <span>
-              <IconButton
-                className={classes.menuButton}
-                aria-label="Menu"
-                onClick={toggleDrawerOpen}
-              >
-                <MenuIcon />
-              </IconButton>
-            </span>
-            <Hidden smDown>
-              <NavLink to="/app" className={classNames(classes.brand, classes.brandBar)}>
-                <img src={logo} alt={brand.name} />
-                {brand.name}
-              </NavLink>
-            </Hidden>
-          </div>
+  return (
+    <AppBar
+      className={classNames(
+        classes.appBar,
+        classes.floatingBar,
+        margin && classes.appBarShift,
+        turnDarker && classes.darker,
+      )}
+    >
+      <Toolbar disableGutters={!open}>
+        <div className={classNames(classes.brandWrap, dense && classes.dense)}>
+          <span>
+            <IconButton
+              className={classes.menuButton}
+              aria-label="Menu"
+              onClick={toggleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </span>
           <Hidden smDown>
-            <div className={classes.headerProperties}>
-              <div
-                className={classNames(
-                  classes.headerAction,
-                  showTitle && classes.fadeOut,
-                )}
-              >
-                {fullScreen ? (
-                  <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
-                    <IconButton
-                      className={classes.button}
-                      onClick={this.closeFullScreen}
-                    >
-                      <FullscreenExitOutlined />
-                    </IconButton>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
-                    <IconButton
-                      className={classes.button}
-                      onClick={this.openFullScreen}
-                    >
-                      <FullscreenOutlined />
-                    </IconButton>
-                  </Tooltip>
-                )}
-                <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
+            <NavLink to="/app" className={classNames(classes.brand, classes.brandBar)}>
+              <img src={logo} alt={brand.name} />
+              {brand.name}
+            </NavLink>
+          </Hidden>
+        </div>
+        <Hidden smDown>
+          <div className={classes.headerProperties}>
+            <div
+              className={classNames(
+                classes.headerAction,
+                showTitle && classes.fadeOut,
+              )}
+            >
+              {fullScreen ? (
+                <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
                   <IconButton
                     className={classes.button}
-                    onClick={() => this.turnMode(mode)}
+                    onClick={closeFullScreen}
                   >
-                    <InvertColors />
+                    <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
-                  <IconButton className={classes.button} onClick={openGuide}>
-                    <HelpOutlineOutlined />
+              ) : (
+                <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
+                  <IconButton
+                    className={classes.button}
+                    onClick={openFullScreen}
+                  >
+                    <FullscreenOutlined />
                   </IconButton>
                 </Tooltip>
-              </div>
-              <Typography
-                component="h2"
-                className={classNames(
-                  classes.headerTitle,
-                  showTitle && classes.show,
-                )}
-              >
-                {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> : title}
-              </Typography>
-            </div>
-          </Hidden>
-          <div className={classes.searchWrapper}>
-            <div className={classes.wrapper}>
-              <div className={classes.search}>
-                <SearchIcon />
-              </div>
-              <SearchUi history={history} />
-            </div>
-          </div>
-          <Hidden xsDown>
-            <span className={classes.separatorV} />
-          </Hidden>
-          <div className={classes.userToolbar}>
-            <SelectLanguage />
-            {isLogin
-              ? <UserMenu signOut={signOut} avatar={avatar} />
-              : (
-                <Button
-                  color="primary"
-                  className={classes.buttonTop}
-                  component={Link}
-                  to={link.login}
-                  variant="contained"
+              )}
+              <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
+                <IconButton
+                  className={classes.button}
+                  onClick={() => turnMode(mode)}
                 >
-                  <AccountCircle />
-                  <FormattedMessage {...messages.login} />
-                </Button>
-              )
-            }
+                  <InvertColors />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
+                <IconButton className={classes.button} onClick={openGuide}>
+                  <HelpOutlineOutlined />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <Typography
+              component="h2"
+              className={classNames(
+                classes.headerTitle,
+                showTitle && classes.show,
+              )}
+            >
+              {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> : title}
+            </Typography>
           </div>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        </Hidden>
+        <div className={classes.searchWrapper}>
+          <div className={classes.wrapper}>
+            <div className={classes.search}>
+              <SearchIcon />
+            </div>
+            <SearchUi history={history} />
+          </div>
+        </div>
+        <Hidden xsDown>
+          <span className={classes.separatorV} />
+        </Hidden>
+        <div className={classes.userToolbar}>
+          <SelectLanguage />
+          {isLogin
+            ? <UserMenu signOut={signOut} avatar={avatar} />
+            : (
+              <Button
+                color="primary"
+                className={classes.buttonTop}
+                component={Link}
+                to={link.login}
+                variant="contained"
+              >
+                <AccountCircle />
+                <FormattedMessage {...messages.login} />
+              </Button>
+            )
+          }
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 Header.propTypes = {

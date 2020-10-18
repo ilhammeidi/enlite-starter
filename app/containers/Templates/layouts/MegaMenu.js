@@ -10,69 +10,66 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import styles from '../appStyles-jss';
 
-class DropMenuLayout extends React.Component {
-  render() {
-    const {
-      classes,
-      children, pageLoaded,
-      mode, changeMode,
-      history, place, titleException,
-      handleOpenGuide, toggleDrawer, sidebarOpen,
-      loadTransition,
-      signOut, isLogin, userAttr
-    } = this.props;
-    return (
-      <Fragment>
-        <HeaderMenu
-          type="mega-menu"
-          dataMenu={dataMenu}
-          changeMode={changeMode}
-          mode={mode}
-          history={history}
-          openGuide={handleOpenGuide}
-          toggleDrawerOpen={toggleDrawer}
-          openMobileNav={sidebarOpen}
-          loadTransition={loadTransition}
-          logoLink="/app"
-          signOut={signOut}
-          isLogin={isLogin}
-          userAttr={userAttr}
-        />
-        <main
-          className={
-            classNames(
-              classes.content,
-              classes.highMargin
-            )
-          }
-          id="mainContent"
-        >
-          <section className={classNames(classes.mainWrap, classes.topbarLayout)}>
-            {titleException.indexOf(history.location.pathname) < 0 && (
-              <div className={classes.pageTitle}>
-                <Typography component="h4" variant="h4">
-                  {messages[place] !== undefined ? <FormattedMessage {...messages[place]} /> : place}
-                </Typography>
-                <BreadCrumb separator=" / " theme="light" location={history.location} />
-              </div>
-            )}
-            { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
-            <Fade
-              in={pageLoaded}
-              mountOnEnter
-              unmountOnExit
-              {...(pageLoaded ? { timeout: 700 } : {})}
-            >
-              <div className={!pageLoaded ? classes.hideApp : ''}>
-                {/* Application content will load here */}
-                { children }
-              </div>
-            </Fade>
-          </section>
-        </main>
-      </Fragment>
-    );
-  }
+function DropMenuLayout(props) {
+  const {
+    classes,
+    children, pageLoaded,
+    mode, changeMode,
+    history, place, titleException,
+    handleOpenGuide, toggleDrawer, sidebarOpen,
+    loadTransition,
+    signOut, isLogin, userAttr
+  } = props;
+
+  return (
+    <Fragment>
+      <HeaderMenu
+        type="mega-menu"
+        dataMenu={dataMenu}
+        changeMode={changeMode}
+        mode={mode}
+        history={history}
+        openGuide={handleOpenGuide}
+        toggleDrawerOpen={toggleDrawer}
+        openMobileNav={sidebarOpen}
+        loadTransition={loadTransition}
+        logoLink="/app"
+        signOut={signOut}
+        isLogin={isLogin}
+        userAttr={userAttr}
+      />
+      <main
+        className={
+          classNames(
+            classes.content,
+            classes.highMargin
+          )
+        }
+        id="mainContent"
+      >
+        <section className={classNames(classes.mainWrap, classes.topbarLayout)}>
+          {titleException.indexOf(history.location.pathname) < 0 && (
+            <div className={classes.pageTitle}>
+              <Typography component="h4" variant="h4">
+                {messages[place] !== undefined ? <FormattedMessage {...messages[place]} /> : place}
+              </Typography>
+              <BreadCrumb separator=" / " theme="light" location={history.location} />
+            </div>
+          )}
+          { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
+          <Fade
+            in={pageLoaded}
+            {...(pageLoaded ? { timeout: 700 } : {})}
+          >
+            <div className={!pageLoaded ? classes.hideApp : ''}>
+              {/* Application content will load here */}
+              { children }
+            </div>
+          </Fade>
+        </section>
+      </main>
+    </Fragment>
+  );
 }
 
 DropMenuLayout.propTypes = {

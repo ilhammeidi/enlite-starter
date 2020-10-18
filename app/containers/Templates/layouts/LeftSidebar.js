@@ -14,74 +14,71 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import styles from '../appStyles-jss';
 
-class LeftSidebarLayout extends React.Component {
-  render() {
-    const {
-      classes,
-      children,
-      toggleDrawer,
-      sidebarOpen,
-      loadTransition,
-      pageLoaded,
-      mode,
-      history,
-      changeMode,
-      place,
-      titleException,
-      handleOpenGuide,
-      signOut,
-      userAttr,
-      isLogin
-    } = this.props;
-    return (
-      <Fragment>
-        <Header
-          toggleDrawerOpen={toggleDrawer}
-          margin={sidebarOpen}
-          changeMode={changeMode}
-          mode={mode}
-          title={place}
-          history={history}
-          openGuide={handleOpenGuide}
-          signOut={signOut}
-          isLogin={isLogin}
-          avatar={userAttr.avatar}
-        />
-        <Sidebar
-          open={sidebarOpen}
-          toggleDrawerOpen={toggleDrawer}
-          loadTransition={loadTransition}
-          dataMenu={dataMenu}
-          userAttr={userAttr}
-          leftSidebar
-        />
-        <main className={classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} id="mainContent">
-          <section className={classNames(classes.mainWrap, classes.sidebarLayout)}>
-            {titleException.indexOf(history.location.pathname) < 0 && (
-              <div className={classes.pageTitle}>
-                <Typography component="h4" variant="h4">
-                  {messages[place] !== undefined ? <FormattedMessage {...messages[place]} /> : place}
-                </Typography>
-                <BreadCrumb separator=" / " theme="light" location={history.location} />
-              </div>
-            )}
-            { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
-            <Fade
-              in={pageLoaded}
-              mountOnEnter
-              unmountOnExit
-              {...(pageLoaded ? { timeout: 700 } : {})}
-            >
-              <div className={!pageLoaded ? classes.hideApp : ''}>
-                {/* Application content will load here */}
-                { children }
-              </div>
-            </Fade>
-          </section>
-        </main>
-      </Fragment>
-    );
-  }
+function LeftSidebarLayout(props) {
+  const {
+    classes,
+    children,
+    toggleDrawer,
+    sidebarOpen,
+    loadTransition,
+    pageLoaded,
+    mode,
+    history,
+    changeMode,
+    place,
+    titleException,
+    handleOpenGuide,
+    signOut,
+    userAttr,
+    isLogin
+  } = props;
+
+  return (
+    <Fragment>
+      <Header
+        toggleDrawerOpen={toggleDrawer}
+        margin={sidebarOpen}
+        changeMode={changeMode}
+        mode={mode}
+        title={place}
+        history={history}
+        openGuide={handleOpenGuide}
+        signOut={signOut}
+        isLogin={isLogin}
+        avatar={userAttr.avatar}
+      />
+      <Sidebar
+        open={sidebarOpen}
+        toggleDrawerOpen={toggleDrawer}
+        loadTransition={loadTransition}
+        dataMenu={dataMenu}
+        userAttr={userAttr}
+        leftSidebar
+      />
+      <main className={classNames(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} id="mainContent">
+        <section className={classNames(classes.mainWrap, classes.sidebarLayout)}>
+          {titleException.indexOf(history.location.pathname) < 0 && (
+            <div className={classes.pageTitle}>
+              <Typography component="h4" variant="h4">
+                {messages[place] !== undefined ? <FormattedMessage {...messages[place]} /> : place}
+              </Typography>
+              <BreadCrumb separator=" / " theme="light" location={history.location} />
+            </div>
+          )}
+          { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
+          <Fade
+            in={pageLoaded}
+            {...(pageLoaded ? { timeout: 700 } : {})}
+          >
+            <div className={!pageLoaded ? classes.hideApp : ''}>
+              {/* Application content will load here */}
+              { children }
+            </div>
+          </Fade>
+        </section>
+      </main>
+    </Fragment>
+  );
 }
 
 LeftSidebarLayout.propTypes = {
