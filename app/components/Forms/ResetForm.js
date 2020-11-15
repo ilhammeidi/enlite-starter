@@ -21,78 +21,77 @@ import messages from './messages';
 import styles from './user-jss';
 
 // validation functions
-const required = value => (value == null ? 'Required' : undefined);
+const required = value => (value === null ? 'Required' : undefined);
 const email = value => (
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
     : undefined
 );
 
-class ResetForm extends React.Component {
-  render() {
-    const {
-      classes,
-      handleSubmit,
-      pristine,
-      submitting,
-      intl,
-      messagesAuth,
-      closeMsg
-    } = this.props;
-    return (
-      <section>
-        <div className={Type.textCenter}>
-          <NavLink to="/" className={classNames(classes.brand, classes.centerFlex)}>
-            <img src={logo} alt={brand.name} />
-            {brand.name}
-          </NavLink>
-        </div>
-        <Paper className={classes.paperWrap}>
-          <Typography variant="h4" className={classNames(classes.title, Type.textCenter)} gutterBottom>
-            <FormattedMessage {...messages.resetTitle} />
-          </Typography>
-          <Typography variant="caption" component="p" className={classes.subtitle} gutterBottom align="center">
-            <FormattedMessage {...messages.resetSubtitle} />
-          </Typography>
-          <section className={classes.formWrap}>
-            {
-              messagesAuth !== null || ''
-                ? (
-                  <MessagesForm
-                    variant={messagesAuth === 'LINK.PASSWORD_RESET.SENT' ? 'success' : 'error'}
-                    className={classes.msgUser}
-                    message={messagesAuth === 'LINK.PASSWORD_RESET.SENT' ? 'Reset link has been sent to Your\'e email' : messagesAuth}
-                    onClose={closeMsg}
-                  />
-                )
-                : ''
-            }
-            <form onSubmit={handleSubmit}>
-              <div>
-                <FormControl className={classes.formControl}>
-                  <Field
-                    name="email"
-                    component={TextFieldRedux}
-                    placeholder={intl.formatMessage(messages.loginFieldEmail)}
-                    label={intl.formatMessage(messages.loginFieldEmail)}
-                    required
-                    validate={[required, email]}
-                    className={classes.field}
-                  />
-                </FormControl>
-              </div>
-              <div className={classes.btnArea}>
-                <Button variant="contained" color="primary" type="submit">
-                  <FormattedMessage {...messages.resetButton} />
-                  <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />
-                </Button>
-              </div>
-            </form>
-          </section>
-        </Paper>
-      </section>
-    );
-  }
+function ResetForm(props) {
+  const {
+    classes,
+    handleSubmit,
+    pristine,
+    submitting,
+    intl,
+    messagesAuth,
+    closeMsg
+  } = props;
+
+  return (
+    <section>
+      <div className={Type.textCenter}>
+        <NavLink to="/" className={classNames(classes.brand, classes.centerFlex)}>
+          <img src={logo} alt={brand.name} />
+          {brand.name}
+        </NavLink>
+      </div>
+      <Paper className={classes.paperWrap}>
+        <Typography variant="h4" className={classNames(classes.title, Type.textCenter)} gutterBottom>
+          <FormattedMessage {...messages.resetTitle} />
+        </Typography>
+        <Typography variant="caption" component="p" className={classes.subtitle} gutterBottom align="center">
+          <FormattedMessage {...messages.resetSubtitle} />
+        </Typography>
+        <section className={classes.formWrap}>
+          {
+            messagesAuth !== null || ''
+              ? (
+                <MessagesForm
+                  variant={messagesAuth === 'LINK.PASSWORD_RESET.SENT' ? 'success' : 'error'}
+                  className={classes.msgUser}
+                  message={messagesAuth === 'LINK.PASSWORD_RESET.SENT' ? 'Reset link has been sent to Your\'e email' : messagesAuth}
+                  onClose={closeMsg}
+                />
+              )
+              : ''
+          }
+          <form onSubmit={handleSubmit}>
+            <div>
+              <FormControl className={classes.formControl}>
+                <Field
+                  name="email"
+                  component={TextFieldRedux}
+                  placeholder={intl.formatMessage(messages.loginFieldEmail)}
+                  label={intl.formatMessage(messages.loginFieldEmail)}
+                  required
+                  validate={[required, email]}
+                  className={classes.field}
+                />
+              </FormControl>
+            </div>
+            <div className={classes.btnArea}>
+              <Button variant="contained" color="primary" type="submit">
+                <FormattedMessage {...messages.resetButton} />
+                <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />
+              </Button>
+            </div>
+          </form>
+        </section>
+      </Paper>
+    </section>
+  );
 }
 
 ResetForm.propTypes = {

@@ -17,7 +17,6 @@ import Typography from '@material-ui/core/Typography';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Ionicon from 'react-ionicons';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import {
   signInWithGithub,
@@ -49,169 +48,159 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
 
-class RegisterFormFirebase extends React.Component { // eslint-disable-line
-  handleClickShowPassword = () => {
-    const { showPassword } = this.state;
-    this.setState({ showPassword: !showPassword });
-  };
+function RegisterFormFirebase(props) {
+  const {
+    classes,
+    handleSubmit,
+    pristine,
+    submitting,
+    intl,
+    signInWithGithubFn,
+    signInWithGoogleFn,
+    signInWithTwitterFn,
+    messagesAuth,
+    closeMsg,
+    loading
+  } = props;
 
-  handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
-
-  render() {
-    const {
-      classes,
-      handleSubmit,
-      pristine,
-      submitting,
-      intl,
-      signInWithGithubFn,
-      signInWithGoogleFn,
-      signInWithTwitterFn,
-      messagesAuth,
-      closeMsg,
-      loading
-    } = this.props;
-    return (
-      <Paper className={classes.sideWrap}>
-        <Hidden mdUp>
-          <div className={classes.headLogo}>
-            <NavLink to="/" className={classes.brand}>
-              <img src={logo} alt={brand.name} />
-              {brand.name}
-            </NavLink>
-          </div>
-        </Hidden>
-        <div className={classes.topBar}>
-          <Typography variant="h4" className={classes.title}>
-            <FormattedMessage {...messages.register} />
-          </Typography>
-          <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login-firebase">
-            <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
-            <FormattedMessage {...messages.toAccount} />
-          </Button>
+  return (
+    <Paper className={classes.sideWrap}>
+      <Hidden mdUp>
+        <div className={classes.headLogo}>
+          <NavLink to="/" className={classes.brand}>
+            <img src={logo} alt={brand.name} />
+            {brand.name}
+          </NavLink>
         </div>
-        {
-          messagesAuth !== null || ''
-            ? (
-              <MessagesForm
-                variant="error"
-                className={classes.msgUser}
-                message={messagesAuth}
-                onClose={closeMsg}
+      </Hidden>
+      <div className={classes.topBar}>
+        <Typography variant="h4" className={classes.title}>
+          <FormattedMessage {...messages.register} />
+        </Typography>
+        <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login-firebase">
+          <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
+          <FormattedMessage {...messages.toAccount} />
+        </Button>
+      </div>
+      {
+        messagesAuth !== null || ''
+          ? (
+            <MessagesForm
+              variant="error"
+              className={classes.msgUser}
+              message={messagesAuth}
+              onClose={closeMsg}
+            />
+          )
+          : ''
+      }
+      <section>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="name"
+                component={TextFieldRedux}
+                placeholder={intl.formatMessage(messages.loginFieldName)}
+                label={intl.formatMessage(messages.loginFieldName)}
+                required
+                className={classes.field}
               />
-            )
-            : ''
-        }
-        <section>
-          <form onSubmit={handleSubmit}>
-            <div>
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="email"
+                component={TextFieldRedux}
+                placeholder={intl.formatMessage(messages.loginFieldEmail)}
+                label={intl.formatMessage(messages.loginFieldEmail)}
+                required
+                validate={[required, email]}
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
               <FormControl className={classes.formControl}>
                 <Field
-                  name="name"
+                  name="password"
                   component={TextFieldRedux}
-                  placeholder={intl.formatMessage(messages.loginFieldName)}
-                  label={intl.formatMessage(messages.loginFieldName)}
+                  type="password"
+                  label={intl.formatMessage(messages.loginFieldPassword)}
                   required
+                  validate={[required, passwordsMatch]}
                   className={classes.field}
                 />
               </FormControl>
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <Field
-                  name="email"
-                  component={TextFieldRedux}
-                  placeholder={intl.formatMessage(messages.loginFieldEmail)}
-                  label={intl.formatMessage(messages.loginFieldEmail)}
-                  required
-                  validate={[required, email]}
-                  className={classes.field}
-                />
-              </FormControl>
-            </div>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <FormControl className={classes.formControl}>
-                  <Field
-                    name="password"
-                    component={TextFieldRedux}
-                    type="password"
-                    label={intl.formatMessage(messages.loginFieldPassword)}
-                    required
-                    validate={[required, passwordsMatch]}
-                    className={classes.field}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl className={classes.formControl}>
-                  <Field
-                    name="passwordConfirm"
-                    component={TextFieldRedux}
-                    type="password"
-                    label={intl.formatMessage(messages.loginFieldRetypePassword)}
-                    required
-                    validate={[required, passwordsMatch]}
-                    className={classes.field}
-                  />
-                </FormControl>
-              </Grid>
             </Grid>
-            <div>
-              <FormControlLabel control={<Field name="checkbox" required component={CheckboxRedux} className={classes.agree} />} label={intl.formatMessage(messages.aggree)} />
-              <a href="/terms-conditions" target="_blank" className={classes.link}>
-                <FormattedMessage {...messages.terms} />
-              </a>
-            </div>
-            <div className={classes.btnArea}>
-              <Button variant="contained" fullWidth disabled={loading} color="primary" type="submit">
-                {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-                <FormattedMessage {...messages.loginButtonContinue} />
-                {!loading && <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
-              </Button>
-            </div>
-          </form>
-        </section>
-        <h5 className={classes.divider}>
-          <FormattedMessage {...messages.registerOr} />
-        </h5>
-        <section className={classes.socmedSideLogin}>
-          <Button
-            variant="contained"
-            className={classes.redBtn}
-            type="button"
-            size="large"
-            onClick={signInWithGoogleFn}
-          >
-            <Ionicon icon="logo-google" />
-            Google
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.cyanBtn}
-            type="button"
-            size="large"
-            onClick={signInWithTwitterFn}
-          >
-            <Ionicon icon="logo-twitter" />
-            Twitter
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.greyBtn}
-            type="button"
-            size="large"
-            onClick={signInWithGithubFn}
-          >
-            <Ionicon icon="logo-github" />
-            Github
-          </Button>
-        </section>
-      </Paper>
-    );
-  }
+            <Grid item xs={12} sm={6}>
+              <FormControl className={classes.formControl}>
+                <Field
+                  name="passwordConfirm"
+                  component={TextFieldRedux}
+                  type="password"
+                  label={intl.formatMessage(messages.loginFieldRetypePassword)}
+                  required
+                  validate={[required, passwordsMatch]}
+                  className={classes.field}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+          <div>
+            <FormControlLabel control={<Field name="checkbox" required component={CheckboxRedux} className={classes.agree} />} label={intl.formatMessage(messages.aggree)} />
+            <a href="/terms-conditions" target="_blank" className={classes.link}>
+              <FormattedMessage {...messages.terms} />
+            </a>
+          </div>
+          <div className={classes.btnArea}>
+            <Button variant="contained" fullWidth disabled={loading} color="primary" type="submit">
+              {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+              <FormattedMessage {...messages.loginButtonContinue} />
+              {!loading && <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
+            </Button>
+          </div>
+        </form>
+      </section>
+      <h5 className={classes.divider}>
+        <FormattedMessage {...messages.registerOr} />
+      </h5>
+      <section className={classes.socmedSideLogin}>
+        <Button
+          variant="contained"
+          className={classes.redBtn}
+          type="button"
+          size="large"
+          onClick={signInWithGoogleFn}
+        >
+          <i className="ion-social-google" />
+          Google
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.cyanBtn}
+          type="button"
+          size="large"
+          onClick={signInWithTwitterFn}
+        >
+          <i className="ion-social-twitter" />
+          Twitter
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.greyBtn}
+          type="button"
+          size="large"
+          onClick={signInWithGithubFn}
+        >
+          <i className="ion-social-github" />
+          Github
+        </Button>
+      </section>
+    </Paper>
+  );
 }
 
 RegisterFormFirebase.propTypes = {

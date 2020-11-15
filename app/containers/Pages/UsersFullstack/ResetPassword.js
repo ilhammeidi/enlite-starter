@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,45 +9,54 @@ import { ResetForm } from 'enl-components';
 import { passwordForget } from 'enl-redux/actions/authActions';
 import styles from '../../../components/Forms/user-jss';
 
-class ResetPassword extends React.Component {
-  state = {
-    valueForm: []
-  }
+function ResetPassword(props) {
+  const { classes, forgotPwd } = props;
+  const title = brand.name + ' - Reset Password';
+  const description = brand.desc;
+  const [valueForm, setValueForm] = useState(null);
 
-  submitForm(values) {
-    setTimeout(() => {
-      this.setState({ valueForm: values });
-      console.log(`You submitted:\n\n${this.state.valueForm}`); // eslint-disable-line
-      this.props.handleForgotPwd(this.state.valueForm.get('email')); // eslint-disable-line
-    }, 500); // simulate server latency
-  }
+  const submitForm = (values) => setValueForm(values);
 
-  render() {
-    const title = brand.name + ' - Reset Password';
-    const description = brand.desc;
-    const { classes } = this.props;
-    return (
-      <div className={classes.root}>
-        <Helmet>
-          <title>{title}</title>
-          <meta name="description" content={description} />
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          <meta property="twitter:title" content={title} />
-          <meta property="twitter:description" content={description} />
-        </Helmet>
-        <div className={classes.container}>
-          <div className={classes.userFormWrap}>
-            <ResetForm onSubmit={(values) => this.submitForm(values)} />
-          </div>
+  useEffect(() => {
+    if (valueForm) {
+      console.log(`You submitted:\n\n${valueForm}`); // eslint-disable-line
+      forgotPwd(valueForm.get('email')); // eslint-disable-line
+    }
+  }, [valueForm]);
+
+  return (
+    <div className={classes.root}>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+      </Helmet>
+      <div className={classes.container}>
+        <div className={classes.userFormWrap}>
+          <ResetForm onSubmit={(values) => submitForm(values)} />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 ResetPassword.propTypes = {
   classes: PropTypes.object.isRequired,
+  forgotPwd: PropTypes.func.isRequired,
+};
+
+function ResetWrap(props) {
+  const { handleForgotPwd } = props;
+  const ResetStyled = withStyles(styles)(ResetPassword);
+  return (
+    <ResetStyled forgotPwd={handleForgotPwd} />
+  );
+}
+
+ResetWrap.propTypes = {
   handleForgotPwd: PropTypes.func.isRequired,
 };
 
@@ -63,6 +72,6 @@ const mapDispatchToProps = dispatch => ({
 const ResetPasswordMapped = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResetPassword);
+)(ResetWrap);
 
-export default withStyles(styles)(ResetPasswordMapped);
+export default ResetPasswordMapped;

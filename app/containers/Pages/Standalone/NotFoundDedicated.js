@@ -7,17 +7,15 @@ import { ErrorWrap } from 'enl-components';
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'enl-components/Error/messages';
 
-class NotFoundDedicated extends React.Component {
-  render() {
-    const { classes, intl } = this.props;
-    return (
-      <div className={classNames(classes.appFrameOuter, classes.solidBg)}>
-        <main className={classes.outerContent} id="mainContent">
-          <ErrorWrap title="404" invert desc={intl.formatMessage(messages.title404)} />
-        </main>
-      </div>
-    );
-  }
+function NotFoundDedicated(props) {
+  const { classes, intl } = props;
+  return (
+    <div className={classNames(classes.appFrameOuter, classes.solidBg)}>
+      <main className={classes.outerContent} id="mainContent">
+        <ErrorWrap title="404" invert desc={intl.formatMessage(messages.title404)} />
+      </main>
+    </div>
+  );
 }
 
 NotFoundDedicated.propTypes = {
