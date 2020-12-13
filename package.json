@@ -1,6 +1,6 @@
 {
   "name": "enlite_starter",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "React.js fullstack web template for expert and experienced fullstack developer",
   "private": true,
   "engines": {
@@ -239,7 +239,7 @@
     "lint-staged": "8.1.5",
     "ngrok": "3.1.1",
     "node-plop": "0.18.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.14.0",
     "null-loader": "0.1.1",
     "offline-plugin": "5.0.6",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
@@ -252,7 +252,7 @@
     "react-app-polyfill": "0.2.2",
     "react-test-renderer": "16.8.6",
     "rimraf": "2.6.3",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^7.1.0",
     "sass-material-colors": "0.0.5",
     "shelljs": "^0.8.3",
     "style-loader": "0.23.1",
