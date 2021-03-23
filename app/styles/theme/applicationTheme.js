@@ -138,6 +138,7 @@ const applicationTheme = (color, mode, direction) => ({
             ? '1px solid rgba(255,255,255,0.32)'
             : '1px solid rgba(0,0,0,0.32)',
         borderRadius: 8,
+        overflow: 'hidden',
         alignItems: 'center',
         transition: 'border 0.3s ease',
       },
@@ -242,10 +243,11 @@ const applicationTheme = (color, mode, direction) => ({
         }
       },
       positionStart: {
-        marginLeft: 0,
+        marginRight: 0,
+        paddingRight: '0 !important'
       },
       positionEnd: {
-        marginRight: 0,
+        marginLeft: 0
       },
     },
     MuiToolbar: {
@@ -404,6 +406,11 @@ const applicationTheme = (color, mode, direction) => ({
         '&$selected': {
           backgroundColor: mode === 'dark' ? themePalette(color, mode).palette.primary.dark : themePalette(color, mode).palette.primary.light
         }
+      }
+    },
+    MUIDataTableToolbar: {
+      filterPaper: {
+        maxWidth: 'none'
       }
     },
     MUIDataTableToolbarSelect: {

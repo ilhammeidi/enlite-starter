@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
@@ -31,6 +32,7 @@ function MainMenuBig(props) { // eslint-disable-line
     intl,
     closeDrawer,
     openDrawer,
+    openSubMenu,
     mobile,
     loadTransition,
     toggleDrawerOpen
@@ -38,10 +40,13 @@ function MainMenuBig(props) { // eslint-disable-line
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [menuLoaded, setMenuLoaded] = useState(true);
 
-  const handleLoadMenu = (menu) => {
+  const handleLoadMenu = (menu, key) => {
     setSelectedMenu(menu);
     setMenuLoaded(false);
-
+    openSubMenu(key);
+    setTimeout(() => {
+      setMenuLoaded(true); // load transtion menu
+    }, 100);
     // Unecessary in mobile, because toggle menu already handled
     if (!mobile) {
       openDrawer();
@@ -52,10 +57,6 @@ function MainMenuBig(props) { // eslint-disable-line
     toggleDrawerOpen();
     loadTransition(false);
   };
-
-  useEffect(() => {
-    setMenuLoaded(true);
-  }, [selectedMenu]);
 
   const currentMenu = dataMenu.filter(item => item.key === open.get(0));
   const activeMenu = (key, child) => {
@@ -70,6 +71,7 @@ function MainMenuBig(props) { // eslint-disable-line
     }
     return false;
   };
+
   const getMenus = menuArray => menuArray.map((item, index) => {
     if (item.key === 'menu_levels') {
       return false;
@@ -79,7 +81,7 @@ function MainMenuBig(props) { // eslint-disable-line
         <ButtonBase
           key={index.toString()}
           focusRipple
-          onClick={() => handleLoadMenu(item.child)}
+          onClick={() => handleLoadMenu(item.child, item.key)}
           className={
             classNames(
               classes.menuHead,
@@ -206,6 +208,7 @@ MainMenuBig.propTypes = {
   open: PropTypes.object.isRequired,
   dataMenu: PropTypes.array.isRequired,
   openDrawer: PropTypes.func.isRequired,
+  openSubMenu: PropTypes.func.isRequired,
   closeDrawer: PropTypes.func.isRequired,
   loadTransition: PropTypes.func.isRequired,
   drawerPaper: PropTypes.bool.isRequired,
@@ -219,6 +222,7 @@ MainMenuBig.defaultProps = {
   mobile: false
 };
 
+const openAction = key => ({ type: 'OPEN_SUBMENU', key });
 const reducer = 'ui';
 
 const mapStateToProps = state => ({
@@ -228,7 +232,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openDrawer: () => dispatch(openMenuAction),
-  closeDrawer: () => dispatch(closeMenuAction)
+  closeDrawer: () => dispatch(closeMenuAction),
+  openSubMenu: bindActionCreators(openAction, dispatch)
 });
 
 const MainMenuBigMapped = connect(

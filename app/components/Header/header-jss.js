@@ -122,10 +122,12 @@ const styles = theme => ({
     maxWidth: 160,
     background: fade(theme.palette.text.primary, 0.05),
     border: 'none',
-    paddingRight: theme.spacing(4),
     '& i': {
       ...flagIcon
     }
+  },
+  selectbox: {
+    paddingRight: theme.spacing(4)
   },
   langItem: {
     display: 'block',
