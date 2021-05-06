@@ -149,7 +149,7 @@
     "react-clock": "^2.3.0",
     "react-countup": "^3.0.3",
     "react-dom": "16.8.6",
-    "react-draft-wysiwyg": "^1.12.13",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-dropzone": "^10.2.1",
     "react-event-listener": "^0.6.1",
     "react-google-maps": "^9.4.5",
