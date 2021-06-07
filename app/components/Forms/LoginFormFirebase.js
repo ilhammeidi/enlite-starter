@@ -165,7 +165,7 @@ function LoginForm(props) {
           size="large"
           onClick={signInWithGoogleFn}
         >
-          <i className="ion-social-google" />
+          <i className="ion-logo-google" />
           Google
         </Button>
         <Button
@@ -175,7 +175,7 @@ function LoginForm(props) {
           size="large"
           onClick={signInWithTwitterFn}
         >
-          <i className="ion-social-twitter" />
+          <i className="ion-logo-twitter" />
           Twitter
         </Button>
         <Button
@@ -185,7 +185,7 @@ function LoginForm(props) {
           size="large"
           onClick={signInWithGithubFn}
         >
-          <i className="ion-social-github" />
+          <i className="ion-logo-github" />
           Github
         </Button>
       </section>

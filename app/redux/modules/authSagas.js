@@ -57,7 +57,7 @@ function* loginWithEmailSaga(payload) {
     yield put(loginWithEmailSuccess(data));
     if (getUrlVars().next) {
       // Redirect to next route
-      yield history.push('/app/' + getUrlVars().next);
+      yield history.push(getUrlVars().next);
     } else {
       // Redirect to dashboard if no next parameter
       yield history.push('/app');

@@ -166,7 +166,7 @@ function RegisterForm(props) {
           type="button"
           size="large"
         >
-          <i className="ion-social-google" />
+          <i className="ion-logo-google" />
           Google
         </Button>
         <Button
@@ -175,7 +175,7 @@ function RegisterForm(props) {
           type="button"
           size="large"
         >
-          <i className="ion-social-twitter" />
+          <i className="ion-logo-twitter" />
           Twitter
         </Button>
         <Button
@@ -184,7 +184,7 @@ function RegisterForm(props) {
           type="button"
           size="large"
         >
-          <i className="ion-social-github" />
+          <i className="ion-logo-github" />
           Github
         </Button>
       </section>

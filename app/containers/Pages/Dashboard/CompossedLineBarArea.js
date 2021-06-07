@@ -38,7 +38,7 @@ function CompossedLineBarArea(props) {
   const { classes } = props;
   return (
     <div className={classes.chartFluid}>
-      <ResponsiveContainer>
+      <ResponsiveContainer width={800} height="80%">
         <ComposedChart
           width={800}
           height={450}

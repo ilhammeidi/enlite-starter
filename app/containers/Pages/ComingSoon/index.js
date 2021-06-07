@@ -78,13 +78,13 @@ function ComingSoon(props) {
               </div>
               <div className={classNames(classes.lockForm, classes.centerAdornment)}>
                 <IconButton color="primary" className={classes.button} href="#">
-                  <i className="ion-social-facebook" />
+                  <i className="ion-logo-facebook" />
                 </IconButton>
                 <IconButton color="primary" className={classes.button} href="#">
-                  <i className="ion-social-twitter" />
+                  <i className="ion-logo-twitter" />
                 </IconButton>
                 <IconButton color="primary" className={classes.button} href="#">
-                  <i className="ion-social-instagram" />
+                  <i className="ion-logo-instagram" />
                 </IconButton>
               </div>
             </section>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import Loading from 'react-loading-bar';
+import Loading from 'react-top-loading-bar';
 import { bindActionCreators } from 'redux';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
@@ -38,23 +38,8 @@ function ThemeWrapper(props) {
     direction,
     mode,
   } = props;
-  const [pageLoaded, setPageLoaded] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [theme, setTheme] = useState(createMuiTheme(applicationTheme(color, mode, direction)));
-
-  const onProgressShow = () => {
-    setPageLoaded(true);
-  };
-
-  const onProgressHide = () => {
-    setPageLoaded(false);
-  };
-
-  const playProgress = () => {
-    onProgressShow();
-    setTimeout(() => {
-      onProgressHide();
-    }, 500);
-  };
 
   const handleChangeMode = newMode => {
     setTheme(createMuiTheme(applicationTheme(color, newMode, direction)));
@@ -62,11 +47,8 @@ function ThemeWrapper(props) {
   };
 
   useEffect(() => {
-    playProgress();
-
-    return () => {
-      onProgressShow();
-    };
+    setLoading(0);
+    setTimeout(() => { setLoading(100); }, 2000);
   }, []);
 
   return (
@@ -75,9 +57,10 @@ function ThemeWrapper(props) {
         <div className={classes.root}>
           <div className={classes.pageLoader}>
             <Loading
-              show={pageLoaded}
+              height={0}
               color={theme.palette.primary.main}
-              showSpinner={false}
+              progress={loading}
+              className="top-loading-bar"
             />
           </div>
           <AppContext.Provider value={handleChangeMode}>

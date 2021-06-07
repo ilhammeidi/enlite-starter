@@ -323,7 +323,7 @@ const applicationTheme = (color, mode, direction) => ({
         color: themePalette(color, mode).palette.primary.main,
       },
     },
-    MuiExpansionPanel: {
+    MuiAccordion: {
       root: {
         '&:first-child': {
           borderTopLeftRadius: 8,
