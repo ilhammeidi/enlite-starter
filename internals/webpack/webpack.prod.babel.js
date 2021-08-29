@@ -19,8 +19,7 @@ module.exports = require('./webpack.base.babel')({
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
     filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js'
-    // publicPath: './' Please enable to use relative path for output assets
+    chunkFilename: '[name].[chunkhash].chunk.js',
   },
 
   optimization: {
@@ -75,7 +74,6 @@ module.exports = require('./webpack.base.babel')({
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'app/index.html',
-      publicPatch: './',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -86,7 +84,7 @@ module.exports = require('./webpack.base.babel')({
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
+        minifyURLs: true,
       },
       inject: true,
     }),

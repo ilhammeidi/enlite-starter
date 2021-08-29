@@ -3,10 +3,10 @@ import { PropTypes } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Axios from 'axios';
 import { connect } from 'react-redux';
-import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
-import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import lightStyle from 'react-syntax-highlighter/styles/prism/coy';
-import darkStyle from 'react-syntax-highlighter/styles/prism/atom-dark';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
+import lightStyle from 'react-syntax-highlighter/dist/esm/styles/prism/coy';
+import darkStyle from 'react-syntax-highlighter/dist/esm/styles/prism/atom-dark';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -78,6 +78,13 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    '& button': {
+      background: 'rgba(255, 255, 255, 0.4)',
+      color: '#000 !important',
+      '&:hover': {
+        background: 'rgba(255, 255, 255, 0.4) !important',
+      }
+    },
   },
 });
 
@@ -111,7 +118,7 @@ function SourceReader(props) {
     }
   }, [loading]);
 
-  registerLanguage('jsx', jsx);
+  SyntaxHighlighter.registerLanguage('jsx', jsx);
   if (!codePreview.enable) { return false; }
   return (
     <div>

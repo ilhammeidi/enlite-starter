@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,48 +13,44 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import styles from 'enl-components/Header/header-jss.js';
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lang: props.value,
-    };
-  }
+function Toggle(props) {
+  const {
+    value,
+    values,
+    onToggle,
+    messages,
+    intl,
+    classes
+  } = props;
+  const [lang, setLang] = useState(value);
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.props.onToggle(event); // eslint-disable-line
+  const handleChange = event => {
+    setLang(event.target.value);
+    onToggle(event);
   };
 
-  render() {
-    const { lang } = this.state;
-    const {
-      values,
-      messages,
-      intl,
-      classes
-    } = this.props;
-
-    return (
-      <form>
-        <FormControl>
-          <Select
-            className={classes.inputLang}
-            value={lang}
-            name="lang"
-            onChange={this.handleChange}
-          >
-            {values && values.map(val => (
-              <MenuItem key={val} className={classes.langItem} value={val}>
-                <i className={val} />
-                {messages[val] ? intl.formatMessage(messages[val]) : val}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </form>
-    );
-  }
+  return (
+    <form>
+      <FormControl>
+        <Select
+          className={classes.inputLang}
+          classes={{
+            root: classes.selectbox
+          }}
+          value={lang}
+          name="lang"
+          onChange={(e) => handleChange(e)}
+        >
+          {values && values.map(val => (
+            <MenuItem key={val} className={classes.langItem} value={val}>
+              <i className={val} />
+              {messages[val] ? intl.formatMessage(messages[val]) : val}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </form>
+  );
 }
 
 Toggle.propTypes = {

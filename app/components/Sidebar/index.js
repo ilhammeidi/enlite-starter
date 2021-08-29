@@ -67,6 +67,9 @@ function Sidebar(props) {
           className={open ? classes.drawer : ''}
           open={open}
           anchor={leftSidebar ? 'left' : 'right'}
+          classes={{
+            paperAnchorLeft: classes.drawerWrap
+          }}
         >
           <SidebarContent
             drawerPaper={open}

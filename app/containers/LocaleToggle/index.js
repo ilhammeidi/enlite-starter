@@ -16,9 +16,9 @@ import { appLocales } from '../../i18n';
 import changeLocale from '../LanguageProvider/actions';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 
-export class LocaleToggle extends React.PureComponent {
-  handleLocalToggle(event) {
-    const { onLocaleToggle, changeDirection } = this.props;
+function LocaleToggle(props) {
+  const { locale, onLocaleToggle, changeDirection } = props;
+  const handleLocalToggle = event => {
     // Change Language
     onLocaleToggle(event);
 
@@ -30,19 +30,16 @@ export class LocaleToggle extends React.PureComponent {
       document.dir = 'ltr';
       changeDirection('ltr');
     }
-  }
+  };
 
-  render() {
-    const { locale } = this.props;
-    return (
-      <Toggle
-        value={locale}
-        values={appLocales}
-        messages={messages}
-        onToggle={(e) => this.handleLocalToggle(e)}
-      />
-    );
-  }
+  return (
+    <Toggle
+      value={locale}
+      values={appLocales}
+      messages={messages}
+      onToggle={(e) => handleLocalToggle(e)}
+    />
+  );
 }
 
 LocaleToggle.propTypes = {

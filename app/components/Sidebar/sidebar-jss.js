@@ -12,6 +12,11 @@ const styles = theme => ({
   drawer: {
     width: drawerWidth
   },
+  drawerWrap: {
+    position: 'relative',
+    border: 'none',
+    background: 'none'
+  },
   drawerPaper: {
     position: 'relative',
     height: '100%',
