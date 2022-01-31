@@ -16,7 +16,6 @@ import styles from './appStyles-jss';
 
 function Dashboard(props) {
   const {
-    initialOpen,
     classes,
     children,
     toggleDrawer,
@@ -63,7 +62,7 @@ function Dashboard(props) {
 
     // Set expanded sidebar menu
     const currentPath = history.location.pathname;
-    initialOpen(currentPath);
+    props.initialOpen(currentPath);
     // Play page transition
     loadTransition(true);
 
@@ -202,16 +201,13 @@ Dashboard.defaultProps = {
   isAuthenticated: null
 };
 
-const reducerUi = 'ui';
-const reducerAuth = 'authReducer';
 const mapStateToProps = state => ({
-  sidebarOpen: state.getIn([reducerUi, 'sidebarOpen']),
-  pageLoaded: state.getIn([reducerUi, 'pageLoaded']),
-  mode: state.getIn([reducerUi, 'type']),
-  layout: state.getIn([reducerUi, 'layout']),
-  isAuthenticated: state.get(reducerAuth).loggedIn,
-  user: state.get(reducerAuth).user,
-  ...state,
+  sidebarOpen: state.ui.sidebarOpen,
+  pageLoaded: state.ui.pageLoaded,
+  mode: state.ui.type,
+  layout: state.ui.layout,
+  isAuthenticated: state.authReducer.loggedIn,
+  user: state.authReducer.user,
 });
 
 const mapDispatchToProps = dispatch => ({

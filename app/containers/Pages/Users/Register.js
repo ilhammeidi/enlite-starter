@@ -23,7 +23,7 @@ function Register(props) {
 
   useEffect(() => {
     if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.get('email')}`); // eslint-disable-line
+      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
       window.location.href = '/app';
     }
   }, [valueForm]);

@@ -170,18 +170,16 @@ function MegaMenu(props) { // eslint-disable-line
 
 MegaMenu.propTypes = {
   classes: PropTypes.object.isRequired,
-  open: PropTypes.object.isRequired,
+  open: PropTypes.array.isRequired,
   openSubMenu: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
   intl: intlShape.isRequired
 };
 
 const openAction = (key, keyParent) => ({ type: 'OPEN_SUBMENU', key, keyParent });
-const reducer = 'ui';
 
 const mapStateToProps = state => ({
-  force: state, // force active class for sidebar menu
-  open: state.getIn([reducer, 'subMenuOpen'])
+  open: state.ui.subMenuOpen
 });
 
 const mapDispatchToProps = dispatch => ({

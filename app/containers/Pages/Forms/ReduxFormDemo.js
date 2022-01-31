@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
@@ -207,15 +207,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ReduxFormMapped = reduxForm({
-  form: 'immutableExample',
+  form: 'formExample',
   enableReinitialize: true,
 })(ReduxFormDemo);
 
-const reducer = 'initval';
 const FormInit = connect(
   state => ({
-    force: state,
-    initialValues: state.getIn([reducer, 'formValues'])
+    initialValues: state.initval.formValues
   }),
   mapDispatchToProps,
 )(ReduxFormMapped);

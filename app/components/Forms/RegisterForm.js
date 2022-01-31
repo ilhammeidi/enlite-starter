@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import brand from 'enl-api/dummy/brand';
@@ -33,7 +33,7 @@ const email = value => (
 );
 
 const passwordsMatch = (value, allValues) => {
-  if (value !== allValues.get('password')) {
+  if (value !== allValues.password) {
     return 'Passwords dont match';
   }
   return undefined;
@@ -208,7 +208,7 @@ RegisterForm.defaultProps = {
 };
 
 const RegisterFormReduxed = reduxForm({
-  form: 'immutableExample',
+  form: 'registerForm',
   enableReinitialize: true,
 })(RegisterForm);
 
@@ -216,11 +216,9 @@ const mapDispatchToProps = {
   closeMsg: closeMsgAction
 };
 
-const reducerAuth = 'authReducer';
 const mapStateToProps = state => ({
-  messagesAuth: state.get(reducerAuth).message,
-  loading: state.get(reducerAuth).loading,
-  ...state,
+  messagesAuth: state.authReducer.message,
+  loading: state.authReducer.loading
 });
 
 const RegisterFormMapped = connect(

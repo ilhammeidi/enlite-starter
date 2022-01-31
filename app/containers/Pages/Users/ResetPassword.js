@@ -16,7 +16,7 @@ function ResetPassword(props) {
 
   useEffect(() => {
     if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm}`); // eslint-disable-line
+      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
     }
   }, [valueForm]);
 

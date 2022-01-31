@@ -23,7 +23,7 @@ function Login(props) {
 
   useEffect(() => {
     if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm}`);
+      console.log(`You submitted:\n\n${valueForm.email}`);
       window.location.href = '/app';
     }
   }, [valueForm]);

@@ -26,8 +26,8 @@ function Register(props) {
 
   useEffect(() => {
     if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.get('email')}`); // eslint-disable-line
-      handleRegister(valueForm.get('name'), valueForm.get('email'), valueForm.get('password')); // eslint-disable-line
+      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
+      handleRegister(valueForm.name, valueForm.email, valueForm.password); // eslint-disable-line
     }
   }, [valueForm]);
 
@@ -94,7 +94,7 @@ RegisterWrap.propTypes = {
   handleRegisterWithEmail: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => state.get('authReducer');
+const mapStateToProps = state => state.authReducer;
 
 const mapDispatchToProps = dispatch => ({
   handleRegisterWithEmail: bindActionCreators(registerWithEmail, dispatch)

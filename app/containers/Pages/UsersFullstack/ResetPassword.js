@@ -20,7 +20,7 @@ function ResetPassword(props) {
   useEffect(() => {
     if (valueForm) {
       console.log(`You submitted:\n\n${valueForm}`); // eslint-disable-line
-      forgotPwd(valueForm.get('email')); // eslint-disable-line
+      forgotPwd(valueForm.email); // eslint-disable-line
     }
   }, [valueForm]);
 
@@ -60,9 +60,8 @@ ResetWrap.propTypes = {
   handleForgotPwd: PropTypes.func.isRequired,
 };
 
-const reducer = 'authReducer';
 const mapStateToProps = state => ({
-  state: state.get(reducer)
+  state: state.authReducer
 });
 
 const mapDispatchToProps = dispatch => ({

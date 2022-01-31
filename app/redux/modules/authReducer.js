@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import produce from 'immer';
 import {
   LOGIN_REQUEST,
   LOGIN_WITH_EMAIL_REQUEST,
@@ -19,34 +19,31 @@ import {
   HIDE_MSG
 } from '../constants/authConstants';
 
-export const AuthState = new Record({
+export const AuthState = {
   loading: false,
   loggedIn: null,
   user: null,
   uid: null,
   message: null
-});
+};
 
-export default function authReducer(state = new AuthState(), action = {}) {
+/* eslint-disable default-case, no-param-reassign */
+const authReducer = (state = AuthState, action = {}) => produce(state, draft => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case LOGIN_WITH_EMAIL_REQUEST:
     case REGISTER_WITH_EMAIL_REQUEST:
     case LOGOUT_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        message: null
-      };
+      draft.loading = true;
+      draft.message = null;
+      break;
 
     case LOGIN_SUCCESS:
     case LOGIN_WITH_EMAIL_SUCCESS:
     case CREATE_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        loggedIn: true
-      };
+      draft.loading = false;
+      draft.loggedIn = true;
+      break;
 
     case LOGIN_FAILURE:
     case LOGIN_WITH_EMAIL_FAILURE:
@@ -54,39 +51,32 @@ export default function authReducer(state = new AuthState(), action = {}) {
     case CREATE_USER_FAILURE:
     case PASSWORD_FORGET_FAILURE:
     case LOGOUT_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        message: action.error.message
-      };
+      draft.loading = false;
+      draft.message = action.error.message;
+      break;
 
     case PASSWORD_FORGET_SUCCESS:
-      return {
-        ...state,
-        message: 'LINK.PASSWORD_RESET.SENT'
-      };
+      draft.message = 'LINK.PASSWORD_RESET.SENT';
+      break;
 
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        loggedIn: false
-      };
+      draft.loading = false;
+      draft.loggedIn = false;
+      break;
 
     case SYNC_USER:
-      return {
-        ...state,
-        loggedIn: action.user != null,
-        user: action.user,
-        loading: false,
-      };
+      draft.loggedIn = action.user != null;
+      draft.user = action.user;
+      draft.loading = false;
+      break;
 
     case HIDE_MSG:
-      return {
-        message: null
-      };
+      draft.message = null;
+      break;
 
     default:
-      return state;
+      break;
   }
-}
+});
+
+export default authReducer;

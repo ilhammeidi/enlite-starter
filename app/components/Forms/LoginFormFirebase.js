@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
@@ -141,7 +141,7 @@ function LoginForm(props) {
               control={<Field name="checkbox" component={CheckboxRedux} />}
               label={intl.formatMessage(messages.loginRemember)}
             />
-            <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>
+            <Button size="small" component={LinkBtn} to="/reset-firebase" className={classes.buttonLink}>
               <FormattedMessage {...messages.loginForgotPassword} />
             </Button>
           </div>
@@ -213,7 +213,7 @@ LoginForm.defaultProps = {
 };
 
 const LoginFormReduxed = reduxForm({
-  form: 'immutableExample',
+  form: 'loginFormFirebase',
   enableReinitialize: true,
 })(LoginForm);
 
@@ -224,11 +224,9 @@ const mapDispatchToProps = {
   closeMsg: closeMsgAction
 };
 
-const reducerAuth = 'authReducer';
 const mapStateToProps = state => ({
-  messagesAuth: state.get(reducerAuth).message,
-  loading: state.get(reducerAuth).loading,
-  ...state,
+  messagesAuth: state.authReducer.message,
+  loading: state.authReducer.loading
 });
 
 const LoginFormMapped = connect(

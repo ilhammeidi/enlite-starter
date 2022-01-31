@@ -140,6 +140,7 @@ const styles = theme => ({
       width: 80,
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      fontWeight: theme.typography.fontWeightBold,
       whiteSpace: 'nowrap',
       display: 'block',
       fontSize: 12,

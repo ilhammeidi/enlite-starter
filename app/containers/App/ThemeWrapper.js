@@ -81,12 +81,10 @@ ThemeWrapper.propTypes = {
   changeMode: PropTypes.func.isRequired,
 };
 
-const reducer = 'ui';
 const mapStateToProps = state => ({
-  ...state, // force state from reducer
-  color: state.getIn([reducer, 'theme']),
-  mode: state.getIn([reducer, 'type']),
-  direction: state.getIn([reducer, 'direction']),
+  color: state.ui.theme,
+  mode: state.ui.type,
+  direction: state.ui.direction
 });
 
 const dispatchToProps = dispatch => ({

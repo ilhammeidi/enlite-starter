@@ -58,7 +58,7 @@ function MainMenuBig(props) { // eslint-disable-line
     loadTransition(false);
   };
 
-  const currentMenu = dataMenu.filter(item => item.key === open.get(0));
+  const currentMenu = dataMenu.filter(item => item.key === open[0]);
   const activeMenu = (key, child) => {
     if (selectedMenu.length < 1) {
       if (open.indexOf(key) > -1) {
@@ -205,7 +205,7 @@ function MainMenuBig(props) { // eslint-disable-line
 MainMenuBig.propTypes = {
   classes: PropTypes.object.isRequired,
   userAttr: PropTypes.object.isRequired,
-  open: PropTypes.object.isRequired,
+  open: PropTypes.array.isRequired,
   dataMenu: PropTypes.array.isRequired,
   openDrawer: PropTypes.func.isRequired,
   openSubMenu: PropTypes.func.isRequired,
@@ -223,11 +223,9 @@ MainMenuBig.defaultProps = {
 };
 
 const openAction = key => ({ type: 'OPEN_SUBMENU', key });
-const reducer = 'ui';
 
 const mapStateToProps = state => ({
-  open: state.getIn([reducer, 'subMenuOpen']),
-  ...state
+  open: state.ui.subMenuOpen
 });
 
 const mapDispatchToProps = dispatch => ({
