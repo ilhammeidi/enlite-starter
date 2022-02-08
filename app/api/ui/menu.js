@@ -77,19 +77,19 @@ module.exports = [
         key: 'dashboard',
         name: 'Dashboard',
         icon: 'settings_brightness',
-        link: '/app/dashboard'
+        link: '/app/pages/dashboard'
       },
       {
         key: 'forms',
         name: 'Form',
-        link: '/app/form',
+        link: '/app/pages/form',
         icon: 'ballot',
       },
       {
         key: 'tables',
         name: 'Table',
         icon: 'grid_on',
-        link: '/app/table'
+        link: '/app/pages/table'
       },
       {
         key: 'maintenance',

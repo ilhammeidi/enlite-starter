@@ -26,8 +26,7 @@ function Login(props) {
 
   useEffect(() => {
     if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm}`);
-      handleLogin(valueForm.get('email'), valueForm.get('password')); // eslint-disable-line
+      handleLogin(valueForm.email, valueForm.password); // eslint-disable-line
     }
   }, [valueForm]);
 
@@ -96,9 +95,8 @@ LoginWrap.propTypes = {
   handleLoginWithEmail: PropTypes.func.isRequired,
 };
 
-const reducer = 'authReducer';
 const mapStateToProps = state => ({
-  state: state.get(reducer)
+  state: state.authReducer
 });
 
 const mapDispatchToProps = dispatch => ({

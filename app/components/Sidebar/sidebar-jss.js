@@ -333,8 +333,8 @@ const styles = theme => ({
         paddingTop: theme.spacing(5)
       },
       [theme.breakpoints.down('lg')]: {
-        height: 'calc(100% - 164px)',
-        paddingTop: theme.spacing(5)
+        height: 'calc(100% - 80px)',
+        paddingTop: theme.spacing(2)
       }
     },
     '&$rounded': {

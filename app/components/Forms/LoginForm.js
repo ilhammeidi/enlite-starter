@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
@@ -199,7 +199,7 @@ LoginForm.defaultProps = {
 };
 
 const LoginFormReduxed = reduxForm({
-  form: 'immutableExample',
+  form: 'loginForm',
   enableReinitialize: true,
 })(LoginForm);
 
@@ -207,11 +207,9 @@ const mapDispatchToProps = {
   closeMsg: closeMsgAction
 };
 
-const reducerAuth = 'authReducer';
 const mapStateToProps = state => ({
-  messagesAuth: state.get(reducerAuth).message,
-  loading: state.get(reducerAuth).loading,
-  ...state,
+  messagesAuth: state.authReducer.message,
+  loading: state.authReducer.loading
 });
 
 const LoginFormMapped = connect(

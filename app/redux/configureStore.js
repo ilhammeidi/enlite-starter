@@ -3,13 +3,22 @@
  */
 
 import { createStore, applyMiddleware, compose } from 'redux';
-import { fromJS } from 'immutable';
-import { routerMiddleware } from 'connected-react-router/immutable';
+import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import createReducer from './reducers';
 import sagas from '../utils/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
+
+const persistConfig = {
+  key: 'enlite',
+  storage,
+  whitelist: []
+};
+
+const persistedReducer = persistReducer(persistConfig, createReducer());
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -31,10 +40,12 @@ export default function configureStore(initialState = {}, history) {
       : compose;
   /* eslint-enable */
   const store = createStore(
-    createReducer(),
-    fromJS(initialState),
+    persistedReducer,
+    initialState,
     composeEnhancers(...enhancers),
   );
+
+  const persistor = persistStore(store);
 
   // Extensions
   sagaMiddleware.run(sagas);
@@ -49,5 +60,5 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
-  return store;
+  return { store, persistor };
 }

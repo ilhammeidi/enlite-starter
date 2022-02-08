@@ -16,7 +16,7 @@ export default function withAuthorizationRouter(Component) {
         }
         // Is not authenticate
         if (isAuth === false) {
-          return (<Redirect to={`/login?next=${redirectAfterLogin}`} />);
+          return (<Redirect to={`/login-firebase?next=${redirectAfterLogin}`} />);
         }
         // Is authenticate
         return (
@@ -40,9 +40,8 @@ export default function withAuthorizationRouter(Component) {
     isAuthenticated: null
   };
 
-  const reducer = 'authReducer';
   const mapStateToProps = (state) => ({
-    isAuthenticated: state.get(reducer).loggedIn,
+    isAuthenticated: state.authReducer.loggedIn,
     ...state
   });
 

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowForward from '@material-ui/icons/ArrowForward';
@@ -109,7 +109,7 @@ ResetForm.defaultProps = {
 };
 
 const ResetFormReduxed = reduxForm({
-  form: 'immutableEResetFrm',
+  form: 'resetForm',
   enableReinitialize: true,
 })(ResetForm);
 
@@ -117,10 +117,8 @@ const mapDispatchToProps = {
   closeMsg: closeMsgAction
 };
 
-const reducerAuth = 'authReducer';
 const mapStateToProps = state => ({
-  messagesAuth: state.get(reducerAuth).message,
-  ...state,
+  messagesAuth: state.authReducer.message
 });
 
 const ResetFormMapped = connect(

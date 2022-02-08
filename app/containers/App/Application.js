@@ -22,12 +22,12 @@ function Application(props) {
       <Switch>
         { /* Home */ }
         <Route exact path="/app" component={BlankPage} />
-        <Route path="/app/dashboard" component={DashboardPage} />
-        <Route path="/app/form" component={Form} />
-        <Route path="/app/table" component={Table} />
-        <Route path="/app/page-list" component={Parent} />
-        <Route path="/app/pages/not-found" component={NotFound} />
-        <Route path="/app/pages/error" component={Error} />
+        <Route path="/app/pages/dashboard" component={DashboardPage} />
+        <Route path="/app/pages/form" component={Form} />
+        <Route path="/app/pages/table" component={Table} />
+        <Route path="/app/pages/page-list" component={Parent} />
+        <Route path="/app/pages/pages/not-found" component={NotFound} />
+        <Route path="/app/pages/pages/error" component={Error} />
         <Route component={NotFound} />
       </Switch>
     </Dashboard>
