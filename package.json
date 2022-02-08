@@ -252,7 +252,7 @@
     "sass": "^1.37.5",
     "sass-loader": "8.0.0",
     "sass-material-colors": "0.0.5",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "style-loader": "0.23.1",
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "2.2.0",
