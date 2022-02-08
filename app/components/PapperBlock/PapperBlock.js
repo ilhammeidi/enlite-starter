@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'recompose';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -84,4 +83,4 @@ PapperBlock.defaultProps = {
   icon: 'flag'
 };
 
-export default compose(withStyles(styles))(PapperBlock);
+export default withStyles(styles)(PapperBlock);

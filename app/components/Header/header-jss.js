@@ -1,4 +1,4 @@
-import { fade, lighten } from '@material-ui/core/styles/colorManipulator';
+import { alpha, lighten } from '@material-ui/core/styles';
 import flag from 'enl-images/flag-lang.png';
 const drawerWidth = 240;
 
@@ -70,7 +70,7 @@ const styles = theme => ({
       padding: `${theme.spacing(0.5)}px 0`,
     },
     [theme.breakpoints.up('lg')]: {
-      background: fade(theme.palette.background.paper, 0.8),
+      background: alpha(theme.palette.background.paper, 0.8),
     },
     '& $brand': {
       marginLeft: theme.spacing(3)
@@ -120,7 +120,7 @@ const styles = theme => ({
   light: {},
   inputLang: {
     maxWidth: 160,
-    background: fade(theme.palette.text.primary, 0.05),
+    background: alpha(theme.palette.text.primary, 0.05),
     border: 'none',
     '& i': {
       ...flagIcon
@@ -144,7 +144,7 @@ const styles = theme => ({
     marginLeft: theme.spacing(1),
     borderRadius: theme.spacing(1),
     display: 'inline-block',
-    background: fade(theme.palette.text.primary, 0.05),
+    background: alpha(theme.palette.text.primary, 0.05),
     '& $miniInput': {
       width: 70
     },
@@ -231,7 +231,7 @@ const styles = theme => ({
     },
     '&$light': {
       '& svg': {
-        fill: fade(theme.palette.text.hint, 0.48),
+        fill: alpha(theme.palette.text.hint, 0.48),
       }
     },
   },
@@ -254,7 +254,7 @@ const styles = theme => ({
     display: 'flex',
     paddingLeft: theme.spacing(1.5),
     '& svg': {
-      fill: theme.palette.type === 'dark' ? fade(theme.palette.primary.light, 0.64) : fade(theme.palette.primary.dark, 0.64)
+      fill: theme.palette.type === 'dark' ? alpha(theme.palette.primary.light, 0.64) : alpha(theme.palette.primary.dark, 0.64)
     }
   },
   dense: {
@@ -347,7 +347,7 @@ const styles = theme => ({
         color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
       },
       '&:hover': {
-        backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.secondary.main, 0.24) : theme.palette.secondary.light,
+        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.main, 0.24) : theme.palette.secondary.light,
       }
     }
   },
@@ -371,12 +371,12 @@ const styles = theme => ({
     },
     '&$active': {
       border: `1px solid ${theme.palette.primary.main}`,
-      backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+      backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
       '& span': {
         color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
       },
       '&:hover': {
-        backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
       }
     }
   },
@@ -412,7 +412,7 @@ const styles = theme => ({
     transition: 'opacity 0.5s ease',
     '& $button': {
       '& svg': {
-        fill: fade(theme.palette.text.hint, 0.48),
+        fill: alpha(theme.palette.text.hint, 0.48),
         width: 28,
         height: 28
       }
@@ -423,7 +423,7 @@ const styles = theme => ({
     '&$invert': {
       '& $button': {
         '& svg': {
-          fill: fade(theme.palette.text.primary, 0.5),
+          fill: alpha(theme.palette.text.primary, 0.5),
         }
       }
     }

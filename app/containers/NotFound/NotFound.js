@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import { Route } from 'react-router-dom';
 import { ErrorWrap } from 'enl-components';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import messages from 'enl-components/Error/messages';
 
 const title = brand.name + ' - Page Not Found';
@@ -34,7 +35,7 @@ const NotFound = (props) => (
 );
 
 NotFound.propTypes = {
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 export default injectIntl(NotFound);

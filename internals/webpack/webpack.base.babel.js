@@ -79,8 +79,9 @@ module.exports = options => ({
           loader: 'css-loader',
           options:
           {
+            esModule: false,
             sourceMap: false,
-            importLoaders: 2,
+            importLoaders: 10,
             modules: true
           }
         },

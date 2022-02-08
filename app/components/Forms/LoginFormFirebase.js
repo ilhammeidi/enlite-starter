@@ -20,7 +20,7 @@ import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import {
   signInWithGithub,
   signInWithGoogle,
@@ -155,7 +155,9 @@ function LoginForm(props) {
         </form>
       </section>
       <h5 className={classes.divider}>
-        <FormattedMessage {...messages.loginOr} />
+        <span>
+          <FormattedMessage {...messages.loginOr} />
+        </span>
       </h5>
       <section className={classes.socmedSideLogin}>
         <Button
@@ -198,7 +200,7 @@ LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   messagesAuth: PropTypes.string,
   signInWithGithubFn: PropTypes.func.isRequired,
   signInWithGoogleFn: PropTypes.func.isRequired,

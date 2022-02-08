@@ -17,7 +17,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Icon from '@material-ui/core/Icon';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import styles from './header-jss';
 
@@ -97,7 +97,7 @@ function MegaMenu(props) { // eslint-disable-line
                   <Paper className={classes.dropDownMenu}>
                     <ClickAwayListener onClickAway={handleClose}>
                       <Grid container>
-                        <Grid item md={3} container justify="center">
+                        <Grid item md={3} container justifyContent="center">
                           <span className={classes.bigIcon}>
                             <Icon>{item.icon}</Icon>
                           </span>
@@ -173,7 +173,7 @@ MegaMenu.propTypes = {
   open: PropTypes.array.isRequired,
   openSubMenu: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 const openAction = (key, keyParent) => ({ type: 'OPEN_SUBMENU', key, keyParent });

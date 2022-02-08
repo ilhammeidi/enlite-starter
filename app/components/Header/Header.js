@@ -19,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import { NavLink, Link } from 'react-router-dom';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import menuMessages from 'enl-api/ui/menuMessages';
 import link from 'enl-api/ui/link';
 import UserMenu from './UserMenu';
@@ -240,7 +240,7 @@ Header.propTypes = {
   openGuide: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 Header.defaultProps = {

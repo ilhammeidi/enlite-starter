@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -96,16 +96,16 @@ const styles = theme => ({
       }
     },
     '& ::-webkit-input-placeholder': { /* Chrome/Opera/Safari */
-      color: `${fade(theme.palette.text.primary, 0.8)}`
+      color: `${alpha(theme.palette.text.primary, 0.8)}`
     },
     '& ::-moz-placeholder': { /* Firefox 19+ */
-      color: `${fade(theme.palette.text.primary, 0.8)}`
+      color: `${alpha(theme.palette.text.primary, 0.8)}`
     },
     '& :-ms-input-placeholder': { /* IE 10+ */
-      color: `${fade(theme.palette.text.primary, 0.8)}`
+      color: `${alpha(theme.palette.text.primary, 0.8)}`
     },
     '& :-moz-placeholder': { /* Firefox 18- */
-      color: `${fade(theme.palette.text.primary, 0.8)}`
+      color: `${alpha(theme.palette.text.primary, 0.8)}`
     },
   },
   containerSearch: {

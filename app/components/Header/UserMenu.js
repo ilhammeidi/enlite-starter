@@ -36,7 +36,6 @@ function UserMenu(props) {
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
-
   const handleMenu = menu => (event) => {
     setOpenMenu(openMenu === menu ? null : menu);
     setAnchorEl(event.currentTarget);

@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import red from '@material-ui/core/colors/red';
 import amber from '@material-ui/core/colors/amber';
@@ -93,7 +93,7 @@ const styles = theme => ({
   drawerInnerMobile: {
     // Make the items inside not wrap when transitioning:
     height: '100%',
-    backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.background.paper, 0.75) : fade(theme.palette.background.paper, 0.95),
+    backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.background.paper, 0.75) : alpha(theme.palette.background.paper, 0.95),
   },
   drawerHeader: {
     zIndex: 1,
@@ -157,7 +157,7 @@ const styles = theme => ({
     }
   },
   active: {
-    backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+    backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
     '& $primary': {
       color: theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
     },
@@ -165,7 +165,7 @@ const styles = theme => ({
       fill: theme.palette.primary.dark,
     },
     '&:hover, &:focus': {
-      backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+      backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
     }
   },
   nolist: {
@@ -176,7 +176,7 @@ const styles = theme => ({
   },
   icon: {
     minWidth: theme.spacing(5),
-    color: fade(theme.palette.text.hint, 0.48)
+    color: alpha(theme.palette.text.hint, 0.48)
   },
   iconed: {
     '&$opened': {
@@ -187,7 +187,7 @@ const styles = theme => ({
         height: theme.spacing(6),
         top: 0,
         left: 0,
-        background: fade(theme.palette.primary.main, 0.5)
+        background: alpha(theme.palette.primary.main, 0.5)
       }
     }
   },

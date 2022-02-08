@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import styles from 'enl-components/Forms/user-jss';
 import messages from './messages';
 
@@ -97,7 +97,7 @@ function ComingSoon(props) {
 
 ComingSoon.propTypes = {
   classes: PropTypes.object.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(injectIntl(ComingSoon));

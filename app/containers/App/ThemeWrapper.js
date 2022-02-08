@@ -8,7 +8,7 @@ import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/styles';
 import {
   withTheme, withStyles,
-  createMuiTheme, MuiThemeProvider
+  createTheme, MuiThemeProvider
 } from '@material-ui/core/styles';
 import 'enl-styles/vendors/react-loading-bar/index.css';
 import { changeModeAction } from 'enl-redux/actions/uiActions';
@@ -39,10 +39,10 @@ function ThemeWrapper(props) {
     mode,
   } = props;
   const [loading, setLoading] = useState(0);
-  const [theme, setTheme] = useState(createMuiTheme(applicationTheme(color, mode, direction)));
+  const [theme, setTheme] = useState(createTheme(applicationTheme(color, mode, direction)));
 
   const handleChangeMode = newMode => {
-    setTheme(createMuiTheme(applicationTheme(color, newMode, direction)));
+    setTheme(createTheme(applicationTheme(color, newMode, direction)));
     changeMode(newMode);
   };
 

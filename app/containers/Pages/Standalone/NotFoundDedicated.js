@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import styles from 'containers/Templates/appStyles-jss';
 import { ErrorWrap } from 'enl-components';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import messages from 'enl-components/Error/messages';
 
 function NotFoundDedicated(props) {
@@ -20,7 +20,7 @@ function NotFoundDedicated(props) {
 
 NotFoundDedicated.propTypes = {
   classes: PropTypes.object.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 export default (withStyles(styles)(injectIntl(NotFoundDedicated)));

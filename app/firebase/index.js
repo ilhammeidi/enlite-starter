@@ -1,5 +1,4 @@
 export {
-  rsf,
   firebaseAuth,
   firebaseSocialAuth,
   firebaseDb,

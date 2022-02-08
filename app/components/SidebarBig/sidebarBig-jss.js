@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import red from '@material-ui/core/colors/red';
 import amber from '@material-ui/core/colors/amber';
@@ -131,7 +131,7 @@ const styles = theme => ({
       },
     },
     '& $icon': {
-      color: fade(theme.palette.text.secondary, 0.24),
+      color: alpha(theme.palette.text.secondary, 0.24),
       display: 'block',
       marginBottom: theme.spacing(1),
       fontSize: 32,
@@ -163,7 +163,7 @@ const styles = theme => ({
       marginLeft: theme.spacing(1)
     },
     '& $icon': {
-      color: fade(theme.palette.text.secondary, 0.32),
+      color: alpha(theme.palette.text.secondary, 0.32),
       fontSize: 14,
     },
     '& $text': {
@@ -186,7 +186,7 @@ const styles = theme => ({
         minWidth: 'auto'
       },
       '&$active': {
-        backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.secondary.light, 0.24) : fade(theme.palette.secondary.light, 0.24),
+        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         '& $icon': {
           color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
         },
@@ -196,10 +196,10 @@ const styles = theme => ({
           }
         },
         '&:hover': {
-          backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.secondary.light, 0.24) : fade(theme.palette.secondary.light, 0.24),
+          backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         },
         '&:focus': {
-          backgroundColor: theme.palette.type === 'dark' ? fade(theme.palette.secondary.light, 0.24) : fade(theme.palette.secondary.light, 0.24),
+          backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         }
       }
     }

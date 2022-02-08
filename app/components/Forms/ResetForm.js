@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import Type from 'enl-styles/Typography.scss';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
@@ -101,7 +101,7 @@ ResetForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   messagesAuth: PropTypes.string,
   closeMsg: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 ResetForm.defaultProps = {

@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
@@ -157,7 +157,9 @@ function RegisterForm(props) {
         </form>
       </section>
       <h5 className={classes.divider}>
-        <FormattedMessage {...messages.registerOr} />
+        <span>
+          <FormattedMessage {...messages.registerOr} />
+        </span>
       </h5>
       <section className={classes.socmedSideLogin}>
         <Button
@@ -197,7 +199,7 @@ RegisterForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   messagesAuth: PropTypes.string,
   closeMsg: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,

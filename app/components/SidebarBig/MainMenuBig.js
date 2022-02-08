@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Icon from '@material-ui/core/Icon';
 import { openMenuAction, closeMenuAction } from 'enl-redux/actions/uiActions';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import MenuProfile from './MenuProfile';
 import styles from './sidebarBig-jss';
@@ -214,7 +214,7 @@ MainMenuBig.propTypes = {
   drawerPaper: PropTypes.bool.isRequired,
   mobile: PropTypes.bool,
   toggleDrawerOpen: PropTypes.func,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 };
 
 MainMenuBig.defaultProps = {

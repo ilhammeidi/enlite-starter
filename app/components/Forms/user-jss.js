@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 import cyan from '@material-ui/core/colors/cyan';
 import grey from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
@@ -25,6 +25,7 @@ const styles = theme => ({
   root: {
     ...rootWraper
   },
+  button: {},
   rootFull: {
     ...rootWraper,
     height: '100%',
@@ -169,7 +170,7 @@ const styles = theme => ({
   socmedSideLogin: {
     padding: '24px 24px',
     margin: '0 auto',
-    background: fade(theme.palette.text.disabled, 0.05),
+    background: alpha(theme.palette.text.disabled, 0.05),
     borderRadius: 40,
     display: 'flex',
     justifyContent: 'center',
@@ -179,8 +180,9 @@ const styles = theme => ({
       [theme.breakpoints.down('xs')]: {
         fontSize: 0
       },
-      '& svg': {
-        fill: theme.palette.common.white,
+      '& i': {
+        fontSize: 18,
+        color: theme.palette.common.white,
         [theme.breakpoints.up('sm')]: {
           marginRight: theme.spacing(1)
         }
@@ -277,7 +279,7 @@ const styles = theme => ({
     alignItems: 'center',
     '& a': {
       fontSize: 14,
-      color: fade(theme.palette.common.white, 0.64),
+      color: alpha(theme.palette.common.white, 0.64),
       textDecoration: 'none'
     },
   },
@@ -405,6 +407,12 @@ const styles = theme => ({
   lockForm: {
     display: 'flex',
     alignItems: 'baseline',
+    '& $button': {
+      width: 56,
+      height: 56,
+      margin: theme.spacing(0, 1),
+      display: 'inline-block'
+    }
   },
   notifyForm: {
     alignItems: 'baseline',
@@ -427,10 +435,10 @@ const styles = theme => ({
       color: `${theme.palette.common.white} !important`,
     },
     '& label + div': {
-      background: fade(theme.palette.primary.light, 0.3),
+      background: alpha(theme.palette.primary.light, 0.3),
       border: 'none',
       '& svg': {
-        fill: fade(theme.palette.common.white, 0.7)
+        fill: alpha(theme.palette.common.white, 0.7)
       }
     }
   },
