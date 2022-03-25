@@ -54,7 +54,7 @@ function SidebarContent(props) {
     refSidebar.current.addEventListener('scroll', handleScroll);
 
     return () => {
-      refSidebar.current.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
