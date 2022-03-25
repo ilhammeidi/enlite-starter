@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 // const OfflinePlugin = require('offline-plugin');
-const { HashedModuleIdsPlugin } = require('webpack');
+// const { HashedModuleIdsPlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
@@ -12,7 +12,6 @@ module.exports = require('./webpack.base.babel')({
 
   // In production, we skip all hot-reloading stuff
   entry: [
-    require.resolve('react-app-polyfill/ie11'),
     path.join(process.cwd(), 'app/app.js'),
   ],
 
@@ -24,6 +23,7 @@ module.exports = require('./webpack.base.babel')({
 
   optimization: {
     minimize: true,
+    moduleIds: 'deterministic',
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -38,9 +38,7 @@ module.exports = require('./webpack.base.babel')({
             ascii_only: true,
           },
         },
-        parallel: true,
-        cache: true,
-        sourceMap: true,
+        parallel: true
       }),
     ],
     nodeEnv: 'production',
@@ -52,7 +50,6 @@ module.exports = require('./webpack.base.babel')({
       minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
-      name: true,
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
@@ -140,15 +137,10 @@ module.exports = require('./webpack.base.babel')({
         },
       ],
     }),
-
-    new HashedModuleIdsPlugin({
-      hashFunction: 'sha256',
-      hashDigest: 'hex',
-      hashDigestLength: 20,
-    }),
   ],
 
   performance: {
+    hints: false,
     assetFilter: assetFilename => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
 });

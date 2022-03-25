@@ -99,7 +99,6 @@ export const closeMsgAction = () => ({
   type: types.HIDE_MSG
 });
 
-
 //= ====================================
 //  SOCIAL AUTH
 //-------------------------------------

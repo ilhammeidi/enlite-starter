@@ -6,7 +6,8 @@
  */
 
 // Needed for redux-saga es6 generator support
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 // Import all the third party stuff
 import React from 'react';
@@ -43,7 +44,7 @@ const render = messages => {
       <PersistGate loading={null} persistor={persistor}>
         <LanguageProvider messages={messages}>
           <ConnectedRouter history={history}>
-            <App />
+            <App history={history} />
           </ConnectedRouter>
         </LanguageProvider>
       </PersistGate>
@@ -71,7 +72,7 @@ if (!window.Intl) {
     .then(() => Promise.all([
       import('intl/locale-data/jsonp/en.js'),
       import('intl/locale-data/jsonp/de.js'),
-    ])) // eslint-disable-line prettier/prettier
+    ]))
     .then(() => render(translationMessages))
     .catch(err => {
       throw err;
@@ -79,7 +80,6 @@ if (!window.Intl) {
 } else {
   render(translationMessages);
 }
-
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,

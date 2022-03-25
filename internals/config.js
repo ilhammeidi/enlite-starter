@@ -21,26 +21,35 @@ const ReactBoilerplate = {
        * by listing them here.
        */
       exclude: [
+        '@date-io/moment',
+        '@material-ui/pickers',
         '@types/googlemaps',
         '@types/markerclustererplus',
+        '@react-dnd',
         'autosuggest-highlight',
         'chalk',
         'compression',
         'convert-source-map',
         'cross-env',
         'dotenv',
+        'dnd-core',
         'etag',
+        'eslint-webpack-plugin',
         'express',
         'fs',
         'ip',
         'jsdon',
+        'lint-staged',
         'minimist',
         'mocha',
         'moment',
+        'mui-datatables',
+        'optimize-css-assets-webpack-plugin',
         'sanitize.css',
         'serve-favicon',
         'slick-carousel',
         'tunnel-agent',
+        'url-loader'
       ],
 
       /**

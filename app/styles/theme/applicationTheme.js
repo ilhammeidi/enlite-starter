@@ -22,7 +22,7 @@ const applicationTheme = (color, mode, direction) => ({
     fontWeightMedium: 700,
   },
   shade: {
-    light: '0 10px 15px -5px rgba(62, 57, 107, .07)',
+    light: '0 10px 15px -2px rgba(62, 57, 107, .07)',
   },
   glow: {
     light: `0 2px 20px -5px ${themePalette(color, mode).palette.primary.main}`,
@@ -131,6 +131,18 @@ const applicationTheme = (color, mode, direction) => ({
         fontWeight: 600,
       },
     },
+    MuiAutocomplete: {
+      inputRoot: {
+        padding: '24px 8px',
+        top: -3,
+        '& $endAdornment': {
+          paddingTop: 0
+        }
+      },
+      tag: {
+        padding: '0 !important'
+      }
+    },
     MuiInput: {
       root: {
         border:
@@ -185,6 +197,14 @@ const applicationTheme = (color, mode, direction) => ({
           transform: 'translate(4px, -16px) scale(0.75)',
         },
       },
+      root: {
+        '& + div': {
+          '& .MuiSelect-root': {
+            paddingBottom: 0,
+            paddingTop: '24px'
+          }
+        }
+      }
     },
     MuiFormLabel: {
       root: {
@@ -216,7 +236,7 @@ const applicationTheme = (color, mode, direction) => ({
             alignItems: 'flex-start',
           },
           paddingBottom: 4,
-          '& input, > div, > select': {
+          '& input, > .MuiInputAdornment-positionStart, > select': {
             padding: '24px 8px 0',
           },
         },
@@ -227,7 +247,7 @@ const applicationTheme = (color, mode, direction) => ({
         alignItems: 'flex-end',
         paddingLeft: 0,
         paddingRight: 0,
-        height: 'auto',
+        height: 'auto !important',
         '& button': {
           width: 32,
           height: 32,
