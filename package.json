@@ -150,7 +150,7 @@
     "lru-memoize": "^1.0.2",
     "minimist": "^1.2.5",
     "mocha": "^9.0.3",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "mui-datatables": "^3.8.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "prop-types": "15.7.2",
