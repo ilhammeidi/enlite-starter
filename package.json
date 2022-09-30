@@ -182,7 +182,7 @@
     "react-swipeable-views": "^0.14.0",
     "react-syntax-highlighter": "^15.4.4",
     "react-top-loading-bar": "^2.1.0",
-    "recharts": "^2.0.0",
+    "recharts": "^2.1.14",
     "redux": "4.0.5",
     "redux-form": "8.3.8",
     "redux-immutable": "4.0.0",
