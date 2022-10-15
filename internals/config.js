@@ -44,7 +44,6 @@ const ReactBoilerplate = {
         'mocha',
         'moment',
         'mui-datatables',
-        'optimize-css-assets-webpack-plugin',
         'sanitize.css',
         'serve-favicon',
         'slick-carousel',

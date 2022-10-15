@@ -1,6 +1,6 @@
 {
   "name": "enlite_prime",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "React.js fullstack web template for expert and experienced fullstack developer",
   "private": true,
   "engines": {
@@ -81,7 +81,6 @@
       "mocha",
       "moment",
       "mui-datatables",
-      "optimize-css-assets-webpack-plugin",
       "sanitize.css",
       "serve-favicon",
       "slick-carousel",
@@ -152,7 +151,6 @@
     "mocha": "^9.0.3",
     "moment": "^2.22.2",
     "mui-datatables": "^3.8.2",
-    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "prop-types": "15.7.2",
     "raw-loader": "^4.0.2",
     "rcolor": "^1.0.1",
