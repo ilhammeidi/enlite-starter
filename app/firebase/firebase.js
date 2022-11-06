@@ -1,5 +1,5 @@
 import { firebase } from '@firebase/app';
-import ReduxSagaFirebase from 'redux-saga-firebase';
+import ReduxSagaFirebase from 'firebase-redux-saga';
 
 import '@firebase/auth';
 import '@firebase/database';
