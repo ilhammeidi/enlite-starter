@@ -4,37 +4,35 @@ import Autosuggest from 'react-autosuggest';
 import { NavLink } from 'react-router-dom';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
-import { injectIntl } from 'react-intl';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import MenuItem from '@mui/material/MenuItem';
 import suggestionsApi from 'enl-api/ui/menu';
-import messages from '../Header/messages';
-import styles from './search-jss';
+import useStyles from './search-jss';
 
 const menu = [];
 
 function renderInput(inputProps) {
-  const { classes, ref, ...other } = inputProps;
+  const { ref, ...rest } = inputProps;
 
   return (
     <TextField
-      className={classes.inputHeader}
+      variant="standard"
+      className="input-header"
       fullWidth
       InputProps={{
         inputRef: ref,
-        ...other,
-      }}
-    />
+        ...rest,
+      }} />
   );
 }
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.name, query);
   const parts = parse(suggestion.name, matches);
+
   return (
-    <MenuItem button selected={isHighlighted} component={NavLink} to={suggestion.link}>
+    <MenuItem selected={isHighlighted} component={NavLink} to={suggestion.link}>
       <div>
         {parts.map((part, index) => (
           part.highlight ? (
@@ -82,27 +80,9 @@ function getSuggestions(value) {
 }
 
 function SearchUi(props) {
-  const { classes, intl, history } = props;
+  const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-
-  const handleSuggestionsFetchRequested = ({ value }) => {
-    setSuggestions(getSuggestions(value));
-  };
-
-  const handleSuggestionsClearRequested = () => {
-    setSuggestions([]);
-  };
-
-  const handleChange = (event, { newValue }) => {
-    setInputValue(newValue);
-  };
-
-  const handleSuggestionSelected = (event, { suggestion, method }) => {
-    if (method === 'enter') {
-      history.push(suggestion.link);
-    }
-  };
+  const { classes } = useStyles();
 
   useEffect(() => {
     suggestionsApi.map(item => {
@@ -118,6 +98,25 @@ function SearchUi(props) {
     });
   }, []);
 
+  const handleSuggestionsFetchRequested = (e) => {
+    setSuggestions(getSuggestions(e.value));
+  };
+
+  const handleSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+  const handleChange = (event, { newValue }) => {
+    setValue(newValue);
+  };
+
+  const handleSuggestionSelected = (event, { suggestion, method }) => {
+    const { history } = props;
+    if (method === 'enter') {
+      history.push(suggestion.link);
+    }
+  };
+
   return (
     <Autosuggest
       theme={{
@@ -128,7 +127,7 @@ function SearchUi(props) {
       }}
       renderInputComponent={renderInput}
       suggestions={suggestions}
-      onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
+      onSuggestionsFetchRequested={(e) => handleSuggestionsFetchRequested(e)}
       onSuggestionsClearRequested={handleSuggestionsClearRequested}
       renderSuggestionsContainer={renderSuggestionsContainer}
       getSuggestionValue={getSuggestionValue}
@@ -136,9 +135,8 @@ function SearchUi(props) {
       renderSuggestion={renderSuggestion}
       className={classes.autocomplete}
       inputProps={{
-        classes,
-        placeholder: intl.formatMessage(messages.search),
-        value: inputValue,
+        placeholder: 'Search UI',
+        value,
         onChange: handleChange,
       }}
     />
@@ -146,9 +144,7 @@ function SearchUi(props) {
 }
 
 SearchUi.propTypes = {
-  classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  intl: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(injectIntl(SearchUi));
+export default SearchUi;

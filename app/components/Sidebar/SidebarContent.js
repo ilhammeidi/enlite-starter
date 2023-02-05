@@ -4,20 +4,18 @@ import React, {
   useState
 } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import MainMenu from './MainMenu';
-import styles from './sidebar-jss';
+import useStyles from './sidebar-jss';
 
 function SidebarContent(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     drawerPaper,
     toggleDrawerOpen,
     loadTransition,
@@ -59,7 +57,7 @@ function SidebarContent(props) {
   }, []);
 
   return (
-    <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
+    <div className={cx(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
       <div className={classes.drawerHeader}>
         <div
           className={classes.profile}
@@ -68,12 +66,12 @@ function SidebarContent(props) {
           <Avatar
             alt={userAttr.name}
             src={userAttr.avatar}
-            className={classNames(classes.avatar, classes.bigAvatar)}
+            className={cx(classes.avatar, classes.bigAvatar)}
           />
           <div>
             <h4>{userAttr.name}</h4>
             <Button size="small" onClick={openMenuStatus}>
-              <i className={classNames(classes.dotStatus, setStatus(status))} />
+              <i className={cx(classes.dotStatus, setStatus(status))} />
               <FormattedMessage {...messages[status]} />
             </Button>
             <Menu
@@ -84,19 +82,19 @@ function SidebarContent(props) {
               className={classes.statusMenu}
             >
               <MenuItem onClick={() => changeStatus('online')}>
-                <i className={classNames(classes.dotStatus, classes.online)} />
+                <i className={cx(classes.dotStatus, classes.online)} />
                 <FormattedMessage {...messages.online} />
               </MenuItem>
               <MenuItem onClick={() => changeStatus('idle')}>
-                <i className={classNames(classes.dotStatus, classes.idle)} />
+                <i className={cx(classes.dotStatus, classes.idle)} />
                 <FormattedMessage {...messages.idle} />
               </MenuItem>
               <MenuItem onClick={() => changeStatus('bussy')}>
-                <i className={classNames(classes.dotStatus, classes.bussy)} />
+                <i className={cx(classes.dotStatus, classes.bussy)} />
                 <FormattedMessage {...messages.bussy} />
               </MenuItem>
               <MenuItem onClick={() => changeStatus('offline')}>
-                <i className={classNames(classes.dotStatus, classes.offline)} />
+                <i className={cx(classes.dotStatus, classes.offline)} />
                 <FormattedMessage {...messages.offline} />
               </MenuItem>
             </Menu>
@@ -107,7 +105,7 @@ function SidebarContent(props) {
         id="sidebar"
         ref={refSidebar}
         className={
-          classNames(
+          cx(
             classes.menuContainer,
             leftSidebar && classes.rounded,
             classes.withProfile
@@ -121,7 +119,6 @@ function SidebarContent(props) {
 }
 
 SidebarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
   userAttr: PropTypes.object.isRequired,
   drawerPaper: PropTypes.bool.isRequired,
   toggleDrawerOpen: PropTypes.func,
@@ -142,4 +139,4 @@ SidebarContent.defaultProps = {
   anchorEl: null,
 };
 
-export default withStyles(styles)(injectIntl(SidebarContent));
+export default injectIntl(SidebarContent);

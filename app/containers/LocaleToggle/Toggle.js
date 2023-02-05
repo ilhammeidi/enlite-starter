@@ -3,24 +3,22 @@
  * LocaleToggle
  *
  */
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
-import styles from 'enl-components/Header/header-jss.js';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import useStyles from 'enl-components/Header/header-jss.js';
 
 function Toggle(props) {
+  const { classes } = useStyles();
   const {
     value,
     values,
     onToggle,
     messages,
     intl,
-    classes
   } = props;
   const [lang, setLang] = useState(value);
 
@@ -31,16 +29,16 @@ function Toggle(props) {
 
   return (
     <form>
-      <FormControl>
+      <FormControl variant="standard">
         <Select
+          variant="standard"
           className={classes.inputLang}
           classes={{
             root: classes.selectbox
           }}
           value={lang}
           name="lang"
-          onChange={(e) => handleChange(e)}
-        >
+          onChange={(e) => handleChange(e)}>
           {values && values.map(val => (
             <MenuItem key={val} className={classes.langItem} value={val}>
               <i className={val} />
@@ -54,7 +52,6 @@ function Toggle(props) {
 }
 
 Toggle.propTypes = {
-  classes: PropTypes.object.isRequired,
   onToggle: PropTypes.func.isRequired,
   values: PropTypes.array.isRequired,
   value: PropTypes.string.isRequired,
@@ -62,4 +59,4 @@ Toggle.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(injectIntl(Toggle));
+export default injectIntl(Toggle);

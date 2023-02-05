@@ -3,7 +3,7 @@
  */
 import { reducer as form } from 'redux-form';
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
+import { connectRouter } from 'connected-react18-router';
 
 // Global Reducers
 import languageProviderReducer from 'containers/LanguageProvider/reducer';

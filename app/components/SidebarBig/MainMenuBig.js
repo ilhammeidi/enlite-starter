@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Icon from '@material-ui/core/Icon';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ButtonBase from '@mui/material/ButtonBase';
+import Icon from '@mui/material/Icon';
 import { openMenuAction, closeMenuAction } from 'enl-redux/actions/uiActions';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import MenuProfile from './MenuProfile';
-import styles from './sidebarBig-jss';
+import useStyles from './sidebarBig-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
 
 function MainMenuBig(props) { // eslint-disable-line
+  const { classes, cx } = useStyles();
   const {
-    classes,
     open,
     dataMenu,
     drawerPaper,
@@ -83,7 +81,7 @@ function MainMenuBig(props) { // eslint-disable-line
           focusRipple
           onClick={() => handleLoadMenu(item.child, item.key)}
           className={
-            classNames(
+            cx(
               classes.menuHead,
               activeMenu(item.key, item.child) ? classes.active : ''
             )
@@ -104,7 +102,7 @@ function MainMenuBig(props) { // eslint-disable-line
       <ButtonBase
         key={index.toString()}
         focusRipple
-        className={classNames(classes.menuHead, open.indexOf(item.key) > -1 ? classes.active : '')}
+        className={cx(classes.menuHead, open.indexOf(item.key) > -1 ? classes.active : '')}
         component={LinkBtn}
         to={item.linkParent}
         onClick={closeDrawer}
@@ -175,7 +173,7 @@ function MainMenuBig(props) { // eslint-disable-line
       <List
         dense
         className={
-          classNames(
+          cx(
             classes.fixedWrap,
             classes.childMenuWrap,
             menuLoaded && classes.menuLoaded
@@ -195,7 +193,7 @@ function MainMenuBig(props) { // eslint-disable-line
           {getMenus(dataMenu)}
         </div>
       </nav>
-      <nav className={classNames(classes.listMenu, !drawerPaper && classes.drawerPaperClose)}>
+      <nav className={cx(classes.listMenu, !drawerPaper && classes.drawerPaperClose)}>
         {renderChildMenu()}
       </nav>
     </aside>
@@ -203,7 +201,6 @@ function MainMenuBig(props) { // eslint-disable-line
 }
 
 MainMenuBig.propTypes = {
-  classes: PropTypes.object.isRequired,
   userAttr: PropTypes.object.isRequired,
   open: PropTypes.array.isRequired,
   dataMenu: PropTypes.array.isRequired,
@@ -239,4 +236,4 @@ const MainMenuBigMapped = connect(
   mapDispatchToProps,
 )(MainMenuBig);
 
-export default withStyles(styles)(injectIntl(MainMenuBigMapped));
+export default injectIntl(MainMenuBigMapped);

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { LockForm } from 'enl-components';
-import styles from '../../../components/Forms/user-jss';
+import useStyles from '../../../components/Forms/user-jss';
 
-function LockScreen(props) {
-  const { classes } = props;
+function LockScreen() {
+  const { classes } = useStyles();
   const title = brand.name + ' - Lock Screen';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -40,8 +38,4 @@ function LockScreen(props) {
   );
 }
 
-LockScreen.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LockScreen);
+export default LockScreen;

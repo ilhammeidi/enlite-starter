@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
 import { PropTypes } from 'prop-types';
-import classNames from 'classnames';
-import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
 import { HeaderMenu, BreadCrumb } from 'enl-components';
 import dataMenu from 'enl-api/ui/menu';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
-import styles from '../appStyles-jss';
+import useStyles from '../appStyles-jss';
 
 function DropMenuLayout(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     children,
     pageLoaded,
     mode,
@@ -48,14 +46,14 @@ function DropMenuLayout(props) {
       />
       <main
         className={
-          classNames(
+          cx(
             classes.content,
             classes.highMargin
           )
         }
         id="mainContent"
       >
-        <section className={classNames(classes.mainWrap, classes.topbarLayout)}>
+        <section className={cx(classes.mainWrap, classes.topbarLayout)}>
           {titleException.indexOf(history.location.pathname) < 0 && (
             <div className={classes.pageTitle}>
               <Typography component="h4" variant="h4">
@@ -81,7 +79,6 @@ function DropMenuLayout(props) {
 }
 
 DropMenuLayout.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   history: PropTypes.object.isRequired,
   changeMode: PropTypes.func.isRequired,
@@ -102,4 +99,4 @@ DropMenuLayout.defaultProps = {
   isLogin: false,
 };
 
-export default (withStyles(styles)(injectIntl(DropMenuLayout)));
+export default injectIntl(DropMenuLayout);

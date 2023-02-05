@@ -1,35 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Info from '@material-ui/icons/Info';
-import Warning from '@material-ui/icons/Warning';
-import Check from '@material-ui/icons/CheckCircle';
-import Error from '@material-ui/icons/RemoveCircle';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import Badge from '@material-ui/core/Badge';
-import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Info from '@mui/icons-material/Info';
+import Warning from '@mui/icons-material/Warning';
+import Check from '@mui/icons-material/CheckCircle';
+import Error from '@mui/icons-material/RemoveCircle';
+import ExitToApp from '@mui/icons-material/ExitToApp';
+import Badge from '@mui/material/Badge';
+import Divider from '@mui/material/Divider';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import dummy from 'enl-api/dummy/dummyContents';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messageStyles from 'enl-styles/Messages.scss';
 import avatarApi from 'enl-api/images/avatars';
 import link from 'enl-api/ui/link';
-import NotificationsActiveOutlined from '@material-ui/icons/NotificationsActiveOutlined';
+import NotificationsActiveOutlined from '@mui/icons-material/NotificationsActiveOutlined';
 import messages from './messages';
-import styles from './header-jss';
+import useStyles from './header-jss';
 
 function UserMenu(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     dark,
     signOut,
     avatar
@@ -52,8 +50,8 @@ function UserMenu(props) {
         aria-haspopup="true"
         onClick={handleMenu('notification')}
         color="inherit"
-        className={classNames(classes.notifIcon, dark ? classes.dark : classes.light)}
-      >
+        className={cx(classes.notifIcon, dark ? classes.dark : classes.light)}
+        size="large">
         <Badge className={classes.badge} badgeContent={4} color="secondary">
           <NotificationsActiveOutlined />
         </Badge>
@@ -160,7 +158,7 @@ function UserMenu(props) {
         <MenuItem onClick={handleClose} component={Link} to={link.email}>
           <FormattedMessage {...messages.email} />
           <ListItemIcon>
-            <Badge className={classNames(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary">&nbsp;</Badge>
+            <Badge className={cx(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary">&nbsp;</Badge>
           </ListItemIcon>
         </MenuItem>
         <Divider />
@@ -176,7 +174,6 @@ function UserMenu(props) {
 }
 
 UserMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
   signOut: PropTypes.func.isRequired,
   avatar: PropTypes.string.isRequired,
   dark: PropTypes.bool,
@@ -186,4 +183,4 @@ UserMenu.defaultProps = {
   dark: false
 };
 
-export default withStyles(styles)(injectIntl(UserMenu));
+export default injectIntl(UserMenu);

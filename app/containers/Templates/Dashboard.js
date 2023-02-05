@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
 import { GuideSlider } from 'enl-components';
 import { toggleAction, openAction, playTransitionAction } from 'enl-redux/actions/uiActions';
 import { logout } from 'enl-redux/actions/authActions';
@@ -12,11 +10,12 @@ import LeftSidebarLayout from './layouts/LeftSidebar';
 import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
 import MegaMenuLayout from './layouts/MegaMenu';
 import DropMenuLayout from './layouts/DropMenu';
-import styles from './appStyles-jss';
+import useStyles from './appStyles-jss';
 
 function Dashboard(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
+    initialOpen,
     children,
     toggleDrawer,
     sidebarOpen,
@@ -62,7 +61,7 @@ function Dashboard(props) {
 
     // Set expanded sidebar menu
     const currentPath = history.location.pathname;
-    props.initialOpen(currentPath);
+    initialOpen(currentPath);
     // Play page transition
     loadTransition(true);
 
@@ -83,7 +82,7 @@ function Dashboard(props) {
     <div
       style={{ minHeight: appHeight }}
       className={
-        classNames(
+        cx(
           classes.appFrameInner,
           layout === 'top-navigation' || layout === 'mega-menu' ? classes.topNav : classes.sideNav,
           mode === 'dark' ? 'dark-mode' : 'light-mode'
@@ -180,7 +179,6 @@ function Dashboard(props) {
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   history: PropTypes.object.isRequired,
   initialOpen: PropTypes.func.isRequired,
@@ -222,4 +220,4 @@ const DashboardMaped = connect(
   mapDispatchToProps
 )(Dashboard);
 
-export default (withStyles(styles)(DashboardMaped));
+export default DashboardMaped;

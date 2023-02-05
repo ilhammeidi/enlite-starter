@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import { createSelector } from 'reselect';
+/* eslint-disable */import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 /**

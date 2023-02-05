@@ -1,16 +1,15 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
-import Drawer from '@material-ui/core/Drawer';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Hidden from '@mui/material/Hidden';
+import Drawer from '@mui/material/Drawer';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import dummy from 'enl-api/dummy/dummyContents';
-import styles from './sidebar-jss';
+import useStyles from './sidebar-jss';
 import SidebarContent from './SidebarContent';
 
 function Sidebar(props) {
+  const { classes } = useStyles();
   const {
-    classes,
     open,
     toggleDrawerOpen,
     loadTransition,
@@ -60,7 +59,7 @@ function Sidebar(props) {
           </div>
         </SwipeableDrawer>
       </Hidden>
-      <Hidden mdDown>
+      <Hidden smDown>
         <Drawer
           variant="permanent"
           onClose={toggleDrawerOpen}
@@ -90,7 +89,6 @@ function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired,
   userAttr: PropTypes.object.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
   loadTransition: PropTypes.func.isRequired,
@@ -103,4 +101,4 @@ Sidebar.defaultProps = {
   leftSidebar: true
 };
 
-export default withStyles(styles)(Sidebar);
+export default Sidebar;

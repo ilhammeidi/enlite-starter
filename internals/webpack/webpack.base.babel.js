@@ -4,10 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-
-const ESLintPlugin = require('eslint-webpack-plugin');
-const HappyPack = require('happypack');
-const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+// const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = options => ({
   mode: options.mode,
@@ -18,18 +15,17 @@ module.exports = options => ({
     publicPath: '/',
     ...options.output,
   }, // Merge with env dependent settings
-  devServer: {
-    inline: false,
-  },
   optimization: options.optimization,
   module: {
     rules: [
       {
-        test: /\.jsx?$/, // Transform all .js files required somewhere with Babel
+        test: /\.jsx?$/, // Transform all .js and .jsx files required somewhere with Babel
         exclude: /node_modules/,
         use: {
-          loader: 'happypack/loader?id=js',
-          options: options.babelQuery,
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
         },
       },
       {
@@ -45,8 +41,7 @@ module.exports = options => ({
         exclude: /node_modules/,
         use: [{
           loader: 'style-loader'
-        },
-        {
+        }, {
           loader: 'css-loader',
           options:
           {
@@ -63,13 +58,11 @@ module.exports = options => ({
         include: /node_modules/,
         use: [{
           loader: 'style-loader'
-        },
-        {
+        }, {
           loader: 'css-loader',
           options:
           {
             esModule: false,
-            sourceMap: false,
             importLoaders: 10,
             modules: false
           }
@@ -170,41 +163,38 @@ module.exports = options => ({
       },
     ],
   },
+  ignoreWarnings: [/Failed to parse source map/, /failed to load source map/, /Can't resolve '..\/..\/locale'/],
   plugins: options.plugins.concat([
-    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-    // inside your code for any environment checks; Terser will automatically
-    // drop any unreachable code.
-    new HappyPack({
-      id: 'js',
-      threadPool: happyThreadPool,
-      loaders: ['babel-loader?cacheDirectory=true']
-    }),
     /*
       Disabled eslint by default.
       You can enable it to maintain and keep clean your code.
       NOTE: By enable eslint running app process at beginning will slower
     */
-    new ESLintPlugin({
-      extensions: 'js',
-      exclude: 'node_modules',
-      failOnWarning: true,
-      failOnError: true,
-      emitError: true,
-      emitWarning: true,
+    //    new ESLintPlugin({
+    //      extensions: 'js',
+    //      exclude: 'node_modules',
+    //      failOnWarning: true,
+    //      failOnError: true,
+    //      emitError: true,
+    //      emitWarning: true,
+    //    }),
+    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
+    // inside your code for any environment checks; Terser will automatically
+    // drop any unreachable code.
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser'
     }),
     new webpack.ContextReplacementPlugin(/^\.\/locale$/, context => {
-      if (!/\/moment\//.test(context.context)) {
-        return;
-      }
+      if (!/\/moment\//.test(context.context)) { return; }
       // context needs to be modified in place
       Object.assign(context, {
-      // include only CJK
+        // include only CJK
         regExp: /^\.\/(ja|ko|zh)/,
         // point to the locale data folder relative to moment's src/lib/locale
-        request: './locale'
+        request: '../../locale'
       });
     })
   ]),
@@ -220,7 +210,14 @@ module.exports = options => ({
       assert: false,
       crypto: false,
       util: false,
-      stream: false
+      stream: false,
+      url: false,
+      http: false,
+      https: false,
+      zlib: false,
+      vm: false,
+      console: false,
+      tty: false,
     },
     alias: {
       'enl-components': path.resolve(__dirname, '../../app/components/'),

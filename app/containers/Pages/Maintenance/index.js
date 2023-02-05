@@ -1,18 +1,17 @@
 import React from 'react';
+import { makeStyles } from 'tss-react/mui';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import Build from '@material-ui/icons/Build';
-import Hidden from '@material-ui/core/Hidden';
-import Settings from '@material-ui/icons/SettingsApplications';
-import Warning from '@material-ui/icons/Warning';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Build from '@mui/icons-material/Build';
+import Hidden from '@mui/material/Hidden';
+import Settings from '@mui/icons-material/SettingsApplications';
+import Warning from '@mui/icons-material/Warning';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme) => ({
   container: {
     textAlign: 'center'
   },
@@ -46,7 +45,7 @@ const styles = theme => ({
   icon: {
     margin: '10px 20px',
     background: 'rgba(255,255,255,0.6)',
-    color: theme.palette.type === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+    color: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
     width: 100,
     height: 100,
     boxShadow: theme.shadows[4],
@@ -54,12 +53,14 @@ const styles = theme => ({
       fontSize: 64,
     },
   },
-});
+}));
 
-function Maintenance(props) {
+function Maintenance() {
   const title = brand.name + ' - Maintenance';
   const description = brand.desc;
-  const { classes } = props;
+  const {
+    classes
+  } = useStyles();
   return (
     <div className={classes.root}>
       <Helmet>
@@ -73,10 +74,10 @@ function Maintenance(props) {
       <div className={classes.container}>
         <div className={classes.artwork}>
           <Avatar className={classes.icon}><Build /></Avatar>
-          <Hidden xsDown>
+          <Hidden smDown>
             <Avatar className={classes.icon}><Warning /></Avatar>
           </Hidden>
-          <Hidden xsDown>
+          <Hidden smDown>
             <Avatar className={classes.icon}><Settings /></Avatar>
           </Hidden>
         </div>
@@ -91,8 +92,4 @@ function Maintenance(props) {
   );
 }
 
-Maintenance.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Maintenance);
+export default Maintenance;

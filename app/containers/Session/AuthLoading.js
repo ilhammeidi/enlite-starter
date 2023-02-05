@@ -1,9 +1,9 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-const styles = {
+import { makeStyles } from 'tss-react/mui';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+
+const useStyles = makeStyles()(() => ({
   circularProgress: {
     position: 'fixed',
     top: 'calc(50% - 45px)',
@@ -14,10 +14,12 @@ const styles = {
     marginTop: 8,
     opacity: 0.75
   }
-};
+}));
 
-function Loading(props) {
-  const { classes } = props;
+function Loading() {
+  const {
+    classes
+  } = useStyles();
   return (
     <div className={classes.circularProgress}>
       <CircularProgress size={90} thickness={1} color="secondary" />
@@ -28,7 +30,4 @@ function Loading(props) {
   );
 }
 
-Loading.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-export default (withStyles(styles)(Loading));
+export default Loading;

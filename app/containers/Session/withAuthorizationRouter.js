@@ -32,9 +32,7 @@ export default function withAuthorizationRouter(Component) {
     }
   }
 
-  AuthenticatedComponent.propTypes = {
-    isAuthenticated: PropTypes.bool
-  };
+  AuthenticatedComponent.propTypes = { isAuthenticated: PropTypes.bool };
 
   AuthenticatedComponent.defaultProps = {
     isAuthenticated: null

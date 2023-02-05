@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import ArrowForward from '@material-ui/icons/ArrowForward';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import Type from 'enl-styles/Typography.scss';
@@ -18,7 +16,7 @@ import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
-import styles from './user-jss';
+import useStyles from './user-jss';
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -29,8 +27,8 @@ const email = value => (
 );
 
 function ResetForm(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     handleSubmit,
     pristine,
     submitting,
@@ -42,13 +40,13 @@ function ResetForm(props) {
   return (
     <section>
       <div className={Type.textCenter}>
-        <NavLink to="/" className={classNames(classes.brand, classes.centerFlex)}>
+        <NavLink to="/" className={cx(classes.brand, classes.centerFlex)}>
           <img src={logo} alt={brand.name} />
           {brand.name}
         </NavLink>
       </div>
       <Paper className={classes.paperWrap}>
-        <Typography variant="h4" className={classNames(classes.title, Type.textCenter)} gutterBottom>
+        <Typography variant="h4" className={cx(classes.title, Type.textCenter)} gutterBottom>
           <FormattedMessage {...messages.resetTitle} />
         </Typography>
         <Typography variant="caption" component="p" className={classes.subtitle} gutterBottom align="center">
@@ -69,7 +67,7 @@ function ResetForm(props) {
           }
           <form onSubmit={handleSubmit}>
             <div>
-              <FormControl className={classes.formControl}>
+              <FormControl variant="standard" className={classes.formControl}>
                 <Field
                   name="email"
                   component={TextFieldRedux}
@@ -84,7 +82,7 @@ function ResetForm(props) {
             <div className={classes.btnArea}>
               <Button variant="contained" color="primary" type="submit">
                 <FormattedMessage {...messages.resetButton} />
-                <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />
+                <ArrowForward className={cx(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />
               </Button>
             </div>
           </form>
@@ -95,7 +93,6 @@ function ResetForm(props) {
 }
 
 ResetForm.propTypes = {
-  classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -126,4 +123,4 @@ const ResetFormMapped = connect(
   mapDispatchToProps
 )(ResetFormReduxed);
 
-export default withStyles(styles)(injectIntl(ResetFormMapped));
+export default injectIntl(ResetFormMapped);

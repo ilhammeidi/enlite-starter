@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
-import Switch from '@material-ui/core/Switch';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import Switch from '@mui/material/Switch';
 
 /* Textfield */
 export const TextFieldRedux = ({ meta: { touched, error }, input, ...rest }) => (
-  <TextField
-    {...rest}
-    {...input}
-    error={touched && Boolean(error)}
-  />
+  <TextField variant="standard" {...rest} {...input} error={touched && Boolean(error)} />
 );
 
 TextFieldRedux.propTypes = {
@@ -26,10 +22,7 @@ TextFieldRedux.defaultProps = {
 
 /* Select */
 export const SelectRedux = ({ input, children, ...rest }) => (
-  <Select
-    {...input}
-    {...rest}
-  >
+  <Select variant="standard" {...input} {...rest}>
     {children}
   </Select>
 );
@@ -49,9 +42,7 @@ export const CheckboxRedux = ({ input, ...rest }) => (
   />
 );
 
-CheckboxRedux.propTypes = {
-  input: PropTypes.object.isRequired,
-};
+CheckboxRedux.propTypes = { input: PropTypes.object.isRequired, };
 /* End */
 
 /* Switch */
@@ -63,7 +54,5 @@ export const SwitchRedux = ({ input, ...rest }) => (
   />
 );
 
-SwitchRedux.propTypes = {
-  input: PropTypes.object.isRequired,
-};
+SwitchRedux.propTypes = { input: PropTypes.object.isRequired, };
 /* End */

@@ -1,12 +1,28 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { makeStyles } from 'tss-react/mui';
 import brand from 'enl-api/dummy/brand';
-import { PapperBlock, EmptyData } from 'enl-components';
+import PropTypes from 'prop-types';
+import Grid from '@mui/material/Grid';
+import { SourceReader, PapperBlock, EmptyData } from 'enl-components';
+import { injectIntl } from 'react-intl';
+import messages from './messages';
 import StrippedTable from './StrippedTable';
 
-function BasicTable() {
+const useStyles = makeStyles()(() => ({
+  root: {
+    flexGrow: 1,
+  }
+}));
+
+function BasicTable(props) {
+  const { intl } = props;
+  const {
+    classes
+  } = useStyles();
   const title = brand.name + ' - Table';
   const description = brand.desc;
+  const docSrc = 'containers/Tables/';
   return (
     <div>
       <Helmet>
@@ -17,18 +33,34 @@ function BasicTable() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <PapperBlock title="Table" whiteBg icon="table_chart" desc="UI Table when no data to be shown">
+      <PapperBlock
+        title={intl.formatMessage(messages.strippedTableTitle)}
+        whiteBg
+        icon="view_headline"
+        desc={intl.formatMessage(messages.strippedTableDesc)}
+      >
         <div>
           <StrippedTable />
+          <SourceReader componentName={docSrc + 'StrippedTable.js'} />
         </div>
       </PapperBlock>
-      <PapperBlock title="Empty Table" whiteBg icon="table_chart" desc="They (allegedly) aid usability in reading tabular data by offering the user a coloured means of separating and differentiating rows from one another">
+      <PapperBlock
+        title={intl.formatMessage(messages.emptyTableTitle)}
+        whiteBg
+        icon="crop_5_4"
+        desc={intl.formatMessage(messages.emptyTableDesc)}
+      >
         <div>
           <EmptyData />
+          <SourceReader componentName="components/Tables/EmptyData.js" />
         </div>
       </PapperBlock>
     </div>
   );
 }
 
-export default BasicTable;
+BasicTable.propTypes = {
+  intl: PropTypes.object.isRequired
+};
+
+export default injectIntl(BasicTable);

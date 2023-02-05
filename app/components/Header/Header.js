@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import SearchIcon from '@material-ui/icons/Search';
-import FullscreenOutlined from '@material-ui/icons/FullscreenOutlined';
-import FullscreenExitOutlined from '@material-ui/icons/FullscreenExitOutlined';
-import InvertColors from '@material-ui/icons/InvertColorsOutlined';
-import HelpOutlineOutlined from '@material-ui/icons/HelpOutlineOutlined';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
+import Typography from '@mui/material/Typography';
+import Hidden from '@mui/material/Hidden';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import SearchIcon from '@mui/icons-material/Search';
+import FullscreenOutlined from '@mui/icons-material/FullscreenOutlined';
+import FullscreenExitOutlined from '@mui/icons-material/FullscreenExitOutlined';
+import InvertColors from '@mui/icons-material/InvertColorsOutlined';
+import HelpOutlineOutlined from '@mui/icons-material/HelpOutlineOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
 import { NavLink, Link } from 'react-router-dom';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
@@ -26,14 +24,14 @@ import UserMenu from './UserMenu';
 import SearchUi from '../Search/SearchUi';
 import SelectLanguage from '../SelectLanguage';
 import messages from './messages';
-import styles from './header-jss';
+import useStyles from './header-jss';
 
 const elem = document.documentElement;
 
 function Header(props) {
+  const { classes, cx } = useStyles();
   const {
     changeMode,
-    classes,
     toggleDrawerOpen,
     margin,
     mode,
@@ -116,7 +114,7 @@ function Header(props) {
 
   return (
     <AppBar
-      className={classNames(
+      className={cx(
         classes.appBar,
         classes.floatingBar,
         margin && classes.appBarShift,
@@ -124,18 +122,18 @@ function Header(props) {
       )}
     >
       <Toolbar disableGutters={!open}>
-        <div className={classNames(classes.brandWrap, dense && classes.dense)}>
+        <div className={cx(classes.brandWrap, dense && classes.dense)}>
           <span>
             <IconButton
               className={classes.menuButton}
               aria-label="Menu"
               onClick={toggleDrawerOpen}
-            >
+              size="large">
               <MenuIcon />
             </IconButton>
           </span>
           <Hidden smDown>
-            <NavLink to="/app" className={classNames(classes.brand, classes.brandBar)}>
+            <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
               <img src={logo} alt={brand.name} />
               {brand.name}
             </NavLink>
@@ -144,47 +142,38 @@ function Header(props) {
         <Hidden smDown>
           <div className={classes.headerProperties}>
             <div
-              className={classNames(
+              className={cx(
                 classes.headerAction,
                 showTitle && classes.fadeOut,
               )}
             >
               {fullScreen ? (
                 <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
-                  <IconButton
-                    className={classes.button}
-                    onClick={closeFullScreen}
-                  >
+                  <IconButton className={classes.button} onClick={closeFullScreen} size="large">
                     <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
               ) : (
                 <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
-                  <IconButton
-                    className={classes.button}
-                    onClick={openFullScreen}
-                  >
+                  <IconButton className={classes.button} onClick={openFullScreen} size="large">
                     <FullscreenOutlined />
                   </IconButton>
                 </Tooltip>
               )}
               <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
-                <IconButton
-                  className={classes.button}
-                  onClick={() => turnMode(mode)}
-                >
+                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="large">
                   <InvertColors />
                 </IconButton>
               </Tooltip>
               <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
-                <IconButton className={classes.button} onClick={openGuide}>
+                <IconButton className={classes.button} onClick={openGuide} size="large">
                   <HelpOutlineOutlined />
                 </IconButton>
               </Tooltip>
             </div>
             <Typography
               component="h2"
-              className={classNames(
+              className={cx(
                 classes.headerTitle,
                 showTitle && classes.show,
               )}
@@ -201,7 +190,7 @@ function Header(props) {
             <SearchUi history={history} />
           </div>
         </div>
-        <Hidden xsDown>
+        <Hidden smDown>
           <span className={classes.separatorV} />
         </Hidden>
         <div className={classes.userToolbar}>
@@ -228,7 +217,6 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
   avatar: PropTypes.string.isRequired,
   margin: PropTypes.bool.isRequired,
@@ -248,4 +236,4 @@ Header.defaultProps = {
   isLogin: false
 };
 
-export default withStyles(styles)(injectIntl(Header));
+export default injectIntl(Header);

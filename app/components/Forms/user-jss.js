@@ -1,10 +1,9 @@
-import { alpha } from '@material-ui/core/styles';
-import cyan from '@material-ui/core/colors/cyan';
-import grey from '@material-ui/core/colors/blueGrey';
-import red from '@material-ui/core/colors/red';
+import { makeStyles } from 'tss-react/mui';
+import { alpha } from '@mui/material/styles';
 import deco from 'enl-images/decoration/hexaMonochrome.svg';
-import green from '@material-ui/core/colors/green';
-import amber from '@material-ui/core/colors/amber';
+import {
+  cyan, blueGrey as grey, red, green, amber
+} from '@mui/material/colors';
 const rootWraper = {
   display: 'flex',
   width: '100%',
@@ -17,11 +16,11 @@ const wrapper = theme => ({
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
   [theme.breakpoints.up('lg')]: {
-    padding: `${theme.spacing(6)}px ${theme.spacing(20)}px`,
+    padding: `${theme.spacing(6)} ${theme.spacing(20)}`,
   },
 });
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   root: {
     ...rootWraper
   },
@@ -35,7 +34,7 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       overflow: 'hidden'
     },
   },
@@ -43,13 +42,13 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       overflow: 'hidden'
     },
   },
   paperWrap: {
     background: theme.palette.background.paper,
-    padding: `${theme.spacing(6)}px ${theme.spacing(1)}px`,
+    padding: `${theme.spacing(6)} ${theme.spacing(1)}`,
   },
   sideWrap: {
     ...wrapper(theme),
@@ -63,7 +62,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    '& $topBar': {
+    [`& .${classes.topBar}`]: {
       width: '100%'
     }
   },
@@ -77,10 +76,10 @@ const styles = theme => ({
     marginRight: 'auto',
     borderBottom: `1px solid ${theme.palette.divider}`,
     justifyContent: 'space-between',
-    '& $icon': {
-      margin: `0 ${theme.spacing(1)}px`
+    [`& .${classes.icon}`]: {
+      margin: `0 ${theme.spacing(1)}`
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       alignItems: 'center',
       marginBottom: theme.spacing(3),
     }
@@ -90,7 +89,7 @@ const styles = theme => ({
     borderTop: `1px solid ${theme.palette.divider}`,
     fontSize: 14,
     color: theme.palette.text.secondary,
-    margin: `${theme.spacing(6)}px 0 ${theme.spacing(3)}px`,
+    margin: `${theme.spacing(6)} 0 ${theme.spacing(3)}`,
     '& span': {
       background: theme.palette.background.paper,
       top: -10,
@@ -109,27 +108,27 @@ const styles = theme => ({
     marginBottom: theme.spacing(2),
     color: theme.palette.common.white,
     textDecoration: 'none',
-    '&$centerFlex': {
+    [`&.${classes.centerFlex}`]: {
       justifyContent: 'center'
     },
-    '&$outer': {
+    [`&.${classes.outer}`]: {
       color: theme.palette.common.white,
     },
-    [theme.breakpoints.down('md')]: {
-      margin: `${theme.spacing(2)}px 0`
+    [theme.breakpoints.down('lg')]: {
+      margin: `${theme.spacing(2)} 0`
     },
     '& img': {
       width: 30,
       marginRight: 10,
     },
-    '&$invert': {
+    [`&.${classes.invert}`]: {
       color: theme.palette.text.primary,
     }
   },
   headLogo: {
     textAlign: 'center',
     marginBottom: theme.spacing(4),
-    '& $brand': {
+    [`& .${classes.brand}`]: {
       display: 'inline-block',
       color: theme.palette.text.primary
     }
@@ -144,7 +143,7 @@ const styles = theme => ({
   },
   pageFormWrap: {
     width: '100%',
-    margin: `${theme.spacing(2)}px auto`,
+    margin: `${theme.spacing(2)} auto`,
     [theme.breakpoints.up('sm')]: {
       width: 480,
     },
@@ -176,8 +175,8 @@ const styles = theme => ({
     justifyContent: 'center',
     '& button': {
       padding: '4px 16px',
-      margin: `0 ${theme.spacing(1)}px`,
-      [theme.breakpoints.down('xs')]: {
+      margin: `0 ${theme.spacing(1)}`,
+      [theme.breakpoints.down('sm')]: {
         fontSize: 0
       },
       '& i': {
@@ -197,7 +196,7 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: 720
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(3)
     },
   },
@@ -206,13 +205,13 @@ const styles = theme => ({
     width: '65%',
     zIndex: 1,
     position: 'relative',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%'
     }
   },
   msgUser: {
-    margin: `${theme.spacing(1)}px auto`,
-    '& > div:first-child': {
+    margin: `${theme.spacing(1)} auto`,
+    '& > div:first-of-type': {
       flex: 1
     }
   },
@@ -224,7 +223,7 @@ const styles = theme => ({
     color: theme.palette.primary.main,
     fontWeight: 700,
     fontSize: 32,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       fontSize: 24,
     }
   },
@@ -237,7 +236,7 @@ const styles = theme => ({
   titleColor: {
     fontWeight: 'bold',
     color: theme.palette.primary.main,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       fontSize: '2.55em'
     }
   },
@@ -256,7 +255,7 @@ const styles = theme => ({
       color: theme.palette.common.white,
       lineHeight: '3.6rem',
       display: 'block',
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         fontSize: 32,
         lineHeight: '48px'
       }
@@ -287,18 +286,18 @@ const styles = theme => ({
   btnArea: {
     display: 'flex',
     justifyContent: 'center',
-    margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
+    margin: `${theme.spacing(4)} 0 ${theme.spacing(2)}`,
     fontSize: 12,
-    '& $label': {
+    [`& .${classes.label}`]: {
       fontSize: 12,
       '& span': {
         fontSize: 12
       }
     },
     '& button': {
-      margin: `0 ${theme.spacing(1)}px`
+      margin: `0 ${theme.spacing(1)}`
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       '& button': {
         width: '100%',
@@ -362,7 +361,7 @@ const styles = theme => ({
     position: 'relative'
   },
   tab: {
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(1)}px`,
+    margin: `${theme.spacing(3)} 0 ${theme.spacing(1)}`,
   },
   link: {
     fontSize: '0.875rem',
@@ -378,11 +377,11 @@ const styles = theme => ({
   socmedFull: {
     textAlign: 'center',
     width: '100%',
-    margin: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
+    margin: `${theme.spacing(3)} ${theme.spacing(1)}`,
     '& button': {
       width: '100%',
       display: 'block',
-      margin: `0 auto ${theme.spacing(2)}px`
+      margin: `0 auto ${theme.spacing(2)}`
     },
     [theme.breakpoints.up('sm')]: {
       '& button': {
@@ -394,20 +393,20 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
   },
   signArrow: {
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : 'none',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       display: 'none'
     }
   },
   lockForm: {
     display: 'flex',
     alignItems: 'baseline',
-    '& $button': {
+    [`& .${classes.button}`]: {
       width: 56,
       height: 56,
       margin: theme.spacing(0, 1),
@@ -416,7 +415,7 @@ const styles = theme => ({
   },
   notifyForm: {
     alignItems: 'baseline',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       '& button': {
         marginTop: theme.spacing(3),
         width: '100%'
@@ -453,7 +452,7 @@ const styles = theme => ({
   userName: {
     color: theme.palette.common.white,
     fontWeight: theme.typography.fontWeightMedium,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(3),
       textAlign: 'center'
     }
@@ -488,7 +487,7 @@ const styles = theme => ({
   optArea: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: `0 ${theme.spacing(0.5)}px`
+    padding: `0 ${theme.spacing(0.5)}`
   },
   lang: {
     borderRadius: 8,
@@ -530,6 +529,7 @@ const styles = theme => ({
     marginTop: -12,
     marginLeft: -12,
   },
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

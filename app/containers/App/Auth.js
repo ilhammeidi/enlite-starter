@@ -18,7 +18,7 @@ function Auth() {
         <Route path="/reset-password" component={ResetPassword} />
         <Route path="/login-firebase" component={LoginFullstack} />
         <Route path="/register-firebase" component={RegisterFullstack} />
-        <Route path="/reset-firebase" component={ResetPasswordFullstack} />
+        <Route path="/reset-password-firebase" component={ResetPasswordFullstack} />
         <Route path="/maintenance" component={Maintenance} />
         <Route path="/coming-soon" component={ComingSoon} />
         <Route component={NotFound} />

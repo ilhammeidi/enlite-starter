@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../Templates/Dashboard';
-import { AppContext } from './ThemeWrapper';
+import { ThemeContext } from './ThemeWrapper';
 import {
   DashboardPage,
   BlankPage,
@@ -15,7 +15,7 @@ import {
 
 function Application(props) {
   const { history } = props;
-  const changeMode = useContext(AppContext);
+  const changeMode = useContext(ThemeContext);
 
   return (
     <Dashboard history={history} changeMode={changeMode}>

@@ -1,4 +1,5 @@
-import { darken, lighten } from '@material-ui/core/styles/colorManipulator';
+import { makeStyles } from 'tss-react/mui';
+import { darken, lighten } from '@mui/material/styles';
 import deco from 'enl-images/decoration/hexaMonochrome.svg';
 
 const appFrame = {
@@ -8,7 +9,7 @@ const appFrame = {
   zIndex: 1,
 };
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   root: {
     width: '100%',
     marginTop: 0,
@@ -19,7 +20,7 @@ const styles = theme => ({
     position: 'relative'
   },
   appFrameInner: {
-    background: theme.palette.type === 'dark' ? darken(theme.palette.primary.dark, 0.8) : lighten(theme.palette.primary.light, 0.9),
+    background: theme.palette.mode === 'dark' ? darken(theme.palette.primary.dark, 0.8) : lighten(theme.palette.primary.light, 0.9),
     color: theme.palette.text.primary,
     ...appFrame,
   },
@@ -51,7 +52,7 @@ const styles = theme => ({
     padding: theme.spacing(2),
     minHeight: '100%',
     overflow: 'hidden',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
@@ -81,18 +82,18 @@ const styles = theme => ({
     top: 0,
     left: 0,
     position: 'absolute',
-    '&$headerBg': {
+    [`&.${classes.headerBg}`]: {
       height: 64
     },
-    '&$halfBg': {
+    [`&.${classes.halfBg}`]: {
       height: 400
     },
-    '&$fullBg': {
+    [`&.${classes.fullBg}`]: {
       height: '100%'
     },
   },
   solidBg: {
-    backgroundColor: theme.palette.type === 'dark' ? darken(theme.palette.primary.main, 0.4) : theme.palette.primary.main,
+    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.primary.main, 0.4) : theme.palette.primary.main,
     '&:before': {
       content: "''",
       width: '100%',
@@ -110,10 +111,10 @@ const styles = theme => ({
     '& > div': {
       willChange: 'inherit !important' // hack for floating form issue when expaded
     },
-    '&$sidebarLayout': {
+    [`&.${classes.sidebarLayout}`]: {
       paddingTop: theme.spacing(8),
     },
-    '&$topbarLayout': {
+    [`&.${classes.topbarLayout}`]: {
       width: '100%',
       marginTop: theme.spacing(3),
     },
@@ -188,12 +189,13 @@ const styles = theme => ({
       paddingLeft: 10,
       paddingRight: theme.spacing(1),
       textTransform: 'capitalize',
-      color: theme.palette.type === 'dark' ? theme.palette.secondary.light : theme.palette.primary.dark,
-      [theme.breakpoints.down('md')]: {
+      color: theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.primary.dark,
+      [theme.breakpoints.down('lg')]: {
         marginBottom: theme.spacing(3)
       }
     },
   },
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Collapse from '@material-ui/core/Collapse';
-import Chip from '@material-ui/core/Chip';
-import Icon from '@material-ui/core/Icon';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import styles from './sidebar-jss';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Collapse from '@mui/material/Collapse';
+import Chip from '@mui/material/Chip';
+import Icon from '@mui/material/Icon';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import useStyles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
@@ -23,8 +21,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 
 // eslint-disable-next-line
 function MainMenu(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     openSubMenu,
     open,
     dataMenu,
@@ -46,7 +44,7 @@ function MainMenu(props) {
             component={LinkBtn}
             to={item.linkParent ? item.linkParent : '#'}
             className={
-              classNames(
+              cx(
                 classes.head,
                 item.icon ? classes.iconed : '',
                 open.indexOf(item.key) > -1 ? classes.opened : '',
@@ -69,7 +67,7 @@ function MainMenu(props) {
           { !item.linkParent && (
             <Collapse
               component="div"
-              className={classNames(
+              className={cx(
                 classes.nolist,
                 (item.keyParent ? classes.child : ''),
               )}
@@ -100,7 +98,6 @@ function MainMenu(props) {
     return (
       <ListItem
         key={index.toString()}
-        button
         exact
         className={classes.nested}
         activeClassName={classes.active}
@@ -124,7 +121,6 @@ function MainMenu(props) {
 }
 
 MainMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
   open: PropTypes.array.isRequired,
   openSubMenu: PropTypes.func.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
@@ -147,4 +143,4 @@ const MainMenuMapped = connect(
   mapDispatchToProps
 )(MainMenu);
 
-export default withStyles(styles)(MainMenuMapped);
+export default MainMenuMapped;

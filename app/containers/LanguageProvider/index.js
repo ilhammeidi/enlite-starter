@@ -6,14 +6,11 @@
  * IntlProvider component and i18n messages (loaded from `app/translations`)
  */
 
-/* eslint-disable */
-
-import React from 'react';
+/* eslint-disable */import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
-
 import { makeSelectLocale } from './selectors';
 
 export function LanguageProvider(props) {
@@ -28,8 +25,7 @@ export function LanguageProvider(props) {
   );
 }
 
-LanguageProvider.propTypes = {
-  locale: PropTypes.string,
+LanguageProvider.propTypes = { locale: PropTypes.string,
   messages: PropTypes.object,
   children: PropTypes.element.isRequired,
 };

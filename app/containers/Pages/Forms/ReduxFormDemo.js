@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from 'tss-react/mui';
+import Paper from '@mui/material/Paper';
 import { Field, reduxForm } from 'redux-form';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Grid from '@mui/material/Grid';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Typography from '@mui/material/Typography';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import {
   CheckboxRedux,
   SelectRedux,
@@ -40,7 +40,7 @@ const email = value => (
     : undefined
 );
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     flexGrow: 1,
     padding: 30
@@ -62,7 +62,7 @@ const styles = theme => ({
     margin: theme.spacing(4),
     textAlign: 'center'
   },
-});
+}));
 
 const initData = {
   text: 'Sample Text',
@@ -77,7 +77,9 @@ const initData = {
 function ReduxFormDemo(props) {
   const trueBool = true;
   const {
-    classes,
+    classes
+  } = useStyles();
+  const {
     handleSubmit,
     pristine,
     reset,
@@ -135,7 +137,7 @@ function ReduxFormDemo(props) {
                 </Field>
               </div>
               <div>
-                <FormControl className={classes.field}>
+                <FormControl variant="standard" className={classes.field}>
                   <InputLabel htmlFor="selection">Selection</InputLabel>
                   <Field
                     name="selection"
@@ -187,12 +189,9 @@ function ReduxFormDemo(props) {
   );
 }
 
-renderRadioGroup.propTypes = {
-  input: PropTypes.object.isRequired,
-};
+renderRadioGroup.propTypes = { input: PropTypes.object.isRequired, };
 
 ReduxFormDemo.propTypes = {
-  classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
@@ -207,7 +206,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ReduxFormMapped = reduxForm({
-  form: 'formExample',
+  form: 'reduxFormDemo',
   enableReinitialize: true,
 })(ReduxFormDemo);
 
@@ -218,4 +217,4 @@ const FormInit = connect(
   mapDispatchToProps,
 )(ReduxFormMapped);
 
-export default withStyles(styles)(FormInit);
+export default FormInit;
