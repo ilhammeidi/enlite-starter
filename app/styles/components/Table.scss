@@ -10,7 +10,7 @@
     position: absolute;
   }
   .editing{
-    background: rgba(249, 251, 231, 0.4);
+    background: rgba(249, 251, 231, 0.4) !important;
     td .crudInput{
       &:before{
         opacity: 1;
@@ -32,11 +32,7 @@
       }
     }
   }
-  th{
-    padding: 0 15px;
-  }
   td{
-    padding: 0 15px;
     &.toggleCell{
       position: relative;
     }
@@ -78,7 +74,15 @@
       svg, button {
         visibility: hidden;
       }
+      &[disabled], [class*="disabled"] {
+        -webkit-text-fill-color: inherit
+      }
     }
+  }
+  th {
+    padding: 0 8px;
+    word-break: keep-all;
+    white-space: nowrap;
   }
   td [disabled], td[disabled]:hover{
     border: none !important;

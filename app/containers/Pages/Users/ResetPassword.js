@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { ResetForm } from 'enl-components';
-import styles from '../../../components/Forms/user-jss';
+import useStyles from '../../../components/Forms/user-jss';
 
-function ResetPassword(props) {
-  const { classes } = props;
+function ResetPassword() {
+  const { classes } = useStyles();
   const title = brand.name + ' - Reset Password';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -39,8 +37,4 @@ function ResetPassword(props) {
   );
 }
 
-ResetPassword.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(ResetPassword);
+export default ResetPassword;

@@ -1,4 +1,5 @@
-import { alpha, lighten } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { alpha, lighten } from '@mui/material/styles';
 import flag from 'enl-images/flag-lang.png';
 const drawerWidth = 240;
 
@@ -32,7 +33,7 @@ const flagIcon = {
   },
 };
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   appBar: {
     background: 'rgba(0,0,0,0)',
     zIndex: theme.zIndex.drawer + 1,
@@ -40,18 +41,18 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    '& $menuButton': {
-      color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
+    [`& .${classes.menuButton}`]: {
+      color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
       zIndex: 10,
     },
-    '& $headerTitle': {
+    [`& .${classes.headerTitle}`]: {
       left: theme.spacing(3),
     }
   },
   attachedbar: {
     position: 'relative',
-    '& $menuButton': {
-      margin: `0 ${theme.spacing(2)}px`
+    [`& .${classes.menuButton}`]: {
+      margin: `0 ${theme.spacing(2)}`
     },
   },
   floatingBar: {
@@ -66,13 +67,13 @@ const styles = theme => ({
     background: theme.palette.background.paper,
     boxShadow: theme.shadows[3],
     color: theme.palette.text.primary,
-    [theme.breakpoints.down('md')]: {
-      padding: `${theme.spacing(0.5)}px 0`,
+    [theme.breakpoints.down('sm')]: {
+      padding: `${theme.spacing(0.5)} 0`,
     },
     [theme.breakpoints.up('lg')]: {
       background: alpha(theme.palette.background.paper, 0.8),
     },
-    '& $brand': {
+    [`& .${classes.brand}`]: {
       marginLeft: theme.spacing(3)
     }
   },
@@ -89,15 +90,15 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    '& $headerAction': {
+    [`& .${classes.headerAction}`]: {
       marginLeft: theme.spacing(4)
     },
-    '&$darker': {
-      '& $menuButton': {
-        color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
+    [`&.${classes.darker}`]: {
+      [`& .${classes.menuButton}`]: {
+        color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
       }
     },
-    '& $headerTitle': {
+    [`& .${classes.headerTitle}`]: {
       [theme.breakpoints.up('lg')]: {
         left: theme.spacing(8)
       }
@@ -145,12 +146,12 @@ const styles = theme => ({
     borderRadius: theme.spacing(1),
     display: 'inline-block',
     background: alpha(theme.palette.text.primary, 0.05),
-    '& $miniInput': {
+    [`& .${classes.miniInput}`]: {
       width: 70
     },
   },
   searchWrapper: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       flex: 1,
       textAlign: 'right'
     }
@@ -164,9 +165,9 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     '& svg': {
-      fill: theme.palette.grey[400]
+      color: theme.palette.grey[400]
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     },
   },
@@ -177,12 +178,12 @@ const styles = theme => ({
   solidBg: {},
   darker: {
     backgroundAttachment: 'fixed',
-    backgroundColor: theme.palette.type === 'dark' ? lighten(theme.palette.common.black, 0.1) : theme.palette.background.paper,
+    backgroundColor: theme.palette.mode === 'dark' ? lighten(theme.palette.common.black, 0.1) : theme.palette.background.paper,
     boxShadow:
-      theme.palette.type === 'dark'
+      theme.palette.mode === 'dark'
         ? '0px 1px 6px 0px rgba(0, 0, 0, 1), 0px 1px 1px 0px rgba(42, 42, 42, 1), 0px 2px 1px -1px rgba(20, 20, 20, 1)'
         : '0px 1px 6px 0px rgba(142, 142, 142, 0.2), 0px 1px 1px 0px rgba(243, 243, 243, 0.14), 0px 2px 1px -1px rgba(204, 204, 204, 0.12)',
-    '& $menuButton': {
+    [`& .${classes.menuButton}`]: {
       color: theme.palette.common.white
     }
   },
@@ -191,7 +192,7 @@ const styles = theme => ({
     left: 0,
     top: 0,
     [theme.breakpoints.up('lg')]: {
-      top: theme.spacing(1) * -8,
+      top: theme.spacing(-8),
     },
     '& nav': {
       padding: '16px 0'
@@ -229,9 +230,9 @@ const styles = theme => ({
       width: 28,
       height: 28,
     },
-    '&$light': {
+    [`&.${classes.light}`]: {
       '& svg': {
-        fill: alpha(theme.palette.text.hint, 0.48),
+        fill: alpha(theme.palette.text.disabled, 0.48),
       }
     },
   },
@@ -254,14 +255,14 @@ const styles = theme => ({
     display: 'flex',
     paddingLeft: theme.spacing(1.5),
     '& svg': {
-      fill: theme.palette.type === 'dark' ? alpha(theme.palette.primary.light, 0.64) : alpha(theme.palette.primary.dark, 0.64)
+      fill: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.light, 0.64) : alpha(theme.palette.primary.dark, 0.64)
     }
   },
   dense: {
     [theme.breakpoints.up('lg')]: {
       paddingLeft: theme.spacing(4),
     },
-    '& $brand': {
+    [`& .${classes.brand}`]: {
       [theme.breakpoints.up('lg')]: {
         marginLeft: theme.spacing(4),
         marginRight: theme.spacing(1),
@@ -270,7 +271,7 @@ const styles = theme => ({
   },
   mainMenu: {
     backgroundColor: theme.palette.background.paper,
-    padding: `${theme.spacing(1)}px 0`,
+    padding: `${theme.spacing(1)} 0`,
     boxShadow: theme.shadows[3],
     position: 'relative',
     transition: 'padding 0.3s ease',
@@ -281,9 +282,9 @@ const styles = theme => ({
   },
   headMenu: {
     fontSize: 12,
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px ${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+    padding: `${theme.spacing(0.5)} ${theme.spacing(1)} ${theme.spacing(0.5)} ${theme.spacing(2)}`,
     minHeight: 'auto',
-    margin: `0 ${theme.spacing(0.5)}px`
+    margin: `0 ${theme.spacing(0.5)}`
   },
   opened: {
     color: theme.palette.primary.main,
@@ -305,7 +306,7 @@ const styles = theme => ({
     '& svg': {
       fill: theme.palette.primary.light,
     },
-    '& $rightIcon': {
+    [`& .${classes.rightIcon}`]: {
       opacity: 0.7
     }
   },
@@ -341,19 +342,19 @@ const styles = theme => ({
     '& span': {
       fontSize: 14,
     },
-    '&$active': {
-      backgroundColor: theme.palette.type === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
+    [`&.${classes.active}`]: {
+      backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
       '& span': {
-        color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
+        color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
       },
       '&:hover': {
-        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.main, 0.24) : theme.palette.secondary.light,
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.secondary.main, 0.24) : theme.palette.secondary.light,
       }
     }
   },
   megaMenu: {
-    padding: `0 ${theme.spacing(2)}px`,
-    '& $title': {
+    padding: `0 ${theme.spacing(2)}`,
+    [`& .${classes.title}`]: {
       paddingLeft: theme.spacing(2)
     }
   },
@@ -362,21 +363,21 @@ const styles = theme => ({
     width: 'auto',
     margin: theme.spacing(1),
     borderRadius: theme.rounded.big,
-    padding: `${theme.spacing(0.25)}px ${theme.spacing(1)}px`,
+    padding: `${theme.spacing(0.25)} ${theme.spacing(1)}`,
     '& span': {
       fontSize: 14,
     },
     '& div': {
       padding: 0
     },
-    '&$active': {
+    [`&.${classes.active}`]: {
       border: `1px solid ${theme.palette.primary.main}`,
-      backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+      backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
       '& span': {
-        color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
+        color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
       },
       '&:hover': {
-        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
       }
     }
   },
@@ -392,7 +393,7 @@ const styles = theme => ({
   },
   button: {},
   buttonTop: {
-    margin: `0 ${theme.spacing(2)}px`,
+    margin: `0 ${theme.spacing(2)}`,
     '& svg': {
       marginRight: theme.spacing(1)
     }
@@ -408,20 +409,20 @@ const styles = theme => ({
   fadeOut: {},
   invert: {},
   headerAction: {
-    margin: `0 ${theme.spacing(5)}px`,
+    margin: `0 ${theme.spacing(5)}`,
     transition: 'opacity 0.5s ease',
-    '& $button': {
+    [`& .${classes.button}`]: {
       '& svg': {
-        fill: alpha(theme.palette.text.hint, 0.48),
+        fill: alpha(theme.palette.text.disabled, 0.48),
         width: 28,
         height: 28
       }
     },
-    '&$fadeOut': {
+    [`&.${classes.fadeOut}`]: {
       opacity: 0,
     },
-    '&$invert': {
-      '& $button': {
+    [`&.${classes.invert}`]: {
+      [`& .${classes.button}`]: {
         '& svg': {
           fill: alpha(theme.palette.text.primary, 0.5),
         }
@@ -436,9 +437,9 @@ const styles = theme => ({
     textTransform: 'capitalize',
     fontWeight: 700,
     top: 60,
-    color: theme.palette.type === 'dark' ? theme.palette.secondary.light : theme.palette.primary.dark,
+    color: theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.primary.dark,
     opacity: 0,
-    '&$show': {
+    [`&.${classes.show}`]: {
       top: theme.spacing(1),
       opacity: 0.87
     }
@@ -459,8 +460,8 @@ const styles = theme => ({
     '& > *': {
       marginRight: theme.spacing(0.5)
     },
-    '& $buttonTop': {
-      [theme.breakpoints.down('xs')]: {
+    [`& .${classes.buttonTop}`]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: 0,
         '& svg': {
           margin: 0
@@ -468,6 +469,7 @@ const styles = theme => ({
       },
     }
   }
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

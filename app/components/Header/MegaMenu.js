@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
-import Popper from '@material-ui/core/Popper';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import classNames from 'classnames';
+import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
+import Popper from '@mui/material/Popper';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Icon from '@material-ui/core/Icon';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Icon from '@mui/material/Icon';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
-import styles from './header-jss';
+import useStyles from './header-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
 
 function MegaMenu(props) { // eslint-disable-line
+  const { classes, cx } = useStyles();
   const {
-    classes,
     open,
     openSubMenu,
     dataMenu,
@@ -63,10 +61,10 @@ function MegaMenu(props) { // eslint-disable-line
         <div key={index.toString()}>
           <Button
             aria-haspopup="true"
-            component={LinkBtn}
-            to={item.linkParent ? item.linkParent : '#'}
+            component={item.linkParent ? LinkBtn : 'button'}
+            to={item.linkParent ? item.linkParent : false}
             className={
-              classNames(
+              cx(
                 classes.headMenu,
                 open.indexOf(item.key) > -1 ? classes.opened : '',
                 active.indexOf(item.key) > -1 ? classes.selected : ''
@@ -169,7 +167,6 @@ function MegaMenu(props) { // eslint-disable-line
 }
 
 MegaMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
   open: PropTypes.array.isRequired,
   openSubMenu: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
@@ -191,4 +188,4 @@ const MegaMenuMapped = connect(
   mapDispatchToProps
 )(MegaMenu);
 
-export default withStyles(styles)(injectIntl(MegaMenuMapped));
+export default injectIntl(MegaMenuMapped);

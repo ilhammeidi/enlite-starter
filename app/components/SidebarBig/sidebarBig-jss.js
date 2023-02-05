@@ -1,16 +1,16 @@
-import { alpha } from '@material-ui/core/styles';
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import red from '@material-ui/core/colors/red';
-import amber from '@material-ui/core/colors/amber';
-import grey from '@material-ui/core/colors/grey';
+import { makeStyles } from 'tss-react/mui';
+import { alpha } from '@mui/material/styles';
+import {
+  lightGreen, red, amber, grey
+} from '@mui/material/colors';
 
 const categoryWidth = 104;
 const listWidth = 188;
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   bigSidebar: {
     color: theme.palette.text.primary,
-    padding: `${theme.spacing(1)}px 0`,
+    padding: `${theme.spacing(1)} 0`,
     display: 'flex',
     marginTop: theme.spacing(1),
     [theme.breakpoints.up('lg')]: {
@@ -19,8 +19,8 @@ const styles = theme => ({
   },
   category: {
     width: categoryWidth,
-    '& $fixedWrap': {
-      padding: `0 ${theme.spacing(1)}px`
+    [`& .${classes.fixedWrap}`]: {
+      padding: `0 ${theme.spacing(1)}`
     }
   },
   icon: {},
@@ -86,7 +86,7 @@ const styles = theme => ({
     borderRadius: '50%',
     border: '1px solid #fff',
     marginRight: theme.spacing(1),
-    '&$pinned': {
+    [`&.${classes.pinned}`]: {
       position: 'absolute',
       bottom: 3,
       left: 60,
@@ -115,7 +115,7 @@ const styles = theme => ({
     '&:hover': {
       background: theme.palette.action.hover,
     },
-    '&$active': {
+    [`&.${classes.active}`]: {
       '&:before': {
         content: '""',
         position: 'absolute',
@@ -123,20 +123,20 @@ const styles = theme => ({
         height: 68,
         borderRadius: 5,
         top: 0,
-        left: theme.spacing(1) * -1,
+        left: theme.spacing(-1),
         background: theme.palette.primary.dark
       },
-      '& $icon, $text': {
-        color: theme.palette.type === 'dark' ? theme.palette.primary.main : theme.palette.primary.main,
+      [`& .${classes.icon}, .${classes.text}`]: {
+        color: theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.main,
       },
     },
-    '& $icon': {
+    [`& .${classes.icon}`]: {
       color: alpha(theme.palette.text.secondary, 0.24),
       display: 'block',
       marginBottom: theme.spacing(1),
       fontSize: 32,
     },
-    '& $text': {
+    [`& .${classes.text}`]: {
       width: 80,
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -162,11 +162,11 @@ const styles = theme => ({
       paddingBottom: theme.spacing(8),
       marginLeft: theme.spacing(1)
     },
-    '& $icon': {
+    [`& .${classes.icon}`]: {
       color: alpha(theme.palette.text.secondary, 0.32),
       fontSize: 14,
     },
-    '& $text': {
+    [`& .${classes.text}`]: {
       paddingLeft: 0,
       paddingRight: 0,
       '& span': {
@@ -176,30 +176,30 @@ const styles = theme => ({
         display: 'block',
       }
     },
-    '& $item': {
+    [`& .${classes.item}`]: {
       borderRadius: 4,
       textAlign: 'left',
       paddingLeft: 0,
       margin: '4px 0',
-      '& > div:first-child': {
-        margin: `0 ${theme.spacing(1)}px`,
+      '& > div:first-of-type': {
+        margin: `0 ${theme.spacing(1)}`,
         minWidth: 'auto'
       },
-      '&$active': {
-        backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
-        '& $icon': {
-          color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
+      [`&.${classes.active}`]: {
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
+        [`& .${classes.icon}`]: {
+          color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
         },
-        '& $text': {
+        [`& .${classes.text}`]: {
           '& span': {
-            color: theme.palette.type === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
+            color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
           }
         },
         '&:hover': {
-          backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
+          backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         },
         '&:focus': {
-          backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
+          backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         }
       }
     }
@@ -231,6 +231,7 @@ const styles = theme => ({
     transform: 'translateX(0px)',
     transition: 'all 0.2s ease-out'
   }
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

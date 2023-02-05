@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
+import Hidden from '@mui/material/Hidden';
 import { Field, reduxForm } from 'redux-form';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { connect } from 'react-redux';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ArrowForward from '@material-ui/icons/ArrowForward';
-import Paper from '@material-ui/core/Paper';
-import Icon from '@material-ui/core/Icon';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import Paper from '@mui/material/Paper';
+import Icon from '@mui/material/Icon';
+import CircularProgress from '@mui/material/CircularProgress';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -25,7 +23,7 @@ import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
-import styles from './user-jss';
+import useStyles from './user-jss';
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -40,8 +38,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 });
 
 function LoginForm(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     handleSubmit,
     pristine,
     submitting,
@@ -70,7 +68,7 @@ function LoginForm(props) {
           <FormattedMessage {...messages.login} />
         </Typography>
         <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
-          <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
+          <Icon className={cx(classes.icon, classes.signArrow)}>arrow_forward</Icon>
           <FormattedMessage {...messages.createNewAccount} />
         </Button>
       </div>
@@ -89,7 +87,7 @@ function LoginForm(props) {
       <section className={classes.pageFormSideWrap}>
         <form onSubmit={handleSubmit}>
           <div>
-            <FormControl className={classes.formControl}>
+            <FormControl variant="standard" className={classes.formControl}>
               <Field
                 name="email"
                 component={TextFieldRedux}
@@ -102,7 +100,7 @@ function LoginForm(props) {
             </FormControl>
           </div>
           <div>
-            <FormControl className={classes.formControl}>
+            <FormControl variant="standard" className={classes.formControl}>
               <Field
                 name="password"
                 component={TextFieldRedux}
@@ -115,7 +113,7 @@ function LoginForm(props) {
                         aria-label="Toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                      >
+                        size="large">
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
@@ -141,7 +139,7 @@ function LoginForm(props) {
             <Button variant="contained" disabled={loading} fullWidth color="primary" size="large" type="submit">
               {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
               <FormattedMessage {...messages.loginButtonContinue} />
-              {!loading && <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
+              {!loading && <ArrowForward className={cx(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
             </Button>
           </div>
         </form>
@@ -185,7 +183,6 @@ function LoginForm(props) {
 }
 
 LoginForm.propTypes = {
-  classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -219,4 +216,4 @@ const LoginFormMapped = connect(
   mapDispatchToProps
 )(LoginFormReduxed);
 
-export default withStyles(styles)(injectIntl(LoginFormMapped));
+export default injectIntl(LoginFormMapped);

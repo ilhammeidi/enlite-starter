@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
-import styles from './papperStyle-jss';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
+import useStyles from './papperStyle-jss';
 
 function PapperBlock(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     title,
     desc,
     children,
@@ -34,7 +32,7 @@ function PapperBlock(props) {
     <div>
       <Paper
         className={
-          classNames(
+          cx(
             classes.root,
             noMargin && classes.noMargin,
             color(colorMode)
@@ -55,7 +53,7 @@ function PapperBlock(props) {
             </Typography>
           </div>
         </div>
-        <section className={classNames(classes.content, whiteBg && classes.whiteBg, overflowX && classes.overflowX)}>
+        <section className={cx(classes.content, whiteBg && classes.whiteBg, overflowX && classes.overflowX)}>
           {children}
         </section>
       </Paper>
@@ -64,7 +62,6 @@ function PapperBlock(props) {
 }
 
 PapperBlock.propTypes = {
-  classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   icon: PropTypes.string,
@@ -83,4 +80,4 @@ PapperBlock.defaultProps = {
   icon: 'flag'
 };
 
-export default withStyles(styles)(PapperBlock);
+export default PapperBlock;

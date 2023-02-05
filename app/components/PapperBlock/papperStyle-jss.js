@@ -1,14 +1,16 @@
-import { darken } from '@material-ui/core/styles/colorManipulator';
-const styles = theme => ({
+import { makeStyles } from 'tss-react/mui';
+import { darken } from '@mui/material/styles';
+
+const useStyles = makeStyles()((theme, _params, classes) => ({
   root: {
-    padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
+    padding: `${theme.spacing(3)} ${theme.spacing(1)}`,
     marginBottom: theme.spacing(3),
     boxShadow: theme.shade.light,
     color: theme.palette.text.primary,
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing(3)}px ${theme.spacing(2)}px`
+      padding: `${theme.spacing(3)} ${theme.spacing(2)}`
     },
-    '&$noMargin': {
+    [`&.${classes.noMargin}`]: {
       margin: 0
     },
   },
@@ -28,7 +30,7 @@ const styles = theme => ({
     textTransform: 'capitalize',
     fontSize: 18,
     fontWeight: 700,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
       fontWeight: 600,
       marginBottom: theme.spacing(1)
@@ -37,7 +39,7 @@ const styles = theme => ({
   description: {
     maxWidth: 960,
     paddingTop: theme.spacing(0.5),
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       textAlign: 'center'
     }
   },
@@ -57,20 +59,20 @@ const styles = theme => ({
   },
   noMargin: {},
   colorDark: {
-    backgroundColor: theme.palette.type === 'dark' ? darken(theme.palette.primary.dark, 0.5) : theme.palette.primary.main,
-    '& $title': {
+    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.primary.dark, 0.5) : theme.palette.primary.main,
+    [`& .${classes.title}`]: {
       color: theme.palette.grey[100],
     },
-    '& $description': {
+    [`& .${classes.description}`]: {
       color: theme.palette.grey[100],
     }
   },
   colorLight: {
-    backgroundColor: theme.palette.type === 'dark' ? darken(theme.palette.primary.dark, 0.5) : theme.palette.primary.light,
-    '& $title': {
-      color: theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
+    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.primary.dark, 0.5) : theme.palette.primary.light,
+    [`& .${classes.title}`]: {
+      color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
     },
-    '& $description': {
+    [`& .${classes.description}`]: {
       color: theme.palette.text.primary,
     }
   },
@@ -87,16 +89,15 @@ const styles = theme => ({
     lineHeight: '44px',
     verticalAlign: 'middle',
     marginRight: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none'
     },
     '& span': {
-      width: '60%',
-      height: '60%',
       verticalAlign: 'middle',
-      color: theme.palette.type === 'dark' ? theme.palette.secondary.light : theme.palette.primary.main
+      color: theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.primary.main
     }
   }
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

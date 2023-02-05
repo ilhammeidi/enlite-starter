@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
-import { withStyles } from '@material-ui/core/styles';
-import styles from './user-jss';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import SnackbarContent from '@mui/material/SnackbarContent';
+import WarningIcon from '@mui/icons-material/Warning';
+import useStyles from './user-jss';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -19,8 +17,8 @@ const variantIcon = {
 };
 
 function MessagesForm(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     className,
     message,
     onClose,
@@ -31,11 +29,11 @@ function MessagesForm(props) {
 
   return (
     <SnackbarContent
-      className={classNames(classes[variant], className)}
+      className={cx(classes[variant], className)}
       aria-describedby="client-snackbar"
       message={(
         <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.iconMsg, classes.iconVariant)} />
+          <Icon className={cx(classes.iconMsg, classes.iconVariant)} />
           {message}
         </span>
       )}
@@ -46,7 +44,7 @@ function MessagesForm(props) {
           color="inherit"
           className={classes.close}
           onClick={onClose}
-        >
+          size="large">
           <CloseIcon className={classes.iconMsg} />
         </IconButton>,
       ]}
@@ -56,7 +54,6 @@ function MessagesForm(props) {
 }
 
 MessagesForm.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
@@ -69,4 +66,4 @@ MessagesForm.defaultProps = {
   onClose: () => {},
 };
 
-export default withStyles(styles)(MessagesForm);
+export default MessagesForm;

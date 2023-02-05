@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from 'tss-react/mui';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { Route, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import borderHexaGrey from 'enl-images/decoration/hexaGrey.svg';
 import borderHexaWhite from 'enl-images/decoration/hexaWhite.svg';
 import messages from './messages';
 
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   invert: {},
   errorWrap: {
-    background: `url(${theme.palette.type === 'dark' ? borderHexaWhite : borderHexaGrey}) no-repeat`,
+    background: `url(${theme.palette.mode === 'dark' ? borderHexaWhite : borderHexaGrey}) no-repeat`,
     backgroundSize: '100% 100%',
     backgroundPosition: '-4px center',
     width: 500,
@@ -27,8 +26,8 @@ const styles = theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     position: 'relative',
-    margin: `${theme.spacing(3)}px auto`,
-    '&$invert': {
+    margin: `${theme.spacing(3)} auto`,
+    [`&.${classes.invert}`]: {
       '& h1, h5': {
         color: theme.palette.common.white
       }
@@ -55,41 +54,45 @@ const styles = theme => ({
   button: {
     marginTop: 24
   }
-});
+}));
 
-const ErrorWrap = (props) => (
-  <Route
-    render={({ staticContext }) => {
-      if (staticContext) {
-        staticContext.status = 404; // eslint-disable-line
-      }
-      const {
-        classes,
-        title,
-        desc,
-        invert
-      } = props;
-      return (
-        <div className={classNames(classes.errorWrap, invert && classes.invert)}>
-          <Typography className={classes.title} variant="h1">{title}</Typography>
-          <Typography variant="h5">{desc}</Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            component={Link}
-            to="/app"
-          >
-            <FormattedMessage {...messages.button} />
-          </Button>
-        </div>
-      );
-    }}
-  />
-);
+function ErrorWrap(props) {
+  const {
+    classes,
+    cx
+  } = useStyles();
+  return (
+    <Route
+      render={({ staticContext }) => {
+        if (staticContext) {
+          staticContext.status = 404; // eslint-disable-line
+        }
+        const {
+          title,
+          desc,
+          invert
+        } = props;
+        return (
+          <div className={cx(classes.errorWrap, invert && classes.invert)}>
+            <Typography className={classes.title} variant="h1">{title}</Typography>
+            <Typography variant="h5">{desc}</Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              component={Link}
+              to="/app"
+            >
+              <FormattedMessage {...messages.button} />
+            </Button>
+          </div>
+        );
+      }}
+    />
+  );
+}
 
 ErrorWrap.propTypes = {
-  classes: PropTypes.object.isRequired,
   desc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   invert: PropTypes.bool,
@@ -99,4 +102,4 @@ ErrorWrap.defaultProps = {
   invert: false,
 };
 
-export default withStyles(styles)(ErrorWrap);
+export default ErrorWrap;

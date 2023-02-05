@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import styles from './sidebarBig-jss';
+import Hidden from '@mui/material/Hidden';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import useStyles from './sidebarBig-jss';
 import MainMenuBig from './MainMenuBig';
 
 function SidebarBig(props) {
+  const { classes } = useStyles();
   const {
-    classes,
     dataMenu,
     loadTransition,
     open,
@@ -37,7 +36,7 @@ function SidebarBig(props) {
           </div>
         </SwipeableDrawer>
       </Hidden>
-      <Hidden mdDown>
+      <Hidden smDown>
         <div>
           <MainMenuBig
             dataMenu={dataMenu}
@@ -52,7 +51,6 @@ function SidebarBig(props) {
 }
 
 SidebarBig.propTypes = {
-  classes: PropTypes.object.isRequired,
   dataMenu: PropTypes.array.isRequired,
   loadTransition: PropTypes.func.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
@@ -60,4 +58,4 @@ SidebarBig.propTypes = {
   userAttr: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SidebarBig);
+export default SidebarBig;

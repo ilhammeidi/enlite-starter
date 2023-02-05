@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import styles from 'enl-components/Forms/user-jss';
+import useStyles from 'enl-components/Forms/user-jss';
 import messages from './messages';
 
 function ComingSoon(props) {
@@ -24,7 +22,8 @@ function ComingSoon(props) {
 
   const title = brand.name + ' - Coming Soon';
   const description = brand.desc;
-  const { classes, intl } = props;
+  const { intl } = props;
+  const { classes, cx } = useStyles();
   return (
     <div className={classes.rootFull}>
       <Helmet>
@@ -39,14 +38,14 @@ function ComingSoon(props) {
         <div className={classes.fullFormWrap}>
           <Paper
             className={
-              classNames(
+              cx(
                 classes.fullWrap,
                 classes.centerV
               )
             }
           >
             <div className={classes.brandCenter}>
-              <div className={classNames(classes.brand, classes.invert)}>
+              <div className={cx(classes.brand, classes.invert)}>
                 <img src={logo} alt={brand.name} />
                 {brand.name}
               </div>
@@ -58,17 +57,17 @@ function ComingSoon(props) {
               <FormattedMessage {...messages.subtitle} />
             </Typography>
             <section className={classes.pageFormWrap}>
-              <div className={classNames(classes.notifyForm, classes.centerAdornment)}>
-                <FormControl>
+              <div className={cx(classes.notifyForm, classes.centerAdornment)}>
+                <FormControl variant="standard">
                   <TextField
+                    variant="standard"
                     fullWidth
                     id="standard-name"
                     label={intl.formatMessage(messages.field)}
                     className={classes.textField}
                     value={email}
                     onChange={(e) => handleChange(e)}
-                    margin="normal"
-                  />
+                    margin="normal" />
                 </FormControl>
                 <aside>
                   <Button variant="contained" size="small" color="secondary" type="submit">
@@ -76,14 +75,14 @@ function ComingSoon(props) {
                   </Button>
                 </aside>
               </div>
-              <div className={classNames(classes.lockForm, classes.centerAdornment)}>
-                <IconButton color="primary" className={classes.button} href="#">
+              <div className={cx(classes.lockForm, classes.centerAdornment)}>
+                <IconButton color="primary" className={classes.button} href="#" size="large">
                   <i className="ion-logo-facebook" />
                 </IconButton>
-                <IconButton color="primary" className={classes.button} href="#">
+                <IconButton color="primary" className={classes.button} href="#" size="large">
                   <i className="ion-logo-twitter" />
                 </IconButton>
-                <IconButton color="primary" className={classes.button} href="#">
+                <IconButton color="primary" className={classes.button} href="#" size="large">
                   <i className="ion-logo-instagram" />
                 </IconButton>
               </div>
@@ -96,8 +95,7 @@ function ComingSoon(props) {
 }
 
 ComingSoon.propTypes = {
-  classes: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(injectIntl(ComingSoon));
+export default injectIntl(ComingSoon);

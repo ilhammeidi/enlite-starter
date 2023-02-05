@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
-import { withStyles } from '@material-ui/core/styles';
+import Hidden from '@mui/material/Hidden';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RegisterFormFirebase, SelectLanguage } from 'enl-components';
-import styles from 'enl-components/Forms/user-jss';
+import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import { FormattedMessage } from 'react-intl';
 import { registerWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Register(props) {
-  const { classes, handleRegister } = props;
+  const { handleRegister } = props;
+  const { classes } = useStyles();
   const title = brand.name + ' - Register';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -42,7 +42,7 @@ function Register(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden smDown>
+        <Hidden mdDown>
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -77,22 +77,16 @@ function Register(props) {
   );
 }
 
-Register.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleRegister: PropTypes.func.isRequired,
-};
+Register.propTypes = { handleRegister: PropTypes.func.isRequired, };
 
 function RegisterWrap(props) {
   const { handleRegisterWithEmail } = props;
-  const RegisterStyled = withStyles(styles)(Register);
   return (
-    <RegisterStyled handleRegister={handleRegisterWithEmail} />
+    <Register handleRegister={handleRegisterWithEmail} />
   );
 }
 
-RegisterWrap.propTypes = {
-  handleRegisterWithEmail: PropTypes.func.isRequired,
-};
+RegisterWrap.propTypes = { handleRegisterWithEmail: PropTypes.func.isRequired, };
 
 const mapStateToProps = state => state.authReducer;
 

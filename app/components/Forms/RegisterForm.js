@@ -1,28 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
+import Button from '@mui/material/Button';
+import Hidden from '@mui/material/Hidden';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ArrowForward from '@material-ui/icons/ArrowForward';
-import Icon from '@material-ui/core/Icon';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import Icon from '@mui/material/Icon';
+import CircularProgress from '@mui/material/CircularProgress';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { closeMsgAction } from 'enl-redux/actions/authActions';
 import { CheckboxRedux, TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
-import styles from './user-jss';
+import useStyles from './user-jss';
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -44,8 +42,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 });
 
 function RegisterForm(props) {
+  const { classes, cx } = useStyles();
   const {
-    classes,
     handleSubmit,
     pristine,
     submitting,
@@ -70,7 +68,7 @@ function RegisterForm(props) {
           <FormattedMessage {...messages.register} />
         </Typography>
         <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
-          <Icon className={classNames(classes.icon, classes.signArrow)}>arrow_forward</Icon>
+          <Icon className={cx(classes.icon, classes.signArrow)}>arrow_forward</Icon>
           <FormattedMessage {...messages.toAccount} />
         </Button>
       </div>
@@ -89,7 +87,7 @@ function RegisterForm(props) {
       <section>
         <form onSubmit={handleSubmit}>
           <div>
-            <FormControl className={classes.formControl}>
+            <FormControl variant="standard" className={classes.formControl}>
               <Field
                 name="name"
                 component={TextFieldRedux}
@@ -101,7 +99,7 @@ function RegisterForm(props) {
             </FormControl>
           </div>
           <div>
-            <FormControl className={classes.formControl}>
+            <FormControl variant="standard" className={classes.formControl}>
               <Field
                 name="email"
                 component={TextFieldRedux}
@@ -115,7 +113,7 @@ function RegisterForm(props) {
           </div>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormControl className={classes.formControl}>
+              <FormControl variant="standard" className={classes.formControl}>
                 <Field
                   name="password"
                   component={TextFieldRedux}
@@ -128,7 +126,7 @@ function RegisterForm(props) {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl className={classes.formControl}>
+              <FormControl variant="standard" className={classes.formControl}>
                 <Field
                   name="passwordConfirm"
                   component={TextFieldRedux}
@@ -151,7 +149,7 @@ function RegisterForm(props) {
             <Button variant="contained" fullWidth disabled={loading} color="primary" type="submit">
               {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
               <FormattedMessage {...messages.loginButtonContinue} />
-              {!loading && <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
+              {!loading && <ArrowForward className={cx(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />}
             </Button>
           </div>
         </form>
@@ -195,7 +193,6 @@ function RegisterForm(props) {
 }
 
 RegisterForm.propTypes = {
-  classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -228,4 +225,4 @@ const RegisterFormMapped = connect(
   mapDispatchToProps
 )(RegisterFormReduxed);
 
-export default withStyles(styles)(injectIntl(RegisterFormMapped));
+export default injectIntl(RegisterFormMapped);

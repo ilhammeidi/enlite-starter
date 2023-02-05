@@ -1,38 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
+import { makeStyles } from 'tss-react/mui';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { prefixer } from 'stylis';
 import { connect } from 'react-redux';
 import Loading from 'react-top-loading-bar';
 import { bindActionCreators } from 'redux';
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/styles';
-import {
-  withTheme, withStyles,
-  createTheme, MuiThemeProvider
-} from '@material-ui/core/styles';
 import 'enl-styles/vendors/react-loading-bar/index.css';
 import { changeModeAction } from 'enl-redux/actions/uiActions';
 import applicationTheme from '../../styles/theme/applicationTheme';
 
-const styles = {
+const useStyles = makeStyles()(() => ({
   root: {
     width: '100%',
     minHeight: '100%',
     marginTop: 0,
     zIndex: 1,
   }
-};
+}));
 
-// Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const isBrowser = typeof document !== 'undefined';
+let insertionPoint;
+
+if (isBrowser) {
+  const emotionInsertionPoint = document.querySelector(
+    'meta[name="emotion-insertion-point"]',
+  );
+  insertionPoint = emotionInsertionPoint ?? undefined;
+}
+
+const cacheRTL = createCache({
+  key: 'mui-style-rtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+  insertionPoint,
+});
+
+const cacheLTR = createCache({
+  key: 'mui-style-ltr',
+  insertionPoint,
+});
 
 // Export context for themeing mode
-export const AppContext = React.createContext();
+export const ThemeContext = React.createContext();
 
 function ThemeWrapper(props) {
+  const { classes } = useStyles();
   const {
     changeMode,
-    classes,
     children,
     color,
     direction,
@@ -47,13 +64,14 @@ function ThemeWrapper(props) {
   };
 
   useEffect(() => {
+    // Remove loading bar
     setLoading(0);
     setTimeout(() => { setLoading(100); }, 2000);
   }, []);
 
   return (
-    <StylesProvider jss={jss}>
-      <MuiThemeProvider theme={theme}>
+    <CacheProvider value={theme.direction === 'rtl' ? cacheRTL : cacheLTR}>
+      <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <div className={classes.pageLoader}>
             <Loading
@@ -63,17 +81,16 @@ function ThemeWrapper(props) {
               className="top-loading-bar"
             />
           </div>
-          <AppContext.Provider value={handleChangeMode}>
+          <ThemeContext.Provider value={handleChangeMode}>
             {children}
-          </AppContext.Provider>
+          </ThemeContext.Provider>
         </div>
-      </MuiThemeProvider>
-    </StylesProvider>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
 
 ThemeWrapper.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   color: PropTypes.string.isRequired,
   mode: PropTypes.string.isRequired,
@@ -84,7 +101,7 @@ ThemeWrapper.propTypes = {
 const mapStateToProps = state => ({
   color: state.ui.theme,
   mode: state.ui.type,
-  direction: state.ui.direction
+  direction: state.ui.direction,
 });
 
 const dispatchToProps = dispatch => ({
@@ -96,4 +113,4 @@ const ThemeWrapperMapped = connect(
   dispatchToProps
 )(ThemeWrapper);
 
-export default withTheme((withStyles(styles)(ThemeWrapperMapped)));
+export default ThemeWrapperMapped;

@@ -1,11 +1,11 @@
-import { alpha } from '@material-ui/core/styles';
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import red from '@material-ui/core/colors/red';
-import amber from '@material-ui/core/colors/amber';
-import grey from '@material-ui/core/colors/grey';
+import { makeStyles } from 'tss-react/mui';
+import { alpha } from '@mui/material/styles';
+import {
+  lightGreen, red, amber, grey
+} from '@mui/material/colors';
 
 const drawerWidth = 240;
-const styles = theme => ({
+const useStyles = makeStyles()((theme, _params, classes) => ({
   user: {
     justifyContent: 'center'
   },
@@ -33,7 +33,7 @@ const styles = theme => ({
     width: drawerWidth,
   },
   opened: {
-    '& $primary, & $icon': {
+    [`& .${classes.primary}, & .${classes.icon}`]: {
       color: theme.palette.primary.main,
     },
   },
@@ -45,10 +45,10 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    '& $user': {
+    [`& .${classes.user}`]: {
       justifyContent: 'flex-start'
     },
-    '& $bigAvatar': {
+    [`& .${classes.bigAvatar}`]: {
       width: 40,
       height: 40,
     },
@@ -63,10 +63,10 @@ const styles = theme => ({
         display: 'block'
       }
     },
-    '& $brand': {
+    [`& .${classes.brand}`]: {
       display: 'none'
     },
-    '& $profile': {
+    [`& .${classes.profile}`]: {
       flexDirection: 'row',
       top: theme.spacing(6),
       padding: theme.spacing(0.5),
@@ -75,11 +75,11 @@ const styles = theme => ({
         width: 'auto'
       }
     },
-    '& $avatar': {
+    [`& .${classes.avatar}`]: {
       marginRight: theme.spacing(3)
     },
-    '& $menuContainer': {
-      '&$menuContainer': {
+    [`& .${classes.menuContainer}`]: {
+      [`&.${classes.menuContainer}`]: {
         paddingTop: theme.spacing(10),
         paddingBottom: 0,
       }
@@ -93,7 +93,7 @@ const styles = theme => ({
   drawerInnerMobile: {
     // Make the items inside not wrap when transitioning:
     height: '100%',
-    backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.background.paper, 0.75) : alpha(theme.palette.background.paper, 0.95),
+    backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background.paper, 0.75) : alpha(theme.palette.background.paper, 0.95),
   },
   drawerHeader: {
     zIndex: 1,
@@ -129,8 +129,12 @@ const styles = theme => ({
   nested: {
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
-    margin: `${theme.spacing(0.5)}px 0`,
-    paddingLeft: theme.spacing(7)
+    margin: `${theme.spacing(0.5)} 0`,
+    paddingLeft: theme.spacing(7),
+    color: theme.palette.text.primary,
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.text.secondary, 0.05)
+    }
   },
   child: {
     '& a': {
@@ -149,23 +153,23 @@ const styles = theme => ({
   },
   dense: {
     padding: theme.spacing(),
-    '& > $title:first-child': {
+    [`& > .${classes.title}:first-of-type`]: {
       margin: '0'
     },
-    '& $head': {
+    [`& .${classes.head}`]: {
       paddingLeft: theme.spacing(7)
     }
   },
   active: {
-    backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
-    '& $primary': {
-      color: theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
+    backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+    [`& .${classes.primary}`]: {
+      color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
     },
-    '& $icon svg': {
+    [`& .${classes.icon} svg`]: {
       fill: theme.palette.primary.dark,
     },
     '&:hover, &:focus': {
-      backgroundColor: theme.palette.type === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
+      backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
     }
   },
   nolist: {
@@ -176,10 +180,10 @@ const styles = theme => ({
   },
   icon: {
     minWidth: theme.spacing(5),
-    color: alpha(theme.palette.text.hint, 0.48)
+    color: alpha(theme.palette.text.disabled, 0.48)
   },
   iconed: {
-    '&$opened': {
+    [`&.${classes.opened}`]: {
       '&:before': {
         content: '""',
         position: 'absolute',
@@ -192,11 +196,11 @@ const styles = theme => ({
     }
   },
   head: {
-    padding: `${theme.spacing(1)}px 0`,
-    margin: `${theme.spacing(1)}px 0`,
-    borderRadius: `0 ${theme.spacing(1)}px ${theme.spacing(1)}px 0`,
+    padding: `${theme.spacing(1)} 0`,
+    margin: `${theme.spacing(1)} 0`,
+    borderRadius: `0 ${theme.spacing(1)} ${theme.spacing(1)} 0`,
     paddingLeft: theme.spacing(3),
-    '&$iconed': {
+    [`&.${classes.iconed}`]: {
       paddingLeft: theme.spacing(3),
     },
     '& svg[class^="MuiSvgIcon"]': {
@@ -205,12 +209,12 @@ const styles = theme => ({
     },
   },
   headCapital: {
-    padding: `${theme.spacing(1)}px 0 ${theme.spacing(1)}px ${theme.spacing(9)}px`,
+    padding: `${theme.spacing(1)} 0 ${theme.spacing(1)} ${theme.spacing(9)}`,
     left: theme.spacing(1) * -2,
     position: 'relative',
     textTransform: 'uppercase',
-    borderRadius: `0 ${theme.spacing(1)}px ${theme.spacing(1)}px 0`,
-    margin: `${theme.spacing(1)}px`,
+    borderRadius: `0 ${theme.spacing(1)} ${theme.spacing(1)} 0`,
+    margin: theme.spacing(1),
     '& span': {
       fontSize: 14
     }
@@ -268,7 +272,7 @@ const styles = theme => ({
     textAlign: 'center',
     alignItems: 'center',
     position: 'absolute',
-    margin: `${theme.spacing(2)}px 0`,
+    margin: `${theme.spacing(2)} 0`,
     zIndex: 0,
     '& h4': {
       fontSize: 18,
@@ -324,25 +328,25 @@ const styles = theme => ({
     width: drawerWidth,
     position: 'relative',
     display: 'block',
-    padding: `${theme.spacing(5)}px 0`,
-    '&$withProfile': {
+    padding: `${theme.spacing(5)} 0`,
+    [`&.${classes.withProfile}`]: {
       paddingTop: theme.spacing(19)
     },
-    '&$landingNav': {
+    [`&.${classes.landingNav}`]: {
       [theme.breakpoints.up('lg')]: {
         paddingTop: theme.spacing(5)
       },
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down('sm')]: {
         height: 'calc(100% - 80px)',
         paddingTop: theme.spacing(2)
       }
     },
-    '&$rounded': {
+    [`&.${classes.rounded}`]: {
       paddingRight: theme.spacing(1.5),
       '& a': {
         borderRadius: theme.spacing(),
       },
-      '& $opened': {
+      [`& .${classes.opened}`]: {
         '&:before': {
           background: theme.palette.primary.main
         }
@@ -368,6 +372,7 @@ const styles = theme => ({
   badge: {
     height: 'auto'
   }
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

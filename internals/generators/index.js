@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * generator/index.js
  *

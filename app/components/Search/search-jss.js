@@ -1,14 +1,13 @@
-import { alpha } from '@material-ui/core/styles';
-const styles = theme => ({
+import { makeStyles } from 'tss-react/mui';
+import { alpha } from '@mui/material/styles';
+
+const useStyles = makeStyles()((theme) => ({
   root: {
     flexGrow: 1,
-    margin: `${theme.spacing(2)}px 0 ${theme.spacing(4)}px`,
+    margin: theme.spacing(2, 0, 4),
     borderRadius: 8,
     overflow: 'hidden',
-    boxShadow: theme.shadows[3]
-  },
-  searchBar: {
-    minHeight: 'auto'
+    boxShadow: theme.shadows[5]
   },
   flex: {
     flex: 1,
@@ -26,7 +25,7 @@ const styles = theme => ({
     display: 'block',
     color: theme.palette.text.secondary,
     '& svg': {
-      fill: theme.palette.text.secondary
+      color: theme.palette.text.secondary
     }
   },
   cart: {
@@ -42,10 +41,14 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: theme.palette.text.secondary,
+    '& svg': {
+      color: theme.palette.text.secondary
+    }
   },
   input: {
     font: 'inherit',
-    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(4)}px`,
+    padding: `${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(4)}`,
     border: 0,
     display: 'block',
     verticalAlign: 'middle',
@@ -59,31 +62,37 @@ const styles = theme => ({
     },
   },
   toggleContainer: {
-    height: 56,
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    padding: theme.spacing(0, 1),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  inputHeader: {
-    font: 'inherit',
-    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(9)}px`,
-    border: 0,
-    display: 'block',
-    verticalAlign: 'middle',
-    whiteSpace: 'normal',
-    background: 'none',
-    margin: 0, // Reset for Safari
-    color: 'inherit',
-    [theme.breakpoints.down('xs')]: {
-      display: 'none'
-    },
-    '& > div': {
-      border: 'none',
+  containerSearch: {
+    flexGrow: 1,
+    position: 'relative',
+    color: theme.palette.text.primary,
+    '& [class*="input-header"]': {
+      font: 'inherit',
+      padding: `${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(1)} ${theme.spacing(9)}`,
+      border: 0,
+      display: 'block',
+      verticalAlign: 'middle',
+      whiteSpace: 'normal',
+      background: 'none',
+      margin: 0, // Reset for Safari
+      color: 'inherit',
+      [theme.breakpoints.down('sm')]: {
+        display: 'none'
+      },
+      '& > div': {
+        border: 'none',
+        '&:after': {
+          display: 'none'
+        },
+      },
       '& input': {
         transition: theme.transitions.create('width'),
         padding: 0,
-        color: theme.palette.text.primary,
         width: 100,
         '&:focus': {
           width: 250,
@@ -91,27 +100,19 @@ const styles = theme => ({
           outline: 0,
         },
       },
-      '&:after': {
-        display: 'none'
-      }
-    },
-    '& ::-webkit-input-placeholder': { /* Chrome/Opera/Safari */
-      color: `${alpha(theme.palette.text.primary, 0.8)}`
-    },
-    '& ::-moz-placeholder': { /* Firefox 19+ */
-      color: `${alpha(theme.palette.text.primary, 0.8)}`
-    },
-    '& :-ms-input-placeholder': { /* IE 10+ */
-      color: `${alpha(theme.palette.text.primary, 0.8)}`
-    },
-    '& :-moz-placeholder': { /* Firefox 18- */
-      color: `${alpha(theme.palette.text.primary, 0.8)}`
-    },
-  },
-  containerSearch: {
-    flexGrow: 1,
-    position: 'relative',
-    color: theme.palette.text.primary
+      '& ::-webkit-input-placeholder': { /* Chrome/Opera/Safari */
+        color: `${alpha(theme.palette.text.primary, 0.8)}`
+      },
+      '& ::-moz-placeholder': { /* Firefox 19+ */
+        color: `${alpha(theme.palette.text.primary, 0.8)}`
+      },
+      '& :-ms-input-placeholder': { /* IE 10+ */
+        color: `${alpha(theme.palette.text.primary, 0.8)}`
+      },
+      '& :-moz-placeholder': { /* Firefox 18- */
+        color: `${alpha(theme.palette.text.primary, 0.8)}`
+      },
+    }
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -129,9 +130,7 @@ const styles = theme => ({
     padding: 0,
     listStyleType: 'none',
   },
-  selected: {
-    background: `${theme.palette.primary.light} !important`
-  }
-});
+}));
 
-export default styles;
+// TODO jss-to-tss-react codemod: usages of this hook outside of this file will not be converted.
+export default useStyles;

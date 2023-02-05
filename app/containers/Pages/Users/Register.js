@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
-import { withStyles } from '@material-ui/core/styles';
+import Hidden from '@mui/material/Hidden';
 import { RegisterForm, SelectLanguage } from 'enl-components';
-import styles from 'enl-components/Forms/user-jss';
+import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-function Register(props) {
-  const { classes } = props;
+function Register() {
+  const { classes } = useStyles();
   const title = brand.name + ' - Register';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -39,7 +37,7 @@ function Register(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden smDown>
+        <Hidden mdDown>
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -74,8 +72,4 @@ function Register(props) {
   );
 }
 
-Register.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Register);
+export default Register;

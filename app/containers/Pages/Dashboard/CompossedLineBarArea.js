@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createTheme, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { createTheme } from '@mui/material/styles';
 import ThemePallete from 'enl-api/palette/themePalette';
-import blue from '@material-ui/core/colors/blue';
+import { blue } from '@mui/material/colors';
 import {
   ComposedChart,
   Line,
@@ -18,13 +19,13 @@ import {
 } from 'recharts';
 import data1 from './sampleData';
 
-const styles = {
+const useStyles = makeStyles()(() => ({
   chartFluid: {
     width: '100%',
     minWidth: 500,
     height: 450
   }
-};
+}));
 
 const theme = createTheme(ThemePallete.yellowCyanTheme);
 const color = ({
@@ -35,7 +36,7 @@ const color = ({
 });
 
 function CompossedLineBarArea(props) {
-  const { classes } = props;
+  const { classes } = useStyles();
   return (
     <div className={classes.chartFluid}>
       <ResponsiveContainer width={800} height="80%">
@@ -65,8 +66,4 @@ function CompossedLineBarArea(props) {
   );
 }
 
-CompossedLineBarArea.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(CompossedLineBarArea);
+export default CompossedLineBarArea;

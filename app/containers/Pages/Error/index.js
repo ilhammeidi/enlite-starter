@@ -26,8 +26,6 @@ function Error(props) {
   );
 }
 
-Error.propTypes = {
-  intl: PropTypes.object.isRequired
-};
+Error.propTypes = { intl: PropTypes.object.isRequired };
 
 export default injectIntl(Error);

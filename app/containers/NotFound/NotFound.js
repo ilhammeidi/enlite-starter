@@ -34,8 +34,6 @@ const NotFound = (props) => (
   />
 );
 
-NotFound.propTypes = {
-  intl: PropTypes.object.isRequired
-};
+NotFound.propTypes = { intl: PropTypes.object.isRequired };
 
 export default injectIntl(NotFound);

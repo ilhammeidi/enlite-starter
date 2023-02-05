@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
+import { makeStyles } from 'tss-react/mui';
+import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import { withStyles } from '@material-ui/core/styles';
 import { SourceReader, PapperBlock } from 'enl-components';
+import { injectIntl } from 'react-intl';
+import messages from './messages';
 import ReduxFormDemo from './ReduxFormDemo';
 
-const styles = ({
+const useStyles = makeStyles()(() => ({
   root: {
     flexGrow: 1,
   }
-});
+}));
 
 function ReduxForm(props) {
   const [valueForm, setValueForm] = useState();
@@ -23,7 +25,10 @@ function ReduxForm(props) {
   const title = brand.name + ' - Form';
   const description = brand.desc;
   const docSrc = 'containers/Forms/demos/';
-  const { classes } = props;
+  const { intl } = props;
+  const {
+    classes
+  } = useStyles();
   return (
     <div className={classes.root}>
       <Helmet>
@@ -35,9 +40,9 @@ function ReduxForm(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <PapperBlock
-        title="Redux Form"
+        title={intl.formatMessage(messages.formTitle)}
         icon="library_books"
-        desc="This is a simple demonstration of how to connect all the standard material-ui form elements to redux-form."
+        desc={intl.formatMessage(messages.formDesc)}
       >
         <div>
           <ReduxFormDemo onSubmit={(values) => showResult(values)} />
@@ -55,8 +60,6 @@ function ReduxForm(props) {
   );
 }
 
-ReduxForm.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+ReduxForm.propTypes = { intl: PropTypes.object.isRequired, };
 
-export default withStyles(styles)(ReduxForm);
+export default injectIntl(ReduxForm);

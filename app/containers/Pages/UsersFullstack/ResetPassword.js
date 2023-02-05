@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { ResetForm } from 'enl-components';
 import { passwordForget } from 'enl-redux/actions/authActions';
-import styles from '../../../components/Forms/user-jss';
+import useStyles from '../../../components/Forms/user-jss';
 
 function ResetPassword(props) {
-  const { classes, forgotPwd } = props;
+  const { forgotPwd } = props;
+  const { classes } = useStyles();
   const title = brand.name + ' - Reset Password';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -44,21 +44,17 @@ function ResetPassword(props) {
 }
 
 ResetPassword.propTypes = {
-  classes: PropTypes.object.isRequired,
   forgotPwd: PropTypes.func.isRequired,
 };
 
 function ResetWrap(props) {
   const { handleForgotPwd } = props;
-  const ResetStyled = withStyles(styles)(ResetPassword);
   return (
-    <ResetStyled forgotPwd={handleForgotPwd} />
+    <ResetPassword forgotPwd={handleForgotPwd} />
   );
 }
 
-ResetWrap.propTypes = {
-  handleForgotPwd: PropTypes.func.isRequired,
-};
+ResetWrap.propTypes = { handleForgotPwd: PropTypes.func.isRequired, };
 
 const mapStateToProps = state => ({
   state: state.authReducer

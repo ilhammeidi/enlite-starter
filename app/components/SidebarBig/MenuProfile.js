@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
+import ButtonBase from '@mui/material/ButtonBase';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 import dummy from 'enl-api/dummy/dummyContents';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
-import styles from './sidebarBig-jss';
+import useStyles from './sidebarBig-jss';
 
 function MenuProfile(props) {
-  const { classes, userAttr } = props;
+  const { userAttr } = props;
+  const { classes, cx } = useStyles();
   const [status, setStatus] = useState(dummy.user.status);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -48,9 +47,9 @@ function MenuProfile(props) {
         <Avatar
           alt={userAttr.name}
           src={userAttr.avatar}
-          className={classNames(classes.avatar, classes.bigAvatar)}
+          className={cx(classes.avatar, classes.bigAvatar)}
         />
-        <i className={classNames(classes.dotStatus, classes.pinned, setStatusIntoClass(status))} />
+        <i className={cx(classes.dotStatus, classes.pinned, setStatusIntoClass(status))} />
       </ButtonBase>
       <Menu
         id="status-menu"
@@ -63,28 +62,28 @@ function MenuProfile(props) {
           <Avatar
             alt={userAttr.name}
             src={userAttr.avatar}
-            className={classNames(classes.avatar, classes.bigAvatar)}
+            className={cx(classes.avatar, classes.bigAvatar)}
           />
           <div className={classes.name}>
             <h5>{userAttr.name}</h5>
-            <i className={classNames(classes.dotStatus, setStatusIntoClass(status))} />
+            <i className={cx(classes.dotStatus, setStatusIntoClass(status))} />
             <FormattedMessage {...messages[status]} />
           </div>
         </MenuItem>
         <MenuItem onClick={() => handleChangeStatus('online')}>
-          <i className={classNames(classes.dotStatus, classes.online)} />
+          <i className={cx(classes.dotStatus, classes.online)} />
           <FormattedMessage {...messages.online} />
         </MenuItem>
         <MenuItem onClick={() => handleChangeStatus('idle')}>
-          <i className={classNames(classes.dotStatus, classes.idle)} />
+          <i className={cx(classes.dotStatus, classes.idle)} />
           <FormattedMessage {...messages.idle} />
         </MenuItem>
         <MenuItem onClick={() => handleChangeStatus('bussy')}>
-          <i className={classNames(classes.dotStatus, classes.bussy)} />
+          <i className={cx(classes.dotStatus, classes.bussy)} />
           <FormattedMessage {...messages.bussy} />
         </MenuItem>
         <MenuItem onClick={() => handleChangeStatus('offline')}>
-          <i className={classNames(classes.dotStatus, classes.offline)} />
+          <i className={cx(classes.dotStatus, classes.offline)} />
           <FormattedMessage {...messages.offline} />
         </MenuItem>
       </Menu>
@@ -93,7 +92,6 @@ function MenuProfile(props) {
 }
 
 MenuProfile.propTypes = {
-  classes: PropTypes.object.isRequired,
   userAttr: PropTypes.object.isRequired,
 };
 
@@ -102,4 +100,4 @@ MenuProfile.defaultProps = {
   isLogin: false,
 };
 
-export default withStyles(styles)(injectIntl(MenuProfile));
+export default injectIntl(MenuProfile);

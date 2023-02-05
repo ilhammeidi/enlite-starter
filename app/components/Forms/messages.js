@@ -96,4 +96,72 @@ export default defineMessages({
     id: `${scope}.Required.text`,
     defaultMessage: 'Required',
   },
+  shipping_address: {
+    id: `${scope}.Checkout.shipping_address`,
+    defaultMessage: 'Shipping address',
+  },
+  order_summary: {
+    id: `${scope}.Checkout.order_summary`,
+    defaultMessage: 'Order Summary',
+  },
+  quantity: {
+    id: `${scope}.Checkout.quantity`,
+    defaultMessage: 'Quantity',
+  },
+  total: {
+    id: `${scope}.Checkout.total`,
+    defaultMessage: 'Total',
+  },
+  first_name: {
+    id: `${scope}.Checkout.first_name`,
+    defaultMessage: 'First Name',
+  },
+  last_name: {
+    id: `${scope}.Checkout.last_name`,
+    defaultMessage: 'Last Name',
+  },
+  address1: {
+    id: `${scope}.Checkout.address1`,
+    defaultMessage: 'Address line 1',
+  },
+  address2: {
+    id: `${scope}.Checkout.address2`,
+    defaultMessage: 'Address line 2',
+  },
+  city: {
+    id: `${scope}.Checkout.city`,
+    defaultMessage: 'City',
+  },
+  state: {
+    id: `${scope}.Checkout.state`,
+    defaultMessage: 'State/Province/Region',
+  },
+  zip: {
+    id: `${scope}.Checkout.zip`,
+    defaultMessage: 'Zip / Postal code',
+  },
+  country: {
+    id: `${scope}.Checkout.country`,
+    defaultMessage: 'Country',
+  },
+  check_address: {
+    id: `${scope}.Checkout.check_address`,
+    defaultMessage: 'Use this address for payment details',
+  },
+  last_three: {
+    id: `${scope}.Checkout.last_three`,
+    defaultMessage: 'Last three digits on signature strip',
+  },
+  check_credit: {
+    id: `${scope}.Checkout.check_credit`,
+    defaultMessage: 'Remember credit card details for next time',
+  },
+  shipping: {
+    id: `${scope}.Checkout.shipping`,
+    defaultMessage: 'Shipping',
+  },
+  payment_detail: {
+    id: `${scope}.Checkout.payment_detail`,
+    defaultMessage: 'Payment details',
+  }
 });
