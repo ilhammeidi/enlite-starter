@@ -39,7 +39,6 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   drawerPaperClose: {
     width: theme.spacing(8),
-    position: 'absolute',
     overflowX: 'hidden',
     transition: theme.transitions.create(['width', 'background-color'], {
       easing: theme.transitions.easing.sharp,
@@ -133,8 +132,8 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     paddingLeft: theme.spacing(7),
     color: theme.palette.text.primary,
     '&:hover': {
-      backgroundColor: alpha(theme.palette.text.secondary, 0.05)
-    }
+      background: theme.palette.action.hover,
+    },
   },
   child: {
     '& a': {
