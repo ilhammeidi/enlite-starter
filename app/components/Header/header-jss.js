@@ -69,6 +69,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     color: theme.palette.text.primary,
     [theme.breakpoints.down('sm')]: {
       padding: `${theme.spacing(0.5)} 0`,
+      alignItems: 'center'
     },
     [theme.breakpoints.up('lg')]: {
       background: alpha(theme.palette.background.paper, 0.8),
@@ -151,7 +152,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     },
   },
   searchWrapper: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       flex: 1,
       textAlign: 'right'
     }

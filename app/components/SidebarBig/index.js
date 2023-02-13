@@ -36,7 +36,7 @@ function SidebarBig(props) {
           </div>
         </SwipeableDrawer>
       </Hidden>
-      <Hidden smDown>
+      <Hidden lgDown>
         <div>
           <MainMenuBig
             dataMenu={dataMenu}

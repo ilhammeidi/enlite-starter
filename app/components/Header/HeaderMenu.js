@@ -140,7 +140,7 @@ function HeaderMenu(props) { // eslint-disable-line
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <Hidden smDown>
+        <Hidden lgDown>
           <NavLink to={logoLink} className={classes.brand}>
             <img src={logo} alt={brand.name} />
             {brand.name}
@@ -200,7 +200,7 @@ function HeaderMenu(props) { // eslint-disable-line
           }
         </Toolbar>
       </div>
-      <Hidden smDown>
+      <Hidden lgDown>
         <Fragment>
           { type === 'mega-menu' ? <MegaMenu dataMenu={dataMenu} /> : <DropListMenu dataMenu={dataMenu} />}
         </Fragment>

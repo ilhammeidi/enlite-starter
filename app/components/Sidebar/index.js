@@ -59,7 +59,7 @@ function Sidebar(props) {
           </div>
         </SwipeableDrawer>
       </Hidden>
-      <Hidden smDown>
+      <Hidden lgDown>
         <Drawer
           variant="permanent"
           onClose={toggleDrawerOpen}

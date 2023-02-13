@@ -132,14 +132,14 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </span>
-          <Hidden smDown>
+          <Hidden mdDown>
             <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
               <img src={logo} alt={brand.name} />
               {brand.name}
             </NavLink>
           </Hidden>
         </div>
-        <Hidden smDown>
+        <Hidden lgDown>
           <div className={classes.headerProperties}>
             <div
               className={cx(
