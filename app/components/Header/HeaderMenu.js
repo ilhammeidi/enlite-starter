@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import logo from 'enl-images/logo.svg';
 import brand from 'enl-api/dummy/brand';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
 import link from 'enl-api/ui/link';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -48,6 +48,9 @@ function HeaderMenu(props) { // eslint-disable-line
     loadTransition, logoLink,
   } = props;
   const { classes, cx } = useStyles();
+  const lgUp = useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const lgDown = useMediaQuery(theme => theme.breakpoints.down('lg'));
+
   const [fullScreen, setFullScreen] = useState(false);
   const [status, setStatus] = useState(dummy.user.status);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -131,7 +134,7 @@ function HeaderMenu(props) { // eslint-disable-line
       }
     >
       <div className={classes.appMenu}>
-        <Hidden lgUp>
+        {!lgUp && (
           <IconButton
             className={classes.menuButton}
             aria-label="Menu"
@@ -139,40 +142,42 @@ function HeaderMenu(props) { // eslint-disable-line
             size="large">
             <MenuIcon />
           </IconButton>
-        </Hidden>
-        <Hidden lgDown>
-          <NavLink to={logoLink} className={classes.brand}>
-            <img src={logo} alt={brand.name} />
-            {brand.name}
-          </NavLink>
-          <div className={classes.headerProperties}>
-            <div className={cx(classes.headerAction, classes.invert)}>
-              {fullScreen ? (
-                <Tooltip title="Exit Full Screen" placement="bottom">
-                  <IconButton className={classes.button} onClick={closeFullScreen} size="large">
-                    <FullscreenExitOutlined />
+        )}
+        {!lgDown && (
+          <>
+            <NavLink to={logoLink} className={classes.brand}>
+              <img src={logo} alt={brand.name} />
+              {brand.name}
+            </NavLink>
+            <div className={classes.headerProperties}>
+              <div className={cx(classes.headerAction, classes.invert)}>
+                {fullScreen ? (
+                  <Tooltip title="Exit Full Screen" placement="bottom">
+                    <IconButton className={classes.button} onClick={closeFullScreen} size="large">
+                      <FullscreenExitOutlined />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Full Screen" placement="bottom">
+                    <IconButton className={classes.button} onClick={openFullScreen} size="large">
+                      <FullscreenOutlined />
+                    </IconButton>
+                  </Tooltip>
+                )}
+                <Tooltip title="Turn Dark/Light" placement="bottom">
+                  <IconButton className={classes.button} onClick={() => turnMode(mode)} size="large">
+                    <InvertColors />
                   </IconButton>
                 </Tooltip>
-              ) : (
-                <Tooltip title="Full Screen" placement="bottom">
-                  <IconButton className={classes.button} onClick={openFullScreen} size="large">
-                    <FullscreenOutlined />
+                <Tooltip title="Show Guide" placement="bottom">
+                  <IconButton className={classes.button} onClick={openGuide} size="large">
+                    <HelpOutlineOutlined />
                   </IconButton>
                 </Tooltip>
-              )}
-              <Tooltip title="Turn Dark/Light" placement="bottom">
-                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="large">
-                  <InvertColors />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Show Guide" placement="bottom">
-                <IconButton className={classes.button} onClick={openGuide} size="large">
-                  <HelpOutlineOutlined />
-                </IconButton>
-              </Tooltip>
+              </div>
             </div>
-          </div>
-        </Hidden>
+          </>
+        )}
         <div className={classes.searchHeaderMenu}>
           <div className={cx(classes.wrapper, classes.dark)}>
             <div className={classes.search}>
@@ -200,12 +205,12 @@ function HeaderMenu(props) { // eslint-disable-line
           }
         </Toolbar>
       </div>
-      <Hidden lgDown>
+      {!lgDown && (
         <Fragment>
           { type === 'mega-menu' ? <MegaMenu dataMenu={dataMenu} /> : <DropListMenu dataMenu={dataMenu} />}
         </Fragment>
-      </Hidden>
-      <Hidden lgUp>
+      )}
+      {!lgUp && (
         <SwipeableDrawer
           onClose={toggleDrawerOpen}
           onOpen={toggleDrawerOpen}
@@ -229,7 +234,7 @@ function HeaderMenu(props) { // eslint-disable-line
             />
           </div>
         </SwipeableDrawer>
-      </Hidden>
+      )}
     </AppBar>
   );
 }

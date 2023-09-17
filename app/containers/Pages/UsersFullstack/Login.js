@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,8 +16,10 @@ import { loginWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Login(props) {
-  const { handleLogin } = props;
   const { classes } = useStyles();
+  const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+  const { handleLogin } = props;
   const title = brand.name + ' - Login';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -41,7 +43,7 @@ function Login(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden mdDown>
+        {!mdDown && (
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -69,7 +71,7 @@ function Login(props) {
               </div>
             </div>
           </div>
-        </Hidden>
+        )}
         <div className={classes.sideFormWrap}>
           <LoginFormFirebase onSubmit={(values) => submitForm(values)} />
         </div>

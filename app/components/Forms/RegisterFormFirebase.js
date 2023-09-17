@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@mui/material/Button';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import FormControl from '@mui/material/FormControl';
@@ -48,6 +48,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 
 function RegisterFormFirebase(props) {
   const { classes, cx } = useStyles();
+  const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
+
   const {
     handleSubmit,
     pristine,
@@ -63,14 +65,14 @@ function RegisterFormFirebase(props) {
 
   return (
     <Paper className={classes.sideWrap}>
-      <Hidden mdUp>
+      {!mdUp && (
         <div className={classes.headLogo}>
           <NavLink to="/" className={classes.brand}>
             <img src={logo} alt={brand.name} />
             {brand.name}
           </NavLink>
         </div>
-      </Hidden>
+      )}
       <div className={classes.topBar}>
         <Typography variant="h4" className={classes.title}>
           <FormattedMessage {...messages.register} />

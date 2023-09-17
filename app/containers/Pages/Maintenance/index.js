@@ -5,7 +5,7 @@ import brand from 'enl-api/dummy/brand';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Build from '@mui/icons-material/Build';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Settings from '@mui/icons-material/SettingsApplications';
 import Warning from '@mui/icons-material/Warning';
 import { FormattedMessage } from 'react-intl';
@@ -58,9 +58,10 @@ const useStyles = makeStyles()((theme) => ({
 function Maintenance() {
   const title = brand.name + ' - Maintenance';
   const description = brand.desc;
-  const {
-    classes
-  } = useStyles();
+
+  const { classes } = useStyles();
+  const smDown = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
   return (
     <div className={classes.root}>
       <Helmet>
@@ -74,12 +75,12 @@ function Maintenance() {
       <div className={classes.container}>
         <div className={classes.artwork}>
           <Avatar className={classes.icon}><Build /></Avatar>
-          <Hidden smDown>
+          {!smDown && (
             <Avatar className={classes.icon}><Warning /></Avatar>
-          </Hidden>
-          <Hidden smDown>
+          )}
+          {!smDown && (
             <Avatar className={classes.icon}><Settings /></Avatar>
-          </Hidden>
+          )}
         </div>
         <Typography variant="h4" className={classes.title} gutterBottom>
           <FormattedMessage {...messages.title} />

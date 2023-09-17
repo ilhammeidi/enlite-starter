@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RegisterFormFirebase, SelectLanguage } from 'enl-components';
@@ -16,8 +16,10 @@ import { registerWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Register(props) {
-  const { handleRegister } = props;
   const { classes } = useStyles();
+  const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+
+  const { handleRegister } = props;
   const title = brand.name + ' - Register';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -42,7 +44,7 @@ function Register(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden mdDown>
+        {!mdDown && (
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -68,7 +70,7 @@ function Register(props) {
               </div>
             </div>
           </div>
-        </Hidden>
+        )}
         <div className={classes.sideFormWrap}>
           <RegisterFormFirebase onSubmit={(values) => submitForm(values)} />
         </div>

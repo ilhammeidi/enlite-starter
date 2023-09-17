@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@mui/material/Button';
 import { connect } from 'react-redux';
@@ -49,20 +49,21 @@ function LoginForm(props) {
     loading
   } = props;
   const [showPassword, setShowPassword] = useState(false);
+  const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = event => event.preventDefault();
 
   return (
     <Paper className={classes.sideWrap}>
-      <Hidden mdUp>
+      {!mdUp && (
         <div className={classes.headLogo}>
           <NavLink to="/" className={classes.brand}>
             <img src={logo} alt={brand.name} />
             {brand.name}
           </NavLink>
         </div>
-      </Hidden>
+      )}
       <div className={classes.topBar}>
         <Typography variant="h4" className={classes.title}>
           <FormattedMessage {...messages.login} />

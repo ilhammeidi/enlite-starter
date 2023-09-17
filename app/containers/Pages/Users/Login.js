@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { NavLink } from 'react-router-dom';
 import { LoginForm, SelectLanguage } from 'enl-components';
 import logo from 'enl-images/logo.svg';
@@ -13,6 +13,8 @@ import messages from './messages';
 
 function Login() {
   const { classes } = useStyles();
+  const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+
   const title = brand.name + ' - Login';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -37,7 +39,7 @@ function Login() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden mdDown>
+        {!mdDown && (
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -65,7 +67,7 @@ function Login() {
               </div>
             </div>
           </div>
-        </Hidden>
+        )}
         <div className={classes.sideFormWrap}>
           <LoginForm onSubmit={(values) => submitForm(values)} />
         </div>

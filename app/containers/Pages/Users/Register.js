@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { RegisterForm, SelectLanguage } from 'enl-components';
 import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
@@ -13,6 +13,8 @@ import messages from './messages';
 
 function Register() {
   const { classes } = useStyles();
+  const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+
   const title = brand.name + ' - Register';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -37,7 +39,7 @@ function Register() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <div className={classes.containerSide}>
-        <Hidden mdDown>
+        {!mdDown && (
           <div className={classes.opening}>
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
@@ -63,7 +65,7 @@ function Register() {
               </div>
             </div>
           </div>
-        </Hidden>
+        )}
         <div className={classes.sideFormWrap}>
           <RegisterForm onSubmit={(values) => submitForm(values)} />
         </div>

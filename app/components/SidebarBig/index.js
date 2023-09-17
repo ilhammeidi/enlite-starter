@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import useStyles from './sidebarBig-jss';
 import MainMenuBig from './MainMenuBig';
 
 function SidebarBig(props) {
   const { classes } = useStyles();
+  const lgUp = useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const lgDown = useMediaQuery(theme => theme.breakpoints.down('lg'));
+
   const {
     dataMenu,
     loadTransition,
@@ -17,7 +20,7 @@ function SidebarBig(props) {
 
   return (
     <Fragment>
-      <Hidden lgUp>
+      {!lgUp && (
         <SwipeableDrawer
           onClose={toggleDrawerOpen}
           onOpen={toggleDrawerOpen}
@@ -35,8 +38,8 @@ function SidebarBig(props) {
             />
           </div>
         </SwipeableDrawer>
-      </Hidden>
-      <Hidden lgDown>
+      )}
+      {!lgDown && (
         <div>
           <MainMenuBig
             dataMenu={dataMenu}
@@ -45,7 +48,7 @@ function SidebarBig(props) {
             userAttr={userAttr}
           />
         </div>
-      </Hidden>
+      )}
     </Fragment>
   );
 }

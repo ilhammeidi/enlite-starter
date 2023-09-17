@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import SearchIcon from '@mui/icons-material/Search';
@@ -30,6 +30,10 @@ const elem = document.documentElement;
 
 function Header(props) {
   const { classes, cx } = useStyles();
+  const lgDown = useMediaQuery(theme => theme.breakpoints.down('lg'));
+  const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const smDown = useMediaQuery(theme => theme.breakpoints.down('sm'));
+
   const {
     changeMode,
     toggleDrawerOpen,
@@ -132,14 +136,14 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </span>
-          <Hidden mdDown>
+          {!mdDown && (
             <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
               <img src={logo} alt={brand.name} />
               {brand.name}
             </NavLink>
-          </Hidden>
+          )}
         </div>
-        <Hidden lgDown>
+        {!lgDown && (
           <div className={classes.headerProperties}>
             <div
               className={cx(
@@ -181,7 +185,7 @@ function Header(props) {
               {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> : title}
             </Typography>
           </div>
-        </Hidden>
+        )}
         <div className={classes.searchWrapper}>
           <div className={classes.wrapper}>
             <div className={classes.search}>
@@ -190,9 +194,9 @@ function Header(props) {
             <SearchUi history={history} />
           </div>
         </div>
-        <Hidden smDown>
+        {!smDown && (
           <span className={classes.separatorV} />
-        </Hidden>
+        )}
         <div className={classes.userToolbar}>
           <SelectLanguage />
           {isLogin

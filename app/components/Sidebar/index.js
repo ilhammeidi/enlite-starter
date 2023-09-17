@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '@mui/material/Hidden';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Drawer from '@mui/material/Drawer';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import dummy from 'enl-api/dummy/dummyContents';
@@ -9,6 +9,9 @@ import SidebarContent from './SidebarContent';
 
 function Sidebar(props) {
   const { classes } = useStyles();
+  const lgUp = useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const lgDown = useMediaQuery(theme => theme.breakpoints.down('lg'));
+
   const {
     open,
     toggleDrawerOpen,
@@ -35,7 +38,7 @@ function Sidebar(props) {
 
   return (
     <Fragment>
-      <Hidden lgUp>
+      {!lgUp && (
         <SwipeableDrawer
           onClose={toggleDrawerOpen}
           onOpen={toggleDrawerOpen}
@@ -58,8 +61,8 @@ function Sidebar(props) {
             />
           </div>
         </SwipeableDrawer>
-      </Hidden>
-      <Hidden lgDown>
+      )}
+      {!lgDown && (
         <Drawer
           variant="permanent"
           onClose={toggleDrawerOpen}
@@ -83,7 +86,7 @@ function Sidebar(props) {
             userAttr={userAttr}
           />
         </Drawer>
-      </Hidden>
+      )}
     </Fragment>
   );
 }
