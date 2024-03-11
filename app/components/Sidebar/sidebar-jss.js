@@ -135,11 +135,6 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       background: theme.palette.action.hover,
     },
   },
-  child: {
-    '& a': {
-      paddingLeft: theme.spacing(8),
-    }
-  },
   title: {
     fontSize: 10,
     textTransform: 'uppercase',
@@ -187,7 +182,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
         content: '""',
         position: 'absolute',
         width: 5,
-        height: theme.spacing(6),
+        height: 44,
         top: 0,
         left: 0,
         background: alpha(theme.palette.primary.main, 0.5)
@@ -195,10 +190,8 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     }
   },
   head: {
-    padding: `${theme.spacing(1)} 0`,
-    margin: `${theme.spacing(1)} 0`,
     borderRadius: `0 ${theme.spacing(1)} ${theme.spacing(1)} 0`,
-    paddingLeft: theme.spacing(3),
+    padding: '6px 0',
     [`&.${classes.iconed}`]: {
       paddingLeft: theme.spacing(3),
     },
@@ -320,7 +313,6 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   rounded: {},
   landingNav: {},
-  withProfile: {},
   menuContainer: {
     overflow: 'auto',
     height: 'calc(100% - 64px)',
@@ -329,7 +321,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     display: 'block',
     padding: `${theme.spacing(5)} 0`,
     [`&.${classes.withProfile}`]: {
-      paddingTop: theme.spacing(19)
+      paddingTop: theme.spacing(21)
     },
     [`&.${classes.landingNav}`]: {
       [theme.breakpoints.up('lg')]: {

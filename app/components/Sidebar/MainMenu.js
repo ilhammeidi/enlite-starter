@@ -9,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Collapse from '@mui/material/Collapse';
+import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Icon from '@mui/material/Icon';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -35,7 +36,7 @@ function MainMenu(props) {
     loadTransition(false);
   };
 
-  const getMenus = menuArray => menuArray.map((item, index) => {
+  const getMenus = (menuArray, paddingLevel) => menuArray.map((item, index) => {
     if (item.child || item.linkParent) {
       return (
         <div key={index.toString()}>
@@ -43,6 +44,7 @@ function MainMenu(props) {
             button
             component={LinkBtn}
             to={item.linkParent ? item.linkParent : '#'}
+            sx={{ marginLeft: !item.icon ? paddingLevel : 0 }}
             className={
               cx(
                 classes.head,
@@ -75,8 +77,8 @@ function MainMenu(props) {
               timeout="auto"
               unmountOnExit
             >
-              <List className={classes.dense} component="nav" dense>
-                { getMenus(item.child, 'key') }
+              <List className={classes.dense} component="nav">
+                { getMenus(item.child, item.level) }
               </List>
             </Collapse>
           )}
@@ -105,10 +107,19 @@ function MainMenu(props) {
         to={item.link}
         onClick={() => handleClick()}
       >
-        <ListItemText classes={{ primary: classes.primary }} primary={item.name} />
-        {item.badge && (
-          <Chip color="primary" label={item.badge} className={classes.badge} />
-        )}
+        <Box
+          sx={{
+            flex: 1,
+            pl: paddingLevel,
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <ListItemText classes={{ primary: classes.primary }} primary={item.name} />
+          {item.badge && (
+            <Chip color="primary" label={item.badge} className={classes.badge} />
+          )}
+        </Box>
       </ListItem>
     );
   });
