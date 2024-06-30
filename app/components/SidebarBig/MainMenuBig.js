@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import List from '@mui/material/List';
@@ -17,7 +17,7 @@ import MenuProfile from './MenuProfile';
 import useStyles from './sidebarBig-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function MainMenuBig(props) { // eslint-disable-line
@@ -35,6 +35,8 @@ function MainMenuBig(props) { // eslint-disable-line
     loadTransition,
     toggleDrawerOpen
   } = props;
+
+  const location = useLocation;
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [menuLoaded, setMenuLoaded] = useState(true);
 
@@ -83,7 +85,7 @@ function MainMenuBig(props) { // eslint-disable-line
           className={
             cx(
               classes.menuHead,
-              activeMenu(item.key, item.child) ? classes.active : ''
+              activeMenu(item.key, item.child) ? 'active' : ''
             )
           }
         >
@@ -102,8 +104,8 @@ function MainMenuBig(props) { // eslint-disable-line
       <ButtonBase
         key={index.toString()}
         focusRipple
-        className={cx(classes.menuHead, open.indexOf(item.key) > -1 ? classes.active : '')}
-        component={LinkBtn}
+        className={cx(classes.menuHead, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
+        component={NavLink}
         to={item.linkParent}
         onClick={closeDrawer}
       >
@@ -139,9 +141,7 @@ function MainMenuBig(props) { // eslint-disable-line
       <ListItem
         key={index.toString()}
         button
-        exact
-        className={classes.item}
-        activeClassName={classes.active}
+        className={cx(classes.item, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
         component={LinkBtn}
         to={item.link}
         onClick={() => handleLoadPage()}

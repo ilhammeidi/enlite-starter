@@ -2,7 +2,6 @@ import {
   call, fork, put, take, takeEvery, all
 } from 'redux-saga/effects';
 import { firebaseAuth, firebaseDb } from '../../firebase';
-import history from '../../utils/history';
 import {
   LOGIN_REQUEST,
   LOGIN_WITH_EMAIL_REQUEST,
@@ -35,16 +34,16 @@ function getUrlVars() {
   return vars;
 }
 
-function* loginSaga(provider) {
+function* loginSaga(payload) {
   try {
-    const data = yield call(firebaseAuth.signInWithPopup, provider.payload.authProvider);
+    const data = yield call(firebaseAuth.signInWithPopup, payload.authProvider);
     yield put(loginSuccess(data));
     if (getUrlVars().next) {
       // Redirect to next route
-      yield history.push(getUrlVars().next);
+      yield payload.navigate(getUrlVars().next);
     } else {
       // Redirect to dashboard if no next parameter
-      yield history.push('/app');
+      yield payload.navigate('/app');
     }
   } catch (error) {
     yield put(loginFailure(error));
@@ -57,10 +56,10 @@ function* loginWithEmailSaga(payload) {
     yield put(loginWithEmailSuccess(data));
     if (getUrlVars().next) {
       // Redirect to next route
-      yield history.push(getUrlVars().next);
+      yield payload.navigate(getUrlVars().next);
     } else {
       // Redirect to dashboard if no next parameter
-      yield history.push('/app');
+      yield payload.navigate('/app');
     }
   } catch (error) {
     yield put(loginWithEmailFailure(error));
@@ -75,18 +74,18 @@ function* registerWithEmailSaga(payload) {
     });
     yield put(registerWithEmailSuccess(dataWithName));
     // Redirect to dashboard
-    yield history.push('/app');
+    yield payload.navigate('/app');
   } catch (error) {
     yield put(registerWithEmailFailure(error));
   }
 }
 
-function* logoutSaga() {
+function* logoutSaga(payload) {
   try {
     const data = yield call(firebaseAuth.signOut);
     yield put(logoutSuccess(data));
     // Redirect to home
-    yield history.replace('/');
+    yield payload.navigate('/');
   } catch (error) {
     yield put(logoutFailure(error));
   }

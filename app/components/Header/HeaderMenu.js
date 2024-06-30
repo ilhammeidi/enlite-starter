@@ -36,7 +36,7 @@ import SearchUi from '../Search/SearchUi';
 const elem = document.documentElement;
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <Link to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <Link to={props.to} {...props} />; // eslint-disable-line
 });
 
 function HeaderMenu(props) { // eslint-disable-line

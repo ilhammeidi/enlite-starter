@@ -5,9 +5,10 @@ import * as types from '../constants/authConstants';
 //  EMAIL AUTH
 //-------------------------------------
 
-export const login = authProvider => ({
+export const login = (authProvider, navigate) => ({
   type: types.LOGIN_REQUEST,
-  payload: { authProvider }
+  authProvider,
+  navigate
 });
 
 export const loginSuccess = credential => ({
@@ -20,10 +21,11 @@ export const loginFailure = error => ({
   error
 });
 
-export const loginWithEmail = (email, password) => ({
+export const loginWithEmail = (email, password, navigate) => ({
   type: types.LOGIN_WITH_EMAIL_REQUEST,
   email,
-  password
+  password,
+  navigate
 });
 
 export const loginWithEmailSuccess = credential => ({
@@ -36,11 +38,12 @@ export const loginWithEmailFailure = error => ({
   error
 });
 
-export const registerWithEmail = (name, email, password) => ({
+export const registerWithEmail = (name, email, password, navigate) => ({
   type: types.REGISTER_WITH_EMAIL_REQUEST,
   name,
   email,
-  password
+  password,
+  navigate
 });
 
 export const registerWithEmailSuccess = credential => ({
@@ -77,8 +80,9 @@ export const createUserFailure = error => ({
   error
 });
 
-export const logout = () => ({
-  type: types.LOGOUT_REQUEST
+export const logout = navigate => ({
+  type: types.LOGOUT_REQUEST,
+  navigate
 });
 
 export const logoutSuccess = () => ({
@@ -103,14 +107,17 @@ export const closeMsgAction = () => ({
 //  SOCIAL AUTH
 //-------------------------------------
 
-export const signInWithGithub = () => login(
-  new firebase.auth.GithubAuthProvider()
+export const signInWithGithub = navigate => login(
+  new firebase.auth.GithubAuthProvider(),
+  navigate
 );
 
-export const signInWithGoogle = () => login(
-  new firebase.auth.GoogleAuthProvider()
+export const signInWithGoogle = navigate => login(
+  new firebase.auth.GoogleAuthProvider(),
+  navigate
 );
 
-export const signInWithTwitter = () => login(
-  new firebase.auth.TwitterAuthProvider()
+export const signInWithTwitter = navigate => login(
+  new firebase.auth.TwitterAuthProvider(),
+  navigate
 );

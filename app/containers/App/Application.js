@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../Templates/Dashboard';
 import { ThemeContext } from './ThemeWrapper';
 import {
@@ -19,17 +19,17 @@ function Application(props) {
 
   return (
     <Dashboard history={history} changeMode={changeMode}>
-      <Switch>
+      <Routes>
         { /* Home */ }
-        <Route exact path="/app" component={BlankPage} />
-        <Route path="/app/pages/dashboard" component={DashboardPage} />
-        <Route path="/app/pages/form" component={Form} />
-        <Route path="/app/pages/table" component={Table} />
-        <Route path="/app/pages/page-list" component={Parent} />
-        <Route path="/app/pages/pages/not-found" component={NotFound} />
-        <Route path="/app/pages/pages/error" component={Error} />
-        <Route component={NotFound} />
-      </Switch>
+        <Route exact path="/" element={<BlankPage />} />
+        <Route path="pages/dashboard" element={<DashboardPage />} />
+        <Route path="pages/form" element={<Form />} />
+        <Route path="pages/table" element={<Table />} />
+        <Route path="pages/page-list" element={<Parent />} />
+        <Route path="pages/pages/not-found" element={<NotFound />} />
+        <Route path="pages/pages/error" element={<Error />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Dashboard>
   );
 }

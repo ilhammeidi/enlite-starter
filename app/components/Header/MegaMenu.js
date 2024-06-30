@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, NavLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 import Popper from '@mui/material/Popper';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -20,7 +20,7 @@ import messages from 'enl-api/ui/menuMessages';
 import useStyles from './header-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function MegaMenu(props) { // eslint-disable-line
@@ -31,6 +31,8 @@ function MegaMenu(props) { // eslint-disable-line
     dataMenu,
     intl
   } = props;
+
+  const location = useLocation();
   const [active, setActive] = useState([]);
   const [openMenu, setOpenMenu] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -135,9 +137,7 @@ function MegaMenu(props) { // eslint-disable-line
       <ListItem
         key={index.toString()}
         button
-        exact
-        className={classes.megaItem}
-        activeClassName={classes.active}
+        className={cx(classes.megaItem, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
         component={LinkBtn}
         to={item.link}
         onClick={() => handleActiveParent(parent)}

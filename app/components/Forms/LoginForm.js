@@ -34,11 +34,13 @@ const email = value => (
 );
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function LoginForm(props) {
   const { classes, cx } = useStyles();
+  const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
+
   const {
     handleSubmit,
     pristine,
@@ -49,7 +51,6 @@ function LoginForm(props) {
     loading
   } = props;
   const [showPassword, setShowPassword] = useState(false);
-  const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = event => event.preventDefault();

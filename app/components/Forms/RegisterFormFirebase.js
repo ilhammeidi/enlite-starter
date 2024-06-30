@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -43,12 +43,13 @@ const passwordsMatch = (value, allValues) => {
 };
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function RegisterFormFirebase(props) {
   const { classes, cx } = useStyles();
   const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -175,7 +176,7 @@ function RegisterFormFirebase(props) {
           className={classes.redBtn}
           type="button"
           size="large"
-          onClick={signInWithGoogleFn}
+          onClick={() => signInWithGoogleFn(navigate)}
         >
           <i className="ion-logo-google" />
           Google
@@ -185,7 +186,7 @@ function RegisterFormFirebase(props) {
           className={classes.cyanBtn}
           type="button"
           size="large"
-          onClick={signInWithTwitterFn}
+          onClick={() => signInWithTwitterFn(navigate)}
         >
           <i className="ion-logo-twitter" />
           Twitter
@@ -195,7 +196,7 @@ function RegisterFormFirebase(props) {
           className={classes.greyBtn}
           type="button"
           size="large"
-          onClick={signInWithGithubFn}
+          onClick={() => signInWithGithubFn(navigate)}
         >
           <i className="ion-logo-github" />
           Github

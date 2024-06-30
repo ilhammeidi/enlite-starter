@@ -170,14 +170,14 @@ module.exports = options => ({
       You can enable it to maintain and keep clean your code.
       NOTE: By enable eslint running app process at beginning will slower
     */
-    new ESLintPlugin({
-      extensions: 'js',
-      exclude: 'node_modules',
-      failOnWarning: true,
-      failOnError: true,
-      emitError: true,
-      emitWarning: true,
-    }),
+    //    new ESLintPlugin({
+    //      extensions: 'js',
+    //      exclude: 'node_modules',
+    //      failOnWarning: true,
+    //      failOnError: true,
+    //      emitError: true,
+    //      emitWarning: true,
+    //    }),
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; Terser will automatically
     // drop any unreachable code.

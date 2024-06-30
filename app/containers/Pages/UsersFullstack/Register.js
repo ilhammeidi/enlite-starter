@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,10 +16,11 @@ import { registerWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Register(props) {
+  const { handleRegister } = props;
   const { classes } = useStyles();
   const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
-  const { handleRegister } = props;
   const title = brand.name + ' - Register';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -29,7 +30,7 @@ function Register(props) {
   useEffect(() => {
     if (valueForm) {
       console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-      handleRegister(valueForm.name, valueForm.email, valueForm.password); // eslint-disable-line
+      handleRegister(valueForm.name, valueForm.email, valueForm.password, navigate); // eslint-disable-line
     }
   }, [valueForm]);
 

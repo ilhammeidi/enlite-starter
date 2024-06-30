@@ -64,7 +64,6 @@ export const Parent = loadable(() =>
   import ('./Parent'), {
     fallback: <Loading />,
   });
-export const NotFoundDedicated = loadable(() =>
-  import ('./Pages/Standalone/NotFoundDedicated'), {
-    fallback: <Loading />,
-  });
+export const NotFoundDedicated = loadable(() => import('./Pages/Standalone/NotFoundDedicated'), {
+  fallback: <Loading />,
+});

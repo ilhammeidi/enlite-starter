@@ -23,10 +23,6 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       padding: `0 ${theme.spacing(1)}`
     }
   },
-  icon: {},
-  text: {},
-  active: {},
-  selected: {},
   fixedWrap: {
     position: 'fixed',
     overflow: 'auto',
@@ -115,7 +111,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     '&:hover': {
       background: theme.palette.action.hover,
     },
-    [`&.${classes.active}`]: {
+    '&[class*="active"]:not(.rootPath)': {
       '&:before': {
         content: '""',
         position: 'absolute',
@@ -185,7 +181,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
         margin: `0 ${theme.spacing(1)}`,
         minWidth: 'auto'
       },
-      [`&.${classes.active}`]: {
+      '&[class*="active"]:not(.rootPath)': {
         backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.secondary.light, 0.24) : alpha(theme.palette.secondary.light, 0.24),
         [`& .${classes.icon}`]: {
           color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,

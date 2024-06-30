@@ -338,12 +338,11 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       paddingBottom: theme.spacing(3)
     }
   },
-  active: {},
   menuItem: {
     '& span': {
       fontSize: 14,
     },
-    [`&.${classes.active}`]: {
+    '&[class*="active"]:not(.rootPath)': {
       backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
       '& span': {
         color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
@@ -371,7 +370,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     '& div': {
       padding: 0
     },
-    [`&.${classes.active}`]: {
+    '&[class*="active"]:not(.rootPath)': {
       border: `1px solid ${theme.palette.primary.main}`,
       backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
       '& span': {

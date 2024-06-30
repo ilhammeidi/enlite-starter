@@ -131,6 +131,21 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     margin: `${theme.spacing(0.5)} 0`,
     paddingLeft: theme.spacing(7),
     color: theme.palette.text.primary,
+    '&[class*="active"]:not(.rootPath)': {
+      backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) + ' !important' : alpha(theme.palette.primary.main, 0.3) + ' !important',
+      [`& .${classes.primary}`]: {
+        color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
+      },
+      [`& .${classes.icon}`]: {
+        color: theme.palette.primary.dark,
+      },
+      '&:hover, &:focus': {
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : alpha(theme.palette.primary.main, 0.3),
+      }
+    },
+    '& > div': {
+      width: '100%'
+    },
     '&:hover': {
       background: theme.palette.action.hover,
     },
@@ -154,23 +169,13 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       paddingLeft: theme.spacing(7)
     }
   },
-  active: {
-    backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
-    [`& .${classes.primary}`]: {
-      color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.primary.dark,
-    },
-    [`& .${classes.icon} svg`]: {
-      fill: theme.palette.primary.dark,
-    },
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.24) : theme.palette.primary.light,
-    }
-  },
   nolist: {
     listStyle: 'none',
   },
   primary: {
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   icon: {
     minWidth: theme.spacing(5),

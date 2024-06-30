@@ -100,7 +100,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       height: '100%',
       position: 'absolute',
       opacity: 0.1,
-      background: `url(${deco}) no-repeat -70px -370px, url(${deco}) no-repeat 100% 480px`
+      background: `url(${deco}) no-repeat -140px -400px, url(${deco}) no-repeat 100% 480px`
     }
   },
   sidebarLayout: {},

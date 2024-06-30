@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
+import { useLocation, NavLink } from 'react-router-dom';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Popper from '@mui/material/Popper';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import List from '@mui/material/List';
@@ -18,7 +18,7 @@ import messages from 'enl-api/ui/menuMessages';
 import useStyles from './header-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function MainMenu(props) { // eslint-disable-line
@@ -30,6 +30,8 @@ function MainMenu(props) { // eslint-disable-line
     intl
   } = props;
   const [active, setActive] = useState([]);
+  const location = useLocation();
+
   const [openMenu, setOpenMenu] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -60,11 +62,11 @@ function MainMenu(props) { // eslint-disable-line
           <Button
             aria-owns={open ? 'menu-list-grow' : undefined}
             component={item.linkParent ? LinkBtn : 'button'}
-            to={item.linkParent ? item.linkParent : false}
+            to={item.linkParent ? item.linkParent : '#'}
             className={
               cx(
                 classes.headMenu,
-                open.indexOf(item.key) > -1 ? classes.opened : '',
+                openMenu.indexOf(item.key) > -1 ? classes.opened : '',
                 active.indexOf(item.key) > -1 ? classes.selected : ''
               )
             }
@@ -119,9 +121,7 @@ function MainMenu(props) { // eslint-disable-line
       <ListItem
         key={index.toString()}
         button
-        exact
-        className={classes.menuItem}
-        activeClassName={classes.active}
+        className={cx(classes.menuItem, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
         component={LinkBtn}
         to={item.link}
         onClick={() => handleActiveParent(parent)}

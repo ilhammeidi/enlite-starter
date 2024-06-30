@@ -4,7 +4,7 @@ import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { LoginFormFirebase, SelectLanguage } from 'enl-components';
@@ -16,10 +16,12 @@ import { loginWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Login(props) {
+  const { handleLogin } = props;
+  const navigate = useNavigate();
+
   const { classes } = useStyles();
   const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
 
-  const { handleLogin } = props;
   const title = brand.name + ' - Login';
   const description = brand.desc;
   const [valueForm, setValueForm] = useState(null);
@@ -28,7 +30,7 @@ function Login(props) {
 
   useEffect(() => {
     if (valueForm) {
-      handleLogin(valueForm.email, valueForm.password); // eslint-disable-line
+      handleLogin(valueForm.email, valueForm.password, navigate); // eslint-disable-line
     }
   }, [valueForm]);
 

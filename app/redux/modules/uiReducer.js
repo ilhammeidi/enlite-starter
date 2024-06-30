@@ -70,10 +70,6 @@ const uiReducer = (state = initialState, action = {}) => produce(state, draft =>
       // Once page loaded will expand the parent menu
       if (action.initialLocation) {
         draft.subMenuOpen = [activeParent];
-        const path = action.initialLocation.split('/');
-        if (path.length <= 3 && action.initialLocation !== '/app') {
-          draft.sidebarOpen = false;
-        }
         return;
       }
 
@@ -83,7 +79,7 @@ const uiReducer = (state = initialState, action = {}) => produce(state, draft =>
         const index = draft.subMenuOpen.findIndex((obj) => obj === action.key);
         draft.subMenuOpen.splice(index, 1);
       } else {
-        draft.subMenuOpen.push(action.key);
+        draft.subMenuOpen = [action.key];
       }
       break;
     }

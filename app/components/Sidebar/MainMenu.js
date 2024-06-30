@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -17,12 +17,13 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import useStyles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 // eslint-disable-next-line
 function MainMenu(props) {
   const { classes, cx } = useStyles();
+  const location = useLocation();
   const {
     openSubMenu,
     open,
@@ -31,7 +32,7 @@ function MainMenu(props) {
     loadTransition
   } = props;
 
-  const handleClick = () => {
+  const handleTransition = () => {
     toggleDrawerOpen();
     loadTransition(false);
   };
@@ -42,7 +43,6 @@ function MainMenu(props) {
         <div key={index.toString()}>
           <ListItem
             button
-            component={LinkBtn}
             to={item.linkParent ? item.linkParent : '#'}
             sx={{ marginLeft: !item.icon ? paddingLevel : 0 }}
             className={
@@ -100,12 +100,10 @@ function MainMenu(props) {
     return (
       <ListItem
         key={index.toString()}
-        exact
-        className={classes.nested}
-        activeClassName={classes.active}
-        component={LinkBtn}
+        className={cx(classes.nested, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
+        component={NavLink}
         to={item.link}
-        onClick={() => handleClick()}
+        onClick={() => handleTransition()}
       >
         <Box
           sx={{

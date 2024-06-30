@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@mui/material/Button';
@@ -39,12 +39,13 @@ const email = value => (
 );
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
-  return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
+  return <NavLink to={props.to} {...props} />; // eslint-disable-line
 });
 
 function LoginForm(props) {
   const { classes, cx } = useStyles();
   const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -165,7 +166,7 @@ function LoginForm(props) {
           className={classes.redBtn}
           type="button"
           size="large"
-          onClick={signInWithGoogleFn}
+          onClick={() => signInWithGoogleFn(navigate)}
         >
           <i className="ion-logo-google" />
           Google
@@ -175,7 +176,7 @@ function LoginForm(props) {
           className={classes.cyanBtn}
           type="button"
           size="large"
-          onClick={signInWithTwitterFn}
+          onClick={() => signInWithTwitterFn(navigate)}
         >
           <i className="ion-logo-twitter" />
           Twitter
@@ -185,7 +186,7 @@ function LoginForm(props) {
           className={classes.greyBtn}
           type="button"
           size="large"
-          onClick={signInWithGithubFn}
+          onClick={() => signInWithGithubFn(navigate)}
         >
           <i className="ion-logo-github" />
           Github

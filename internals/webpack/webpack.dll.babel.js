@@ -30,6 +30,7 @@ module.exports = require('./webpack.base.babel')({
   },
   devtool: 'eval',
   output: {
+    uniqueName: '[name]',
     filename: '[name].dll.js',
     path: outputPath,
     library: '[name]',
