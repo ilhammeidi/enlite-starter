@@ -6,7 +6,7 @@ import brand from 'enl-api/dummy/brand';
 import { SourceReader, PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import messages from './messages';
-import ReduxFormDemo from './ReduxFormDemo';
+// import ReduxFormDemo from './ReduxFormDemo';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -45,7 +45,7 @@ function ReduxForm(props) {
         desc={intl.formatMessage(messages.formDesc)}
       >
         <div>
-          <ReduxFormDemo onSubmit={(values) => showResult(values)} />
+          {/* <ReduxFormDemo onSubmit={(values) => showResult(values)} /> */}
           {valueForm && (
             <p>
               You submitted:

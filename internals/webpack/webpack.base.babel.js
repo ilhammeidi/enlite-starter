@@ -4,7 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = options => ({
   mode: options.mode,
@@ -203,6 +203,7 @@ module.exports = options => ({
     extensions: ['.js', '.jsx', '.react.js'],
     mainFields: ['browser', 'jsnext:main', 'main'],
     fallback: {
+      'process/browser': require.resolve('process/browser'),
       fs: false,
       domain: false,
       path: false,

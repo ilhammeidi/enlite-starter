@@ -86,7 +86,7 @@ LeftSidebarBigLayout.propTypes = {
   loadTransition: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   sidebarOpen: PropTypes.bool.isRequired,
-  pageLoaded: PropTypes.bool.isRequired,
+  pageLoaded: PropTypes.bool,
   mode: PropTypes.string.isRequired,
   place: PropTypes.string.isRequired,
   titleException: PropTypes.array.isRequired,
@@ -97,7 +97,8 @@ LeftSidebarBigLayout.propTypes = {
 };
 
 LeftSidebarBigLayout.defaultProps = {
-  isLogin: false
+  isLogin: false,
+  pageLoaded: false,
 };
 
 export default injectIntl(LeftSidebarBigLayout);

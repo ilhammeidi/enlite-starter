@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GuideSlider } from 'enl-components';
-import { toggleAction, openAction, playTransitionAction } from 'enl-redux/actions/uiActions';
+import { toggleAction, openAction, playTransitionAction } from 'dan-redux/modules/ui';
 import { logout } from 'enl-redux/actions/authActions';
 import dummy from 'enl-api/dummy/dummyContents';
 import LeftSidebarLayout from './layouts/LeftSidebar';
@@ -15,20 +15,18 @@ import useStyles from './appStyles-jss';
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
-  const {
-    initialOpen,
-    children,
-    toggleDrawer,
-    sidebarOpen,
-    loadTransition,
-    pageLoaded,
-    mode,
-    layout,
-    changeMode,
-    signOut,
-    user,
-    isAuthenticated
-  } = props;
+  const { children, changeMode, signOut } = props;
+
+  const dispatch = useDispatch();
+  const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
+  const pageLoaded = useSelector((state) => state.ui.pageLoaded);
+  const mode = useSelector((state) => state.ui.type);
+  const layout = useSelector((state) => state.ui.layout);
+  const isAuthenticated = null;
+  const user = null;
+  const signOut = () => {
+    console.log('sign out');
+  }
 
   const location = useLocation();
   const history = { location };
@@ -67,7 +65,7 @@ function Dashboard(props) {
 
     // Set expanded sidebar menu
     const currentPath = location.pathname;
-    initialOpen(currentPath);
+    dispatch(openAction({ initialLocation: currentPath }));
     // Play page transition
     loadTransition(true);
 
@@ -94,8 +92,8 @@ function Dashboard(props) {
         layout === 'sidebar' && (
           <LeftSidebarLayout
             history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
+            toggleDrawer={() => dispatch(toggleAction())}
+            loadTransition={(payload) => dispatch(loadTransition(payload))}
             changeMode={changeMode}
             sidebarOpen={sidebarOpen}
             pageLoaded={pageLoaded}
@@ -115,8 +113,8 @@ function Dashboard(props) {
         layout === 'big-sidebar' && (
           <LeftSidebarBigLayout
             history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
+            toggleDrawer={() => dispatch(toggleAction())}
+            loadTransition={(payload) => dispatch(playTransitionAction(payload))}
             changeMode={changeMode}
             sidebarOpen={sidebarOpen}
             pageLoaded={pageLoaded}
@@ -136,8 +134,8 @@ function Dashboard(props) {
         layout === 'top-navigation' && (
           <DropMenuLayout
             history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
+            toggleDrawer={() => dispatch(toggleAction())}
+            loadTransition={(payload) => dispatch(playTransitionAction(payload))}
             changeMode={changeMode}
             sidebarOpen={sidebarOpen}
             pageLoaded={pageLoaded}
@@ -157,8 +155,8 @@ function Dashboard(props) {
         layout === 'mega-menu' && (
           <MegaMenuLayout
             history={history}
-            toggleDrawer={toggleDrawer}
-            loadTransition={loadTransition}
+            toggleDrawer={() => dispatch(toggleAction())}
+            loadTransition={(payload) => dispatch(playTransitionAction(payload))}
             changeMode={changeMode}
             sidebarOpen={sidebarOpen}
             pageLoaded={pageLoaded}
@@ -180,43 +178,7 @@ function Dashboard(props) {
 
 Dashboard.propTypes = {
   children: PropTypes.node.isRequired,
-  initialOpen: PropTypes.func.isRequired,
-  toggleDrawer: PropTypes.func.isRequired,
-  loadTransition: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
-  sidebarOpen: PropTypes.bool.isRequired,
-  pageLoaded: PropTypes.bool.isRequired,
-  mode: PropTypes.string.isRequired,
-  isAuthenticated: PropTypes.bool,
-  user: PropTypes.object,
-  signOut: PropTypes.func.isRequired,
-  layout: PropTypes.string.isRequired,
 };
 
-Dashboard.defaultProps = {
-  user: null,
-  isAuthenticated: null
-};
-
-const mapStateToProps = state => ({
-  sidebarOpen: state.ui.sidebarOpen,
-  pageLoaded: state.ui.pageLoaded,
-  mode: state.ui.type,
-  layout: state.ui.layout,
-  isAuthenticated: state.authReducer.loggedIn,
-  user: state.authReducer.user,
-});
-
-const mapDispatchToProps = dispatch => ({
-  toggleDrawer: () => dispatch(toggleAction),
-  initialOpen: bindActionCreators(openAction, dispatch),
-  loadTransition: bindActionCreators(playTransitionAction, dispatch),
-  signOut: bindActionCreators(logout, dispatch)
-});
-
-const DashboardMaped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Dashboard);
-
-export default DashboardMaped;
+export default Dashboard;

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { makeStyles } from 'tss-react/mui';
 import Axios from 'axios';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
-import lightStyle from 'react-syntax-highlighter/dist/esm/styles/prism/coy';
-import darkStyle from 'react-syntax-highlighter/dist/esm/styles/prism/atom-dark';
+import lightStyle from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import darkStyle from 'react-syntax-highlighter/dist/esm/styles/prism/xonokai';
 import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
 import Code from '@mui/icons-material/Code';
@@ -88,14 +88,10 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 function SourceReader(props) {
-  const {
-    classes,
-    cx
-  } = useStyles();
-  const {
-    componentName,
-    mode
-  } = props;
+  const { classes, cx } = useStyles();
+  const { componentName } = props;
+  const mode = useSelector((state) => state.ui.type);
+
   const [raws, setRaws] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -167,16 +163,6 @@ function SourceReader(props) {
 
 SourceReader.propTypes = {
   componentName: PropTypes.string.isRequired,
-
-  mode: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
-  mode: state.ui.type
-});
-
-const AppMapped = connect(
-  mapStateToProps,
-)(SourceReader);
-
-export default AppMapped;
+export default SourceReader;

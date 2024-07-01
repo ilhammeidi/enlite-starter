@@ -12,11 +12,11 @@ export SelectLanguage from './SelectLanguage';
 export GuideSlider from './GuideSlider';
 // Form
 export Notification from './Notification/Notification';
-export LoginForm from './Forms/LoginForm';
-export RegisterForm from './Forms/RegisterForm';
-export ResetForm from './Forms/ResetForm';
-export LoginFormFirebase from './Forms/LoginFormFirebase';
-export RegisterFormFirebase from './Forms/RegisterFormFirebase';
+//  export LoginForm from './Forms/LoginForm';
+//  export RegisterForm from './Forms/RegisterForm';
+//  export ResetForm from './Forms/ResetForm';
+//  export LoginFormFirebase from './Forms/LoginFormFirebase';
+//  export RegisterFormFirebase from './Forms/RegisterFormFirebase';
 // Table Components
 export EmptyData from './Tables/EmptyData';
 // Error

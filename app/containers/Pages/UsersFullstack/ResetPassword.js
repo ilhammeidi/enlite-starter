@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
-import { ResetForm } from 'enl-components';
+// import { ResetForm } from 'enl-components';
 import { passwordForget } from 'enl-redux/actions/authActions';
 import useStyles from '../../../components/Forms/user-jss';
 
@@ -36,7 +36,7 @@ function ResetPassword(props) {
       </Helmet>
       <div className={classes.container}>
         <div className={classes.userFormWrap}>
-          <ResetForm onSubmit={(values) => submitForm(values)} />
+        {/* <ResetForm onSubmit={(values) => submitForm(values)} /> */}
         </div>
       </div>
     </div>

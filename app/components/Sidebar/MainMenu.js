@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,6 +13,7 @@ import Chip from '@mui/material/Chip';
 import Icon from '@mui/material/Icon';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { openAction } from 'dan-redux/modules/ui';
 import useStyles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
@@ -24,17 +24,18 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenu(props) {
   const { classes, cx } = useStyles();
   const location = useLocation();
-  const {
-    openSubMenu,
-    open,
-    dataMenu,
-    toggleDrawerOpen,
-    loadTransition
-  } = props;
+  const { dataMenu, toggleDrawerOpen, loadTransition } = props;
+
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.ui.subMenuOpen);
 
   const handleTransition = () => {
     toggleDrawerOpen();
     loadTransition(false);
+  };
+
+  const handleOpenMenu = (key, keyParent) => {
+    dispatch(openAction({ key, keyParent }));
   };
 
   const getMenus = (menuArray, paddingLevel) => menuArray.map((item, index) => {
@@ -52,7 +53,7 @@ function MainMenu(props) {
                 open.indexOf(item.key) > -1 ? classes.opened : '',
               )
             }
-            onClick={() => openSubMenu(item.key, item.keyParent)}
+            onClick={() => handleOpenMenu(item.key, item.keyParent)}
           >
             {item.icon && (
               <ListItemIcon className={classes.icon}>
@@ -130,26 +131,9 @@ function MainMenu(props) {
 }
 
 MainMenu.propTypes = {
-  open: PropTypes.array.isRequired,
-  openSubMenu: PropTypes.func.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
   loadTransition: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
 };
 
-const openAction = (key, keyParent) => ({ type: 'OPEN_SUBMENU', key, keyParent });
-
-const mapStateToProps = state => ({
-  open: state.ui.subMenuOpen
-});
-
-const mapDispatchToProps = dispatch => ({
-  openSubMenu: bindActionCreators(openAction, dispatch)
-});
-
-const MainMenuMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainMenu);
-
-export default MainMenuMapped;
+export default MainMenu;

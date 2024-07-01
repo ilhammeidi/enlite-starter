@@ -6,12 +6,11 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
-import { connect } from 'react-redux';
 import Loading from 'react-top-loading-bar';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import 'enl-styles/vendors/react-loading-bar/index.css';
 import { changeModeAction } from 'enl-redux/actions/uiActions';
-import applicationTheme from '../../styles/theme/applicationTheme';
+import appTheme from '../../styles/theme/applicationTheme';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -48,20 +47,16 @@ export const ThemeContext = React.createContext();
 
 function ThemeWrapper(props) {
   const { classes } = useStyles();
-  const {
-    changeMode,
-    children,
-    color,
-    direction,
-    mode,
-  } = props;
   const [loading, setLoading] = useState(0);
-  const [theme, setTheme] = useState(createTheme(applicationTheme(color, mode, direction)));
 
-  const handleChangeMode = newMode => {
-    setTheme(createTheme(applicationTheme(color, newMode, direction)));
-    changeMode(newMode);
-  };
+  const dispatch = useDispatch();
+  const color = useSelector((state) => state.ui.theme);
+  const mode = useSelector((state) => state.ui.type);
+  const direction = useSelector((state) => state.ui.direction);
+
+  const [theme, setTheme] = useState(
+    appTheme(color, mode, direction)
+  );
 
   useEffect(() => {
     // Remove loading bar
@@ -69,9 +64,18 @@ function ThemeWrapper(props) {
     setTimeout(() => { setLoading(100); }, 2000);
   }, []);
 
+  const handleChangeMode = newMode => {
+    dispatch(changeModeAction(newMode));
+    setTheme(appTheme(color, newMode));
+  };
+
+
+  const muiTheme = createTheme(theme);
+  const { children } = props;
+
   return (
     <CacheProvider value={theme.direction === 'rtl' ? cacheRTL : cacheLTR}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={muiTheme}>
         <div className={classes.root}>
           <div className={classes.pageLoader}>
             <Loading
@@ -92,25 +96,6 @@ function ThemeWrapper(props) {
 
 ThemeWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.string.isRequired,
-  mode: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
-  changeMode: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  color: state.ui.theme,
-  mode: state.ui.type,
-  direction: state.ui.direction,
-});
-
-const dispatchToProps = dispatch => ({
-  changeMode: bindActionCreators(changeModeAction, dispatch),
-});
-
-const ThemeWrapperMapped = connect(
-  mapStateToProps,
-  dispatchToProps
-)(ThemeWrapper);
-
-export default ThemeWrapperMapped;
+export default ThemeWrapper;

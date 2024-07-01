@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { RegisterFormFirebase, SelectLanguage } from 'enl-components';
+import { SelectLanguage } from 'enl-components';
 import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
@@ -73,7 +73,7 @@ function Register(props) {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <RegisterFormFirebase onSubmit={(values) => submitForm(values)} />
+          {/* <RegisterFormFirebase onSubmit={(values) => submitForm(values)} /> */}
         </div>
       </div>
     </div>

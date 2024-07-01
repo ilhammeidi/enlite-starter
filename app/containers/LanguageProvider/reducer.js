@@ -4,7 +4,10 @@
  *
  */
 
-/* eslint-disable */import produce from 'immer';
+/* eslint-disable */
+
+import { createSlice } from '@reduxjs/toolkit'
+
 import { CHANGE_LOCALE } from './constants';
 import { DEFAULT_LOCALE } from '../../i18n';
 
@@ -13,13 +16,16 @@ export const initialState = {
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const languageProviderReducer = (state = initialState, action) =>
-  produce(state, draft => {
-    switch (action.type) {
-      case CHANGE_LOCALE:
-        draft.locale = action.locale;
-        break;
+const languageProviderSlice = createSlice({
+  name: 'language',
+  initialState,
+  reducers: {
+    changeLocale: (state, action) => {
+      state.locale = action.payload
     }
-  });
+  }
+});
 
-export default languageProviderReducer;
+export const { changeLocale } = languageProviderSlice.actions;
+
+export default languageProviderSlice.reducer;

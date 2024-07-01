@@ -4,7 +4,7 @@ import brand from 'enl-api/dummy/brand';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { NavLink } from 'react-router-dom';
-import { LoginForm, SelectLanguage } from 'enl-components';
+import { SelectLanguage } from 'enl-components';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import useStyles from 'enl-components/Forms/user-jss';
@@ -69,7 +69,7 @@ function Login() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <LoginForm onSubmit={(values) => submitForm(values)} />
+          {/* <LoginForm onSubmit={(values) => submitForm(values)} /> */}
         </div>
       </div>
     </div>
