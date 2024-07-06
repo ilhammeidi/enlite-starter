@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-// import { ResetForm } from 'enl-components';
+import { ResetForm } from 'enl-components';
 import useStyles from '../../../components/Forms/user-jss';
 
 function ResetPassword() {
   const { classes } = useStyles();
   const title = brand.name + ' - Reset Password';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
 
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-    }
-  }, [valueForm]);
+  const submitForm = (values) => {
+    console.log('You submitted:' + JSON.stringify(values, null, 2));
+  };
 
   return (
     <div className={classes.root}>
@@ -30,7 +25,7 @@ function ResetPassword() {
       </Helmet>
       <div className={classes.container}>
         <div className={classes.userFormWrap}>
-        {/* <ResetForm onSubmit={(values) => submitForm(values)} /> */}
+          <ResetForm submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

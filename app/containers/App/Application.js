@@ -8,7 +8,7 @@ import {
   BlankPage,
   Error,
   NotFound,
-  // Form,
+  Form,
   Table,
   Parent
 } from '../pageListAsync';
@@ -23,7 +23,7 @@ function Application(props) {
         { /* Home */ }
         <Route exact path="/" element={<BlankPage />} />
         <Route path="pages/dashboard" element={<DashboardPage />} />
-        {/* <Route path="pages/form" element={<Form />} /> */}
+        <Route path="pages/form" element={<Form />} />
         <Route path="pages/table" element={<Table />} />
         <Route path="pages/page-list" element={<Parent />} />
         <Route path="pages/pages/not-found" element={<NotFound />} />

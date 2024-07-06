@@ -1,41 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useSelector } from 'react-redux';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import Type from 'enl-styles/Typography.scss';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { closeMsgAction } from 'enl-redux/actions/authActions';
-import { TextFieldRedux } from './ReduxFormMUI';
 import MessagesForm from './MessagesForm';
 import messages from './messages';
 import useStyles from './user-jss';
 
 // validation functions
-const required = value => (value === null ? 'Required' : undefined);
-const email = value => (
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
-    : undefined
-);
+const validationSchema = yup.object({
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
+});
 
 function ResetForm(props) {
   const { classes, cx } = useStyles();
   const {
-    handleSubmit,
-    pristine,
-    submitting,
     intl,
     messagesAuth,
-    closeMsg
+    closeMsg,
+    submitForm
   } = props;
+
+  const sleep = (ms) => new Promise((r) => { setTimeout(r, ms); });
+  const formik = useFormik({
+    initialValues: {
+      email: ''
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      await sleep(500);
+      submitForm(values);
+    },
+  });
 
   return (
     <section>
@@ -65,24 +75,26 @@ function ResetForm(props) {
               )
               : ''
           }
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
             <div>
               <FormControl variant="standard" className={classes.formControl}>
-                <Field
+                <TextField
                   name="email"
-                  component={TextFieldRedux}
-                  placeholder={intl.formatMessage(messages.loginFieldEmail)}
+                  variant="standard"
+                  placeholder="Your Email"
                   label={intl.formatMessage(messages.loginFieldEmail)}
-                  required
-                  validate={[required, email]}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                   className={classes.field}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                 />
               </FormControl>
             </div>
             <div className={classes.btnArea}>
-              <Button variant="contained" color="primary" type="submit">
+              <Button variant="contained" color="primary" type="submit" disabled={formik.isSubmitting || !formik.isValid || !formik.dirty}>
                 <FormattedMessage {...messages.resetButton} />
-                <ArrowForward className={cx(classes.rightIcon, classes.iconSmall, classes.signArrow)} disabled={submitting || pristine} />
+                <ArrowForward className={cx(classes.rightIcon, classes.iconSmall, classes.signArrow)} />
               </Button>
             </div>
           </form>
@@ -93,34 +105,15 @@ function ResetForm(props) {
 }
 
 ResetForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
   messagesAuth: PropTypes.string,
   closeMsg: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired
 };
 
 ResetForm.defaultProps = {
-  messagesAuth: null
+  messagesAuth: null,
+  closeMsg: () => {}
 };
 
-const ResetFormReduxed = reduxForm({
-  form: 'resetForm',
-  enableReinitialize: true,
-})(ResetForm);
-
-const mapDispatchToProps = {
-  closeMsg: closeMsgAction
-};
-
-const mapStateToProps = state => ({
-  messagesAuth: state.authReducer.message
-});
-
-const ResetFormMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResetFormReduxed);
-
-export default injectIntl(ResetFormMapped);
+export default injectIntl(ResetForm);

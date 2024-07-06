@@ -59,7 +59,7 @@ function MegaMenu(props) { // eslint-disable-line
           <Button
             aria-haspopup="true"
             component={item.linkParent ? LinkBtn : 'button'}
-            to={item.linkParent ? item.linkParent : false}
+            to={item.linkParent ? item.linkParent : '#'}
             className={
               cx(
                 classes.headMenu,

@@ -13,7 +13,9 @@ import Chip from '@mui/material/Chip';
 import Icon from '@mui/material/Icon';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { openAction } from 'enl-redux/modules/ui';
+import messages from 'enl-api/ui/menuMessages';
 import useStyles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
@@ -24,7 +26,12 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenu(props) {
   const { classes, cx } = useStyles();
   const location = useLocation();
-  const { dataMenu, toggleDrawerOpen, loadTransition } = props;
+  const {
+    dataMenu,
+    toggleDrawerOpen,
+    loadTransition,
+    intl
+  } = props;
 
   const dispatch = useDispatch();
   const open = useSelector((state) => state.ui.subMenuOpen);
@@ -60,7 +67,14 @@ function MainMenu(props) {
                 <Icon>{item.icon}</Icon>
               </ListItemIcon>
             )}
-            <ListItemText classes={{ primary: classes.primary }} primary={item.name} />
+            <ListItemText
+              classes={{ primary: classes.primary }}
+              primary={
+                messages[item.key] !== undefined
+                  ? intl.formatMessage(messages[item.key])
+                  : item.name
+              }
+            />
             { !item.linkParent && (
               <span>
                 { open.indexOf(item.key) > -1 ? <ExpandLess /> : <ExpandMore /> }
@@ -94,7 +108,11 @@ function MainMenu(props) {
           component="div"
           className={classes.title}
         >
-          {item.name}
+          {
+            messages[item.key] !== undefined
+              ? <FormattedMessage {...messages[item.key]} />
+              : item.name
+          }
         </ListSubheader>
       );
     }
@@ -114,7 +132,14 @@ function MainMenu(props) {
             justifyContent: 'space-between'
           }}
         >
-          <ListItemText classes={{ primary: classes.primary }} primary={item.name} />
+          <ListItemText
+            classes={{ primary: classes.primary }}
+            primary={
+              messages[item.key] !== undefined
+                ? intl.formatMessage(messages[item.key])
+                : item.name
+            }
+          />
           {item.badge && (
             <Chip color="primary" label={item.badge} className={classes.badge} />
           )}
@@ -136,4 +161,4 @@ MainMenu.propTypes = {
   dataMenu: PropTypes.array.isRequired,
 };
 
-export default MainMenu;
+export default injectIntl(MainMenu);

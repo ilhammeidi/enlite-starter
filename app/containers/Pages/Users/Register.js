@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { SelectLanguage } from 'enl-components';
+import { RegisterForm, SelectLanguage } from 'enl-components';
 import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
@@ -17,16 +17,11 @@ function Register() {
 
   const title = brand.name + ' - Register';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
 
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-      window.location.href = '/app';
-    }
-  }, [valueForm]);
+  const submitForm = (values) => {
+    console.log('You submitted:' + JSON.stringify(values, null, 2));
+    window.location.href = '/app';
+  };
 
   return (
     <div className={classes.rootFull}>
@@ -67,7 +62,7 @@ function Register() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          {/* <RegisterForm onSubmit={(values) => submitForm(values)} /> */}
+          <RegisterForm submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

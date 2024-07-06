@@ -6,7 +6,7 @@ const initialState = {
   theme: 'lightBlueTheme',
   type: 'light', // light or dark
   direction: 'ltr', // ltr or rtl
-  layout: 'mega-menu', // sidebar, big-sidebar, top-navigation, mega-menu
+  layout: 'sidebar', // sidebar, big-sidebar, top-navigation, mega-menu
   /* End settings */
   palette: [
     { name: 'Grey', value: 'greyTheme' },

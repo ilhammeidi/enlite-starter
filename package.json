@@ -144,6 +144,7 @@
     "firebase": "^8.9.1",
     "firebase-redux-saga": "^1.0.0",
     "fontfaceobserver": "2.1.0",
+    "formik": "^2.4.5",
     "history": "4.9.0",
     "hoist-non-react-statics": "3.3.0",
     "immer": "^9.0.6",
@@ -197,7 +198,8 @@
     "tunnel-agent": "^0.6.0",
     "url-loader": "^4.1.1",
     "warning": "4.0.2",
-    "workbox-webpack-plugin": "^6.5.4"
+    "workbox-webpack-plugin": "^6.5.4",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/cli": "7.17.6",
