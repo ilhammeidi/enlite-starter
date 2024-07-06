@@ -13,7 +13,7 @@ import Chip from '@mui/material/Chip';
 import Icon from '@mui/material/Icon';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { openAction } from 'dan-redux/modules/ui';
+import { openAction } from 'enl-redux/modules/ui';
 import useStyles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line

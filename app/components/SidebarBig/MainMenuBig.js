@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ButtonBase from '@mui/material/ButtonBase';
 import Icon from '@mui/material/Icon';
-import { openAction, openMenuAction, closeMenuAction } from 'dan-redux/modules/ui';
+import { openAction, openMenuAction, closeMenuAction } from 'enl-redux/modules/ui';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import MenuProfile from './MenuProfile';

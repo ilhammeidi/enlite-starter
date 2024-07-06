@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import { NavLink, Link } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -135,13 +136,15 @@ function HeaderMenu(props) { // eslint-disable-line
     >
       <div className={classes.appMenu}>
         {!lgUp && (
-          <IconButton
-            className={classes.menuButton}
-            aria-label="Menu"
-            onClick={toggleDrawerOpen}
-            size="large">
-            <MenuIcon />
-          </IconButton>
+          <Box display="flex" alignItems="center">
+            <IconButton
+              className={classes.menuButton}
+              aria-label="Menu"
+              onClick={toggleDrawerOpen}
+              size="large">
+              <MenuIcon />
+            </IconButton>
+          </Box>
         )}
         {!lgDown && (
           <>

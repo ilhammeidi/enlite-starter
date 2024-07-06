@@ -14,7 +14,7 @@ import rootReducer from './reducers';
 const persistConfig = {
   key: 'enlite',
   storage,
-  whitelist: ['ui']
+  whitelist: []
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

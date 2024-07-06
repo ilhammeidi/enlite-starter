@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GuideSlider } from 'enl-components';
-import { toggleAction, openAction, playTransitionAction } from 'dan-redux/modules/ui';
-import { logout } from 'enl-redux/actions/authActions';
+import { toggleAction, openAction, playTransitionAction } from 'enl-redux/modules/ui';
 import dummy from 'enl-api/dummy/dummyContents';
 import LeftSidebarLayout from './layouts/LeftSidebar';
 import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
@@ -15,7 +14,7 @@ import useStyles from './appStyles-jss';
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
-  const { children, changeMode, signOut } = props;
+  const { children, changeMode } = props;
 
   const dispatch = useDispatch();
   const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
@@ -66,13 +65,11 @@ function Dashboard(props) {
     // Set expanded sidebar menu
     const currentPath = location.pathname;
     dispatch(openAction({ initialLocation: currentPath }));
-    // Play page transition
-    loadTransition(true);
 
     // Execute all arguments when page changes
     setTimeout(() => {
       window.scrollTo(0, 0);
-      loadTransition(true);
+      dispatch(playTransitionAction(true));
     }, 500);
   }, [location]);
 

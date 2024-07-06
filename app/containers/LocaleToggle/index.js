@@ -2,30 +2,32 @@
  *
  * LanguageToggle
  *
- */import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { changeDirectionAction } from 'enl-redux/actions/uiActions';
+ */
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeDirectionAction } from 'enl-redux/modules/ui';
 import Toggle from './Toggle';
 import messages from './messages';
 import { appLocales } from '../../i18n';
-import changeLocale from '../LanguageProvider/actions';
-import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { changeLocale } from '../LanguageProvider/reducer';
 
-function LocaleToggle(props) {
-  const { locale, onLocaleToggle, changeDirection } = props;
+function LocaleToggle() {
+
+  const dispatch = useDispatch();
+  const locale = useSelector((state) => state.language.locale);
+  
   const handleLocalToggle = event => {
     // Change Language
-    onLocaleToggle(event);
+    const lang = event.target.value;
+    dispatch(changeLocale(lang));
 
     // Change Theme Direction
     if (event.target.value === 'ar') {
       document.dir = 'rtl';
-      changeDirection('rtl');
+      dispatch(changeDirectionAction('rtl'));
     } else {
       document.dir = 'ltr';
-      changeDirection('ltr');
+      dispatch(changeDirectionAction('ltr'));
     }
   };
 
@@ -39,25 +41,4 @@ function LocaleToggle(props) {
   );
 }
 
-LocaleToggle.propTypes = {
-  onLocaleToggle: PropTypes.func.isRequired,
-  changeDirection: PropTypes.func.isRequired,
-  locale: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = createSelector(makeSelectLocale(), locale => ({
-  locale,
-}));
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    onLocaleToggle: evt => dispatch(changeLocale(evt.target.value)),
-    changeDirection: dir => dispatch(changeDirectionAction(dir)),
-    dispatch,
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LocaleToggle);
+export default LocaleToggle;

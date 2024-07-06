@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import menuContent from 'dan-api/ui/menu';
+import menuContent from 'enl-api/ui/menu';
 
 const initialState = {
   /* Settings for Themes and layout */
   theme: 'lightBlueTheme',
   type: 'light', // light or dark
   direction: 'ltr', // ltr or rtl
-  layout: 'sidebar', // sidebar, big-sidebar, top-navigation, mega-menu
+  layout: 'mega-menu', // sidebar, big-sidebar, top-navigation, mega-menu
   /* End settings */
   palette: [
     { name: 'Grey', value: 'greyTheme' },
@@ -61,10 +61,6 @@ const uiSlice = createSlice({
       // Once page loaded will expand the parent menu
       if (initialLocation) {
         state.subMenuOpen = [activeParent];
-        const path = initialLocation.split('/');
-        if (path.length <= 3 && initialLocation !== '/app') {
-          state.sidebarOpen = false;
-        }
         return;
       }
 
@@ -74,7 +70,7 @@ const uiSlice = createSlice({
         const index = state.subMenuOpen.findIndex((obj) => obj === key);
         state.subMenuOpen.splice(index, 1);
       } else {
-        state.subMenuOpen.push(key);
+        state.subMenuOpen = [key];
       }
     },
     changeThemeAction: (state, action) => {

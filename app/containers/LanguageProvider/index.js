@@ -10,9 +10,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { makeSelectLocale } from './selectors';
 
 export function LanguageProvider(props) {
   const locale = useSelector((state) => state.language.locale);
@@ -27,7 +26,8 @@ export function LanguageProvider(props) {
   );
 }
 
-LanguageProvider.propTypes = { locale: PropTypes.string,
+LanguageProvider.propTypes = {
+  locale: PropTypes.string,
   messages: PropTypes.object,
   children: PropTypes.element.isRequired,
 };

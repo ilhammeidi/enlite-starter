@@ -9,7 +9,7 @@ import { prefixer } from 'stylis';
 import Loading from 'react-top-loading-bar';
 import { useSelector, useDispatch } from 'react-redux';
 import 'enl-styles/vendors/react-loading-bar/index.css';
-import { changeModeAction } from 'enl-redux/actions/uiActions';
+import { changeModeAction } from 'enl-redux/modules/ui';
 import appTheme from '../../styles/theme/applicationTheme';
 
 const useStyles = makeStyles()(() => ({
@@ -62,13 +62,13 @@ function ThemeWrapper(props) {
     // Remove loading bar
     setLoading(0);
     setTimeout(() => { setLoading(100); }, 2000);
+    document.dir = direction;
   }, []);
 
   const handleChangeMode = newMode => {
     dispatch(changeModeAction(newMode));
     setTheme(appTheme(color, newMode));
   };
-
 
   const muiTheme = createTheme(theme);
   const { children } = props;

@@ -5,7 +5,7 @@ import Outer from '../Templates/Outer';
 import Application from './Application';
 import ThemeWrapper from './ThemeWrapper';
 import {
-  Login, Register,
+  Login, Register, ResetPassword,
   // LoginFullstack, RegisterFullstack,
   // ResetPassword, ResetPasswordFullstack,
   ComingSoon,

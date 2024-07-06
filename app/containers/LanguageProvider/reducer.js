@@ -8,7 +8,6 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import { CHANGE_LOCALE } from './constants';
 import { DEFAULT_LOCALE } from '../../i18n';
 
 export const initialState = {
