@@ -39,6 +39,7 @@ const ReactBoilerplate = {
         'eslint-webpack-plugin',
         'etag',
         'express',
+        'firebase',
         'fs',
         'html-webpack-plugin',
         'ip',

@@ -52,6 +52,12 @@ function RegisterForm(props) {
   const sleep = (ms) => new Promise((r) => { setTimeout(r, ms); });
   const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
+  const {
+    link, intl, messagesAuth,
+    closeMsg, loading, submitForm,
+    googleAuth, twitterAuth, githubAuth
+  } = props;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -67,13 +73,6 @@ function RegisterForm(props) {
     },
   });
 
-  const {
-    intl,
-    messagesAuth,
-    closeMsg,
-    loading,
-    submitForm
-  } = props;
 
   return (
     <Paper className={classes.sideWrap}>
@@ -89,7 +88,7 @@ function RegisterForm(props) {
         <Typography variant="h4" className={classes.title}>
           <FormattedMessage {...messages.register} />
         </Typography>
-        <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
+        <Button size="small" className={classes.buttonLink} component={LinkBtn} to={link}>
           <Icon className={cx(classes.icon, classes.signArrow)}>arrow_forward</Icon>
           <FormattedMessage {...messages.toAccount} />
         </Button>
@@ -211,6 +210,7 @@ function RegisterForm(props) {
           className={classes.redBtn}
           type="button"
           size="large"
+          onClick={googleAuth}
         >
           <i className="ion-logo-google" />
           Google
@@ -220,6 +220,7 @@ function RegisterForm(props) {
           className={classes.cyanBtn}
           type="button"
           size="large"
+          onClick={twitterAuth}
         >
           <i className="ion-logo-twitter" />
           Twitter
@@ -229,6 +230,7 @@ function RegisterForm(props) {
           className={classes.greyBtn}
           type="button"
           size="large"
+          onClick={githubAuth}
         >
           <i className="ion-logo-github" />
           Github
@@ -244,12 +246,20 @@ RegisterForm.propTypes = {
   closeMsg: PropTypes.func,
   loading: PropTypes.bool,
   submitForm: PropTypes.func.isRequired,
+  googleAuth: PropTypes.func,
+  twitterAuth: PropTypes.func,
+  githubAuth: PropTypes.func,
+  link: PropTypes.string,
 };
 
 RegisterForm.defaultProps = {
   messagesAuth: null,
+  loading: false,
   closeMsg: () => {},
-  loading: false
+  googleAuth: () => {},
+  twitterAuth: () => {},
+  twitterAuth: () => {},
+  link: '#'
 };
 
 export default injectIntl(RegisterForm);

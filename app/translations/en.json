@@ -405,7 +405,7 @@
   "boilerplate.components.Sidebar.home.grid": "Grid",
   "boilerplate.components.Sidebar.home.application_layout": "App Layout",
   "boilerplate.components.Sidebar.home.responsive": "Responsive",
-  "boilerplate.components.Sidebar.tables": "Tables Charts",
+  "boilerplate.components.Sidebar.tables": "Tables",
   "boilerplate.components.Sidebar.tables.common_table": "Common Tables",
   "boilerplate.components.Sidebar.tables.basic_table": "Basic",
   "boilerplate.components.Sidebar.tables.data_table": "Data Table",

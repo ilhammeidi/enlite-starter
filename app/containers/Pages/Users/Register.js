@@ -62,7 +62,7 @@ function Register() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <RegisterForm submitForm={(values) => submitForm(values)} />
+          <RegisterForm link="/login" submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

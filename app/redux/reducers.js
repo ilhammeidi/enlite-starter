@@ -4,6 +4,7 @@
 import { combineSlices } from '@reduxjs/toolkit';
 import language from 'containers/LanguageProvider/reducer';
 import uiReducer from './modules/ui';
+import authReducer from './modules/auth';
 
 /**
  * Creates the main reducer with the dynamically injected ones
@@ -11,5 +12,6 @@ import uiReducer from './modules/ui';
 
 export default combineSlices({
   ui: uiReducer,
+  auth: authReducer,
   language
 });

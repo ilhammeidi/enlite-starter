@@ -27,6 +27,8 @@ const store = configureStore({
         FLUSH, REHYDRATE, PAUSE,
         PERSIST, PURGE, REGISTER
       ],
+      ignoredPaths: ['auth.user', 'crudTable.crudTableDemo', 'email', 'calendar'],
+      ignoredActionPaths: ['payload']
     },
   }),
 });

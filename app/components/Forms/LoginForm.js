@@ -45,11 +45,9 @@ function LoginForm(props) {
   const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   const {
-    intl,
-    messagesAuth,
-    closeMsg,
-    loading,
-    submitForm,
+    link, intl, messagesAuth,
+    closeMsg, loading, submitForm,
+    googleAuth, twitterAuth, githubAuth
   } = props;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -90,7 +88,7 @@ function LoginForm(props) {
         <Typography variant="h4" className={classes.title}>
           <FormattedMessage {...messages.login} />
         </Typography>
-        <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
+        <Button size="small" className={classes.buttonLink} component={LinkBtn} to={link}>
           <Icon className={cx(classes.icon, classes.signArrow)}>arrow_forward</Icon>
           <FormattedMessage {...messages.createNewAccount} />
         </Button>
@@ -183,6 +181,7 @@ function LoginForm(props) {
           className={classes.redBtn}
           type="button"
           size="large"
+          onClick={googleAuth}
         >
           <i className="ion-logo-google" />
           Google
@@ -192,6 +191,7 @@ function LoginForm(props) {
           className={classes.cyanBtn}
           type="button"
           size="large"
+          onClick={twitterAuth}
         >
           <i className="ion-logo-twitter" />
           Twitter
@@ -201,6 +201,7 @@ function LoginForm(props) {
           className={classes.greyBtn}
           type="button"
           size="large"
+          onClick={githubAuth}
         >
           <i className="ion-logo-github" />
           Github
@@ -216,12 +217,20 @@ LoginForm.propTypes = {
   loading: PropTypes.bool,
   closeMsg: PropTypes.func,
   submitForm: PropTypes.func.isRequired,
+  googleAuth: PropTypes.func,
+  twitterAuth: PropTypes.func,
+  githubAuth: PropTypes.func,
+  link: PropTypes.string,
 };
 
 LoginForm.defaultProps = {
   messagesAuth: null,
   loading: false,
-  closeMsg: () => {}
+  closeMsg: () => {},
+  googleAuth: () => {},
+  twitterAuth: () => {},
+  twitterAuth: () => {},
+  link: '#'
 };
 
 export default injectIntl(LoginForm);

@@ -1,25 +1,14 @@
-import produce from 'immer';
-import {
-  LOGIN_REQUEST,
-  LOGIN_WITH_EMAIL_REQUEST,
-  REGISTER_WITH_EMAIL_REQUEST,
-  LOGOUT_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_WITH_EMAIL_SUCCESS,
-  CREATE_USER_SUCCESS,
-  LOGIN_FAILURE,
-  LOGIN_WITH_EMAIL_FAILURE,
-  REGISTER_WITH_EMAIL_FAILURE,
-  CREATE_USER_FAILURE,
-  LOGOUT_FAILURE,
-  LOGOUT_SUCCESS,
-  PASSWORD_FORGET_FAILURE,
-  PASSWORD_FORGET_SUCCESS,
-  SYNC_USER,
-  HIDE_MSG
-} from '../constants/authConstants';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const AuthState = {
+function getUrlVars() {
+  const vars = {};
+  const parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { // eslint-disable-line
+    vars[key] = value;
+  });
+  return vars;
+}
+
+const initialState = {
   loading: false,
   loggedIn: null,
   user: null,
@@ -27,56 +16,42 @@ export const AuthState = {
   message: null
 };
 
-/* eslint-disable default-case, no-param-reassign */
-const authReducer = (state = AuthState, action = {}) => produce(state, draft => {
-  switch (action.type) {
-    case LOGIN_REQUEST:
-    case LOGIN_WITH_EMAIL_REQUEST:
-    case REGISTER_WITH_EMAIL_REQUEST:
-    case LOGOUT_REQUEST:
-      draft.loading = true;
-      draft.message = null;
-      break;
-
-    case LOGIN_SUCCESS:
-    case LOGIN_WITH_EMAIL_SUCCESS:
-    case CREATE_USER_SUCCESS:
-      draft.loading = false;
-      draft.loggedIn = true;
-      break;
-
-    case LOGIN_FAILURE:
-    case LOGIN_WITH_EMAIL_FAILURE:
-    case REGISTER_WITH_EMAIL_FAILURE:
-    case CREATE_USER_FAILURE:
-    case PASSWORD_FORGET_FAILURE:
-    case LOGOUT_FAILURE:
-      draft.loading = false;
-      draft.message = action.error.message;
-      break;
-
-    case PASSWORD_FORGET_SUCCESS:
-      draft.message = 'LINK.PASSWORD_RESET.SENT';
-      break;
-
-    case LOGOUT_SUCCESS:
-      draft.loading = false;
-      draft.loggedIn = false;
-      break;
-
-    case SYNC_USER:
-      draft.loggedIn = action.user != null;
-      draft.user = action.user;
-      draft.loading = false;
-      break;
-
-    case HIDE_MSG:
-      draft.message = null;
-      break;
-
-    default:
-      break;
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    requestAuth: (state) => {
+      state.loading = true;
+      state.message = null;
+    },
+    loginUser: (state, action) => {
+      const user = action.payload;
+      state.loading = false;
+      state.user = user;
+      state.loggedIn = user !== null;
+    },
+    logoutUser: (state) => {
+      state.loading = false;
+      state.user = null;
+      state.loggedIn = false;
+    },
+    setMessage: (state, action) => {
+      state.message = action.payload;
+      state.loading = false;
+    },
+    passwordReset: (state) => {
+      state.message = 'LINK.PASSWORD_RESET.SENT'
+    },
+    hideMessage: (state) => {
+      state.message = null;
+    }
   }
 });
 
-export default authReducer;
+export const {
+  requestAuth, passwordReset,
+  loginUser, logoutUser,
+  setMessage, hideMessage,
+} = authSlice.actions;
+
+export default authSlice.reducer;

@@ -6,11 +6,8 @@ import Application from './Application';
 import ThemeWrapper from './ThemeWrapper';
 import {
   Login, Register, ResetPassword,
-  // LoginFullstack, RegisterFullstack,
-  // ResetPassword, ResetPasswordFullstack,
-  ComingSoon,
-  Maintenance,
-  NotFoundDedicated
+  LoginFullstack, RegisterFullstack, ResetPasswordFullstack,
+  ComingSoon, Maintenance, NotFoundDedicated
 } from '../pageListAsync';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
@@ -29,11 +26,9 @@ function App(props) {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="reset-password" element={<ResetPassword />} />
-            {/*
-              <Route path="login-firebase" element={<LoginFullstack />} />
-              <Route path="register-firebase" element={<RegisterFullstack />} />
-              <Route path="reset-password-firebase" element={<ResetPasswordFullstack />} />
-            */}
+            <Route path="login-firebase" element={<LoginFullstack />} />
+            <Route path="register-firebase" element={<RegisterFullstack />} />
+            <Route path="reset-password-firebase" element={<ResetPasswordFullstack />} />
             <Route path="maintenance" element={<Maintenance />} />
             <Route path="coming-soon" element={<ComingSoon />} />
           </Route>

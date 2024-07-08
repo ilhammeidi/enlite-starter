@@ -1,38 +1,106 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import {
+  getAuth, updateProfile,
+  signInWithPopup, createUserWithEmailAndPassword,
+  GoogleAuthProvider, TwitterAuthProvider, GithubAuthProvider
+} from 'firebase/auth';
+import { FormattedMessage } from 'react-intl';
 import Typography from '@mui/material/Typography';
 import { NavLink, useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { SelectLanguage } from 'enl-components';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectLanguage, RegisterForm } from 'enl-components';
 import useStyles from 'enl-components/Forms/user-jss';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import { FormattedMessage } from 'react-intl';
-import { registerWithEmail } from 'enl-redux/actions/authActions';
+import {
+  requestAuth, loginUser,
+  setMessage, hideMessage
+} from 'enl-redux/modules/auth';
+import '../../../firebase';
 import messages from './messages';
 
-function Register(props) {
-  const { handleRegister } = props;
+function Register() {
+  const auth = getAuth();
+  const googleProvider = new GoogleAuthProvider();
+  const twitterProvider = new TwitterAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const messageAuth = useSelector((state) => state.auth.message)
+  const loading = useSelector((state) => state.auth.loading)
+
   const { classes } = useStyles();
   const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
-  const navigate = useNavigate();
 
   const title = brand.name + ' - Register';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
 
-  const submitForm = (values) => setValueForm(values);
+  const registerEmail = (values) => {
+    const { name, email, password } = values;
+    dispatch(requestAuth());
 
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-      handleRegister(valueForm.name, valueForm.email, valueForm.password, navigate); // eslint-disable-line
-    }
-  }, [valueForm]);
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      updateProfile(auth.currentUser, {
+        displayName: name
+      }).then(() => {
+        const user = userCredential.user;
+        if (user) {
+          dispatch(loginUser(user));
+          navigate('/app');
+        }
+      }).catch((error) => {
+        dispatch(setMessage(error.message));
+      });;
+    })
+    .catch((error) => {
+      dispatch(setMessage(error.message));
+    });
+  };
+
+  const loginGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        dispatch(loginUser(user));
+        navigate('/app');
+      }).catch((error) => {
+        // Handle Errors here.
+        console.error(error);
+      });
+  };
+
+  const loginTwitter = () => {
+    signInWithPopup(auth, twitterProvider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        dispatch(loginUser(user));
+        navigate('/app');
+      }).catch((error) => {
+        // Handle Errors here.
+        console.error(error);
+      });
+  };
+
+  const loginGithub = () => {
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        dispatch(loginUser(user));
+        navigate('/app');
+      }).catch((error) => {
+        // Handle Errors here.
+        console.error(error);
+      });
+  };
 
   return (
     <div className={classes.rootFull}>
@@ -73,33 +141,20 @@ function Register(props) {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          {/* <RegisterFormFirebase onSubmit={(values) => submitForm(values)} /> */}
+          <RegisterForm
+            submitForm={(values) => registerEmail(values)}
+            googleAuth={loginGoogle}
+            twitterAuth={loginTwitter}
+            githubAuth={loginGithub}
+            loading={loading}
+            messagesAuth={messageAuth}
+            closeMsg={() => dispatch(hideMessage())}
+            link="/login-firebase"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-Register.propTypes = { handleRegister: PropTypes.func.isRequired, };
-
-function RegisterWrap(props) {
-  const { handleRegisterWithEmail } = props;
-  return (
-    <Register handleRegister={handleRegisterWithEmail} />
-  );
-}
-
-RegisterWrap.propTypes = { handleRegisterWithEmail: PropTypes.func.isRequired, };
-
-const mapStateToProps = state => state.authReducer;
-
-const mapDispatchToProps = dispatch => ({
-  handleRegisterWithEmail: bindActionCreators(registerWithEmail, dispatch)
-});
-
-const RegisterMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegisterWrap);
-
-export default RegisterMapped;
+export default Register;

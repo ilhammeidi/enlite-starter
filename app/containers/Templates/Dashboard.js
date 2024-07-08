@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 import { PropTypes } from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GuideSlider } from 'enl-components';
 import { toggleAction, openAction, playTransitionAction } from 'enl-redux/modules/ui';
 import dummy from 'enl-api/dummy/dummyContents';
+import { loginUser, logoutUser } from 'enl-redux/modules/auth';
+import firebaseConfig from '../../firebase';
 import LeftSidebarLayout from './layouts/LeftSidebar';
 import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
 import MegaMenuLayout from './layouts/MegaMenu';
@@ -15,17 +18,27 @@ import useStyles from './appStyles-jss';
 function Dashboard(props) {
   const { classes, cx } = useStyles();
   const { children, changeMode } = props;
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const auth = getAuth();
+  const isAuthenticated = useSelector((state) => state.auth.loggedIn);
+  const user = useSelector((state) => state.auth.user);
+
+  const signOutApp = () => {
+    signOut(auth).then(() => {
+      navigate('/');
+      dispatch(logoutUser());
+    }).catch((error) => {
+      console.error(error);
+    });;
+  }
+
   const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
   const pageLoaded = useSelector((state) => state.ui.pageLoaded);
   const mode = useSelector((state) => state.ui.type);
   const layout = useSelector((state) => state.ui.layout);
-  const isAuthenticated = null;
-  const user = null;
-  const signOut = () => {
-    console.log('sign out');
-  }
+
 
   const location = useLocation();
   const history = { location };
@@ -66,6 +79,15 @@ function Dashboard(props) {
     const currentPath = location.pathname;
     dispatch(openAction({ initialLocation: currentPath }));
 
+    // Get user attributes
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(loginUser(user));
+      } else {
+        dispatch(loginUser(null));
+      }
+    }, [auth, dispatch]);
+
     // Execute all arguments when page changes
     setTimeout(() => {
       window.scrollTo(0, 0);
@@ -98,7 +120,7 @@ function Dashboard(props) {
             place={place}
             titleException={titleException}
             handleOpenGuide={handleOpenGuide}
-            signOut={signOut}
+            signOut={signOutApp}
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
@@ -119,7 +141,7 @@ function Dashboard(props) {
             place={place}
             titleException={titleException}
             handleOpenGuide={handleOpenGuide}
-            signOut={signOut}
+            signOut={signOutApp}
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
@@ -140,7 +162,7 @@ function Dashboard(props) {
             place={place}
             titleException={titleException}
             handleOpenGuide={handleOpenGuide}
-            signOut={signOut}
+            signOut={signOutApp}
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
@@ -161,7 +183,7 @@ function Dashboard(props) {
             place={place}
             titleException={titleException}
             handleOpenGuide={handleOpenGuide}
-            signOut={signOut}
+            signOut={signOutApp}
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >

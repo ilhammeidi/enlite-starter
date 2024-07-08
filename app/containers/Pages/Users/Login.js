@@ -64,7 +64,7 @@ function Login() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <LoginForm submitForm={(values) => submitForm(values)} />
+          <LoginForm link="/register" submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { Helmet } from 'react-helmet';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
-// import { ResetForm } from 'enl-components';
-import { passwordForget } from 'enl-redux/actions/authActions';
+import { ResetForm } from 'enl-components';
+import { setMessage, hideMessage } from 'enl-redux/modules/auth';
+import '../../../firebase';
 import useStyles from '../../../components/Forms/user-jss';
 
 function ResetPassword(props) {
-  const { forgotPwd } = props;
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  const messageAuth = useSelector((state) => state.auth.message)
+
+  const resetPwd = (values) => {
+    const { email } = values;
+  
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+      dispatch(setMessage('LINK.PASSWORD_RESET.SENT'));
+    })
+    .catch((error) => {
+      dispatch(setMessage(error.message));
+    });
+  };
+
   const { classes } = useStyles();
+  
   const title = brand.name + ' - Reset Password';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
-
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm}`); // eslint-disable-line
-      forgotPwd(valueForm.email); // eslint-disable-line
-    }
-  }, [valueForm]);
 
   return (
     <div className={classes.root}>
@@ -36,37 +43,15 @@ function ResetPassword(props) {
       </Helmet>
       <div className={classes.container}>
         <div className={classes.userFormWrap}>
-        {/* <ResetForm onSubmit={(values) => submitForm(values)} /> */}
+          <ResetForm
+            submitForm={(values) => resetPwd(values)}
+            messagesAuth={messageAuth}
+            closeMsg={() => dispatch(hideMessage())}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-ResetPassword.propTypes = {
-  forgotPwd: PropTypes.func.isRequired,
-};
-
-function ResetWrap(props) {
-  const { handleForgotPwd } = props;
-  return (
-    <ResetPassword forgotPwd={handleForgotPwd} />
-  );
-}
-
-ResetWrap.propTypes = { handleForgotPwd: PropTypes.func.isRequired, };
-
-const mapStateToProps = state => ({
-  state: state.authReducer
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleForgotPwd: bindActionCreators(passwordForget, dispatch)
-});
-
-const ResetPasswordMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResetWrap);
-
-export default ResetPasswordMapped;
+export default ResetPassword;

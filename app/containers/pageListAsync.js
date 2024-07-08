@@ -12,22 +12,22 @@ export const Table = loadable(() =>
   import ('./Pages/Table/BasicTable'), {
     fallback: <Loading />,
   });
-  export const Form = loadable(() =>
-    import ('./Pages/Forms/FormikForm'), {
-      fallback: <Loading />,
-    });
-//  export const LoginFullstack = loadable(() =>
-//    import ('./Pages/UsersFullstack/Login'), {
-//      fallback: <Loading />,
-//    });
-//  export const RegisterFullstack = loadable(() =>
-//    import ('./Pages/UsersFullstack/Register'), {
-//      fallback: <Loading />,
-//    });
-//  export const ResetPasswordFullstack = loadable(() =>
-//    import ('./Pages/UsersFullstack/ResetPassword'), {
-//      fallback: <Loading />,
-//    });
+export const Form = loadable(() =>
+  import ('./Pages/Forms/FormikForm'), {
+    fallback: <Loading />,
+  });
+export const LoginFullstack = loadable(() =>
+  import ('./Pages/UsersFullstack/Login'), {
+    fallback: <Loading />,
+  });
+export const RegisterFullstack = loadable(() =>
+  import ('./Pages/UsersFullstack/Register'), {
+    fallback: <Loading />,
+  });
+export const ResetPasswordFullstack = loadable(() =>
+  import ('./Pages/UsersFullstack/ResetPassword'), {
+    fallback: <Loading />,
+  });
 export const Login = loadable(() =>
   import ('./Pages/Users/Login'), {
     fallback: <Loading />,
