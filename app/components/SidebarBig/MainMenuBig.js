@@ -42,7 +42,7 @@ function MainMenuBig(props) { // eslint-disable-line
     setSelectedMenu(menu);
     setMenuLoaded(false);
     dispatch(openAction({ key }));
-  
+
     setTimeout(() => {
       setMenuLoaded(true); // load transtion menu
     }, 100);

@@ -1,13 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-function getUrlVars() {
-  const vars = {};
-  const parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { // eslint-disable-line
-    vars[key] = value;
-  });
-  return vars;
-}
-
 const initialState = {
   loading: false,
   loggedIn: null,

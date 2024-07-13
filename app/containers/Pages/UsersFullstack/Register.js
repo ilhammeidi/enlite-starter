@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import {
   getAuth, updateProfile,
@@ -30,8 +30,8 @@ function Register() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const messageAuth = useSelector((state) => state.auth.message)
-  const loading = useSelector((state) => state.auth.loading)
+  const messageAuth = useSelector((state) => state.auth.message);
+  const loading = useSelector((state) => state.auth.loading);
 
   const { classes } = useStyles();
   const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
@@ -44,35 +44,35 @@ function Register() {
     dispatch(requestAuth());
 
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      updateProfile(auth.currentUser, {
-        displayName: name
-      }).then(() => {
-        const user = userCredential.user;
-        if (user) {
-          dispatch(loginUser(user));
-          navigate('/app');
-        }
-      }).catch((error) => {
+      .then((userCredential) => {
+        // Signed in
+        updateProfile(auth.currentUser, {
+          displayName: name
+        }).then(() => {
+          const { user } = userCredential;
+          if (user) {
+            dispatch(loginUser(user));
+            navigate('/app');
+          }
+        }).catch((error) => {
+          dispatch(setMessage(error.message));
+        });
+      })
+      .catch((error) => {
         dispatch(setMessage(error.message));
-      });;
-    })
-    .catch((error) => {
-      dispatch(setMessage(error.message));
-    });
+      });
   };
 
   const loginGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 
@@ -80,12 +80,12 @@ function Register() {
     signInWithPopup(auth, twitterProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 
@@ -93,12 +93,12 @@ function Register() {
     signInWithPopup(auth, githubProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 

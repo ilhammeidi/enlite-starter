@@ -159,6 +159,7 @@ MainMenu.propTypes = {
   toggleDrawerOpen: PropTypes.func.isRequired,
   loadTransition: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
+  intl: PropTypes.object.isRequired,
 };
 
 export default injectIntl(MainMenu);

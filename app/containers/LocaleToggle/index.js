@@ -12,10 +12,9 @@ import { appLocales } from '../../i18n';
 import { changeLocale } from '../LanguageProvider/reducer';
 
 function LocaleToggle() {
-
   const dispatch = useDispatch();
   const locale = useSelector((state) => state.language.locale);
-  
+
   const handleLocalToggle = event => {
     // Change Language
     const lang = event.target.value;

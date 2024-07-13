@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import {
   getAuth, signInWithPopup, signInWithEmailAndPassword,
   GoogleAuthProvider, TwitterAuthProvider, GithubAuthProvider
 } from 'firebase/auth';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -30,9 +29,9 @@ function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const messageAuth = useSelector((state) => state.auth.message)
-  const loading = useSelector((state) => state.auth.loading)
-  
+  const messageAuth = useSelector((state) => state.auth.message);
+  const loading = useSelector((state) => state.auth.loading);
+
   const { classes } = useStyles();
   const mdDown = useMediaQuery(theme => theme.breakpoints.down('md'));
 
@@ -44,29 +43,29 @@ function Login() {
     dispatch(requestAuth());
 
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      if (user) {
-        dispatch(loginUser(user));
-        navigate('/app');
-      }
-    })
-    .catch((error) => {
-      dispatch(setMessage(error.message));
-    });
+      .then((userCredential) => {
+        // Signed in
+        const { user } = userCredential;
+        if (user) {
+          dispatch(loginUser(user));
+          navigate('/app');
+        }
+      })
+      .catch((error) => {
+        dispatch(setMessage(error.message));
+      });
   };
 
   const loginGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 
@@ -74,12 +73,12 @@ function Login() {
     signInWithPopup(auth, twitterProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 
@@ -87,12 +86,12 @@ function Login() {
     signInWithPopup(auth, githubProvider)
       .then((result) => {
         // The signed-in user info.
-        const user = result.user;
+        const { user } = result;
         dispatch(loginUser(user));
         navigate('/app');
       }).catch((error) => {
         // Handle Errors here.
-        console.error(error);
+        dispatch(setMessage(error.message));
       });
   };
 

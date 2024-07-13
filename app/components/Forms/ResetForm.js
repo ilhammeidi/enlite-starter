@@ -10,7 +10,6 @@ import TextField from '@mui/material/TextField';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useSelector } from 'react-redux';
 import brand from 'enl-api/dummy/brand';
 import logo from 'enl-images/logo.svg';
 import Type from 'enl-styles/Typography.scss';

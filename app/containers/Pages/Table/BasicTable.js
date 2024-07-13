@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import { makeStyles } from 'tss-react/mui';
 import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
-import Grid from '@mui/material/Grid';
 import { SourceReader, PapperBlock, EmptyData } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import messages from './messages';
@@ -17,14 +16,12 @@ const useStyles = makeStyles()(() => ({
 
 function BasicTable(props) {
   const { intl } = props;
-  const {
-    classes
-  } = useStyles();
+  const { classes } = useStyles();
   const title = brand.name + ' - Table';
   const description = brand.desc;
   const docSrc = 'containers/Tables/';
   return (
-    <div>
+    <div className={classes.root}>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />

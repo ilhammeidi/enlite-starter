@@ -3,12 +3,11 @@ import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 import { PropTypes } from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { GuideSlider } from 'enl-components';
 import { toggleAction, openAction, playTransitionAction } from 'enl-redux/modules/ui';
 import dummy from 'enl-api/dummy/dummyContents';
 import { loginUser, logoutUser } from 'enl-redux/modules/auth';
-import firebaseConfig from '../../firebase';
+import firebaseConfig from '../../firebase'; // eslint-disable-line
 import LeftSidebarLayout from './layouts/LeftSidebar';
 import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
 import MegaMenuLayout from './layouts/MegaMenu';
@@ -23,7 +22,7 @@ function Dashboard(props) {
 
   const auth = getAuth();
   const isAuthenticated = useSelector((state) => state.auth.loggedIn);
-  const user = useSelector((state) => state.auth.user);
+  const userAttr = useSelector((state) => state.auth.user);
 
   const signOutApp = () => {
     signOut(auth).then(() => {
@@ -31,14 +30,13 @@ function Dashboard(props) {
       dispatch(logoutUser());
     }).catch((error) => {
       console.error(error);
-    });;
-  }
+    });
+  };
 
   const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
   const pageLoaded = useSelector((state) => state.ui.pageLoaded);
   const mode = useSelector((state) => state.ui.type);
   const layout = useSelector((state) => state.ui.layout);
-
 
   const location = useLocation();
   const history = { location };
@@ -112,7 +110,7 @@ function Dashboard(props) {
           <LeftSidebarLayout
             history={history}
             toggleDrawer={() => dispatch(toggleAction())}
-            loadTransition={(payload) => dispatch(loadTransition(payload))}
+            loadTransition={(payload) => dispatch(playTransitionAction(payload))}
             changeMode={changeMode}
             sidebarOpen={sidebarOpen}
             pageLoaded={pageLoaded}
@@ -122,7 +120,7 @@ function Dashboard(props) {
             handleOpenGuide={handleOpenGuide}
             signOut={signOutApp}
             isLogin={isAuthenticated}
-            userAttr={profile(user)}
+            userAttr={profile(userAttr)}
           >
             { children }
           </LeftSidebarLayout>
@@ -143,7 +141,7 @@ function Dashboard(props) {
             handleOpenGuide={handleOpenGuide}
             signOut={signOutApp}
             isLogin={isAuthenticated}
-            userAttr={profile(user)}
+            userAttr={profile(userAttr)}
           >
             { children }
           </LeftSidebarBigLayout>
@@ -164,7 +162,7 @@ function Dashboard(props) {
             handleOpenGuide={handleOpenGuide}
             signOut={signOutApp}
             isLogin={isAuthenticated}
-            userAttr={profile(user)}
+            userAttr={profile(userAttr)}
           >
             { children }
           </DropMenuLayout>
@@ -185,7 +183,7 @@ function Dashboard(props) {
             handleOpenGuide={handleOpenGuide}
             signOut={signOutApp}
             isLogin={isAuthenticated}
-            userAttr={profile(user)}
+            userAttr={profile(userAttr)}
           >
             { children }
           </MegaMenuLayout>

@@ -73,7 +73,6 @@ function RegisterForm(props) {
     },
   });
 
-
   return (
     <Paper className={classes.sideWrap}>
       {!mdUp && (
@@ -257,7 +256,6 @@ RegisterForm.defaultProps = {
   loading: false,
   closeMsg: () => {},
   googleAuth: () => {},
-  twitterAuth: () => {},
   twitterAuth: () => {},
   link: '#'
 };

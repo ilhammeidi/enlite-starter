@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from 'tss-react/mui';
 import { Helmet } from 'react-helmet';

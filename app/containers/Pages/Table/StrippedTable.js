@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -30,7 +29,7 @@ const data = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function StrippedTable(props) {
+function StrippedTable() {
   const { classes, cx } = useStyles();
   return (
     <Fragment>

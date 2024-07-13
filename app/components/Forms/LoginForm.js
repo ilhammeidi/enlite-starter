@@ -229,7 +229,6 @@ LoginForm.defaultProps = {
   closeMsg: () => {},
   googleAuth: () => {},
   twitterAuth: () => {},
-  twitterAuth: () => {},
   link: '#'
 };
 
