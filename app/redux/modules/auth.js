@@ -39,9 +39,6 @@ const authSlice = createSlice({
       state.message = action.payload;
       state.loading = false;
     },
-    passwordReset: (state) => {
-      state.message = 'LINK.PASSWORD_RESET.SENT'
-    },
     hideMessage: (state) => {
       state.message = null;
     }
@@ -49,8 +46,7 @@ const authSlice = createSlice({
 });
 
 export const {
-  requestAuth, passwordReset,
-  loginUser, logoutUser,
+  requestAuth, loginUser, logoutUser,
   setMessage, hideMessage,
 } = authSlice.actions;
 
