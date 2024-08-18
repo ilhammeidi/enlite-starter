@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from 'tss-react/mui';
 import { Helmet } from 'react-helmet';
@@ -6,7 +6,7 @@ import brand from 'enl-api/dummy/brand';
 import { SourceReader, PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import messages from './messages';
-import ReduxFormDemo from './ReduxFormDemo';
+import FormikFormDemo from './FormikFormDemo';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -15,20 +15,12 @@ const useStyles = makeStyles()(() => ({
 }));
 
 function ReduxForm(props) {
-  const [valueForm, setValueForm] = useState();
-  const showResult = (values) => {
-    setTimeout(() => {
-      setValueForm(values);
-    }, 500); // simulate server latency
-  };
-
   const title = brand.name + ' - Form';
   const description = brand.desc;
   const docSrc = 'containers/Forms/demos/';
   const { intl } = props;
-  const {
-    classes
-  } = useStyles();
+  const { classes } = useStyles();
+
   return (
     <div className={classes.root}>
       <Helmet>
@@ -45,15 +37,8 @@ function ReduxForm(props) {
         desc={intl.formatMessage(messages.formDesc)}
       >
         <div>
-          <ReduxFormDemo onSubmit={(values) => showResult(values)} />
-          {valueForm && (
-            <p>
-              You submitted:
-              <br />
-              { JSON.stringify(valueForm) }
-            </p>
-          )}
-          <SourceReader componentName={docSrc + 'ReduxFormDemo.js'} />
+          <FormikFormDemo />
+          <SourceReader componentName={docSrc + 'FormikFormDemo.js'} />
         </div>
       </PapperBlock>
     </div>

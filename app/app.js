@@ -14,7 +14,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ConnectedRouter } from 'connected-react18-router';
 import history from 'utils/history';
 import 'react-18-image-lightbox/style.css';
 import 'sanitize.css/sanitize.css';
@@ -29,25 +28,21 @@ import LanguageProvider from 'containers/LanguageProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 /* eslint-enable import/no-unresolved, import/extensions */
-import configureStore from './redux/configureStore';
+import configureStore, { persistor } from './redux/configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
 
 // Create redux store with history
-const initialState = {};
-const { store, persistor } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const root = createRoot(MOUNT_NODE);
 const render = messages => {
   root.render(
-    <Provider store={store}>
+    <Provider store={configureStore}>
       <PersistGate loading={null} persistor={persistor}>
         <LanguageProvider messages={messages}>
-          <ConnectedRouter history={history}>
-            <App history={history} />
-          </ConnectedRouter>
+          <App history={history} />
         </LanguageProvider>
       </PersistGate>
     </Provider>

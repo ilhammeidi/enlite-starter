@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
@@ -10,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ButtonBase from '@mui/material/ButtonBase';
 import Icon from '@mui/material/Icon';
-import { openMenuAction, closeMenuAction } from 'enl-redux/actions/uiActions';
+import { openAction, openMenuAction, closeMenuAction } from 'enl-redux/modules/ui';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import MenuProfile from './MenuProfile';
@@ -23,34 +22,39 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenuBig(props) { // eslint-disable-line
   const { classes, cx } = useStyles();
   const {
-    open,
-    dataMenu,
-    drawerPaper,
     userAttr,
     intl,
-    closeDrawer,
-    openDrawer,
-    openSubMenu,
     mobile,
     loadTransition,
-    toggleDrawerOpen
+    toggleDrawerOpen,
+    dataMenu,
+    drawerPaper
   } = props;
 
-  const location = useLocation;
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.ui.subMenuOpen);
+
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [menuLoaded, setMenuLoaded] = useState(true);
 
   const handleLoadMenu = (menu, key) => {
     setSelectedMenu(menu);
     setMenuLoaded(false);
-    openSubMenu(key);
+    dispatch(openAction({ key }));
+
     setTimeout(() => {
       setMenuLoaded(true); // load transtion menu
     }, 100);
     // Unecessary in mobile, because toggle menu already handled
     if (!mobile) {
-      openDrawer();
+      dispatch(openMenuAction());
     }
+  };
+
+  const handleLoadSingleMenu = () => {
+    setSelectedMenu([]);
+    dispatch(closeMenuAction());
   };
 
   const handleLoadPage = () => {
@@ -107,7 +111,7 @@ function MainMenuBig(props) { // eslint-disable-line
         className={cx(classes.menuHead, (item.link === '/app' && location.pathname !== '/app') ? 'rootPath' : '')}
         component={NavLink}
         to={item.linkParent}
-        onClick={closeDrawer}
+        onClick={() => handleLoadSingleMenu(item.key)}
       >
         <Icon className={classes.icon}>{item.icon}</Icon>
         <span className={classes.text}>
@@ -202,11 +206,7 @@ function MainMenuBig(props) { // eslint-disable-line
 
 MainMenuBig.propTypes = {
   userAttr: PropTypes.object.isRequired,
-  open: PropTypes.array.isRequired,
   dataMenu: PropTypes.array.isRequired,
-  openDrawer: PropTypes.func.isRequired,
-  openSubMenu: PropTypes.func.isRequired,
-  closeDrawer: PropTypes.func.isRequired,
   loadTransition: PropTypes.func.isRequired,
   drawerPaper: PropTypes.bool.isRequired,
   mobile: PropTypes.bool,
@@ -219,21 +219,4 @@ MainMenuBig.defaultProps = {
   mobile: false
 };
 
-const openAction = key => ({ type: 'OPEN_SUBMENU', key });
-
-const mapStateToProps = state => ({
-  open: state.ui.subMenuOpen
-});
-
-const mapDispatchToProps = dispatch => ({
-  openDrawer: () => dispatch(openMenuAction),
-  closeDrawer: () => dispatch(closeMenuAction),
-  openSubMenu: bindActionCreators(openAction, dispatch)
-});
-
-const MainMenuBigMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MainMenuBig);
-
-export default injectIntl(MainMenuBigMapped);
+export default injectIntl(MainMenuBig);

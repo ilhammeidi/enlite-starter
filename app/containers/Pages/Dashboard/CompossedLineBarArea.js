@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from 'tss-react/mui';
 import { createTheme } from '@mui/material/styles';
 import ThemePallete from 'enl-api/palette/themePalette';
@@ -35,7 +34,7 @@ const color = ({
   third: blue[500],
 });
 
-function CompossedLineBarArea(props) {
+function CompossedLineBarArea() {
   const { classes } = useStyles();
   return (
     <div className={classes.chartFluid}>

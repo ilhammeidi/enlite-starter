@@ -5,12 +5,9 @@ import Outer from '../Templates/Outer';
 import Application from './Application';
 import ThemeWrapper from './ThemeWrapper';
 import {
-  Login, Register,
-  LoginFullstack, RegisterFullstack,
-  ResetPassword, ResetPasswordFullstack,
-  ComingSoon,
-  Maintenance,
-  NotFoundDedicated
+  Login, Register, ResetPassword,
+  LoginFullstack, RegisterFullstack, ResetPasswordFullstack,
+  ComingSoon, Maintenance, NotFoundDedicated
 } from '../pageListAsync';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;

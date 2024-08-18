@@ -1,5 +1,6 @@
-export {
-  firebaseAuth,
-  firebaseSocialAuth,
-  firebaseDb,
-} from './firebase';
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './config';
+
+const firebaseApp = initializeApp(firebaseConfig);
+
+export default firebaseApp;

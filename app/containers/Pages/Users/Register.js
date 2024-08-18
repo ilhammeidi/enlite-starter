@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
@@ -17,16 +17,11 @@ function Register() {
 
   const title = brand.name + ' - Register';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
 
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-      window.location.href = '/app';
-    }
-  }, [valueForm]);
+  const submitForm = (values) => {
+    console.log('You submitted:' + JSON.stringify(values, null, 2));
+    window.location.href = '/app';
+  };
 
   return (
     <div className={classes.rootFull}>
@@ -67,7 +62,7 @@ function Register() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <RegisterForm onSubmit={(values) => submitForm(values)} />
+          <RegisterForm link="/login" submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

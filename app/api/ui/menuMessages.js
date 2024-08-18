@@ -70,7 +70,7 @@ export default defineMessages({
   },
   common_table: {
     id: `${scope}.tables.common_table`,
-    defaultMessage: 'Tables Charts',
+    defaultMessage: 'Tables',
   },
   basic_table: {
     id: `${scope}.tables.basic_table`,

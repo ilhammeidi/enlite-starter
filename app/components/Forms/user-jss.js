@@ -364,12 +364,11 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     margin: `${theme.spacing(3)} 0 ${theme.spacing(1)}`,
   },
   link: {
-    fontSize: '0.875rem',
     color: theme.palette.secondary.main,
     textDecoration: 'none',
     position: 'relative',
-    top: 1,
-    left: 0,
+    top: 2,
+    left: -10,
     '&:hover': {
       textDecoration: 'underline'
     }

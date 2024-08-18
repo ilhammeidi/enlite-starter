@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { NavLink } from 'react-router-dom';
-import { LoginForm, SelectLanguage } from 'enl-components';
+import { SelectLanguage, LoginForm } from 'enl-components';
 import logo from 'enl-images/logo.svg';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import useStyles from 'enl-components/Forms/user-jss';
@@ -17,16 +17,11 @@ function Login() {
 
   const title = brand.name + ' - Login';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
 
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`);
-      window.location.href = '/app';
-    }
-  }, [valueForm]);
+  const submitForm = (values) => {
+    console.log('You submitted:' + JSON.stringify(values, null, 2));
+    window.location.href = '/app';
+  };
 
   return (
     <div className={classes.rootFull}>
@@ -69,7 +64,7 @@ function Login() {
           </div>
         )}
         <div className={classes.sideFormWrap}>
-          <LoginForm onSubmit={(values) => submitForm(values)} />
+          <LoginForm link="/register" submitForm={(values) => submitForm(values)} />
         </div>
       </div>
     </div>

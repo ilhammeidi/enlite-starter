@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 import Popper from '@mui/material/Popper';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -25,20 +24,16 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 
 function MegaMenu(props) { // eslint-disable-line
   const { classes, cx } = useStyles();
-  const {
-    open,
-    openSubMenu,
-    dataMenu,
-    intl
-  } = props;
+  const { dataMenu, intl } = props;
 
   const location = useLocation();
   const [active, setActive] = useState([]);
   const [openMenu, setOpenMenu] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpenMenu = (event, key, keyParent) => {
-    openSubMenu(key, keyParent);
+  const open = useSelector((state) => state.ui.subMenuOpen);
+
+  const handleOpenMenu = (event, key) => {
     setAnchorEl(event.currentTarget);
     setTimeout(() => {
       setOpenMenu([key]);
@@ -64,7 +59,7 @@ function MegaMenu(props) { // eslint-disable-line
           <Button
             aria-haspopup="true"
             component={item.linkParent ? LinkBtn : 'button'}
-            to={item.linkParent ? item.linkParent : false}
+            to={item.linkParent ? item.linkParent : '#'}
             className={
               cx(
                 classes.headMenu,
@@ -72,7 +67,7 @@ function MegaMenu(props) { // eslint-disable-line
                 active.indexOf(item.key) > -1 ? classes.selected : ''
               )
             }
-            onClick={(event) => handleOpenMenu(event, item.key, item.keyParent)}
+            onClick={(event) => handleOpenMenu(event, item.key)}
           >
             {
               messages[item.key] !== undefined
@@ -167,25 +162,8 @@ function MegaMenu(props) { // eslint-disable-line
 }
 
 MegaMenu.propTypes = {
-  open: PropTypes.array.isRequired,
-  openSubMenu: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
   intl: PropTypes.object.isRequired
 };
 
-const openAction = (key, keyParent) => ({ type: 'OPEN_SUBMENU', key, keyParent });
-
-const mapStateToProps = state => ({
-  open: state.ui.subMenuOpen
-});
-
-const mapDispatchToProps = dispatch => ({
-  openSubMenu: bindActionCreators(openAction, dispatch)
-});
-
-const MegaMenuMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MegaMenu);
-
-export default injectIntl(MegaMenuMapped);
+export default injectIntl(MegaMenu);

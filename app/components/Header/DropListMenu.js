@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { useLocation, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Popper from '@mui/material/Popper';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import List from '@mui/material/List';
@@ -23,32 +22,35 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 
 function MainMenu(props) { // eslint-disable-line
   const { classes, cx } = useStyles();
-  const {
-    open,
-    openSubMenu,
-    dataMenu,
-    intl
-  } = props;
-  const [active, setActive] = useState([]);
-  const location = useLocation();
+  const { dataMenu, intl } = props;
 
+  const location = useLocation();
+  const open = useSelector((state) => state.ui.subMenuOpen);
+
+  const [active, setActive] = useState([]);
   const [openMenu, setOpenMenu] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [initActive, setInitActive] = useState(true);
 
-  const handleOpenMenu = (event, key, keyParent) => {
-    openSubMenu(key, keyParent);
+  const handleOpenMenu = (event, key) => {
     setAnchorEl(event.currentTarget);
     setTimeout(() => {
       setOpenMenu([key]);
     }, 50);
   };
 
-  const handleClose = () => {
+  const handleClose = event => {
+    if (anchorEl.contains(event.target)) {
+      return;
+    }
     setOpenMenu([]);
   };
 
   const handleActiveParent = key => {
-    setActive([key]);
+    setTimeout(() => {
+      setInitActive(false);
+      setActive([key]);
+    }, 500);
     setOpenMenu([]);
   };
 
@@ -67,10 +69,11 @@ function MainMenu(props) { // eslint-disable-line
               cx(
                 classes.headMenu,
                 openMenu.indexOf(item.key) > -1 ? classes.opened : '',
-                active.indexOf(item.key) > -1 ? classes.selected : ''
+                active.indexOf(item.key) > -1 ? classes.selected : '',
+                initActive && open.indexOf(item.key) > -1 ? classes.selected : ''
               )
             }
-            onClick={(event) => handleOpenMenu(event, item.key, item.keyParent)}
+            onClick={(event) => handleOpenMenu(event, item.key)}
           >
             {
               messages[item.key] !== undefined
@@ -137,10 +140,6 @@ function MainMenu(props) { // eslint-disable-line
     );
   });
 
-  useEffect(() => {
-    setActive(open);
-  }, []);
-
   return (
     <nav className={classes.mainMenu}>
       <div>
@@ -151,25 +150,8 @@ function MainMenu(props) { // eslint-disable-line
 }
 
 MainMenu.propTypes = {
-  open: PropTypes.array.isRequired,
-  openSubMenu: PropTypes.func.isRequired,
   dataMenu: PropTypes.array.isRequired,
   intl: PropTypes.object.isRequired
 };
 
-const openAction = (key, keyParent) => ({ type: 'OPEN_SUBMENU', key, keyParent });
-
-const mapStateToProps = state => ({
-  open: state.ui.subMenuOpen
-});
-
-const mapDispatchToProps = dispatch => ({
-  openSubMenu: bindActionCreators(openAction, dispatch)
-});
-
-const MainMenuMapped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainMenu);
-
-export default injectIntl(MainMenuMapped);
+export default injectIntl(MainMenu);
