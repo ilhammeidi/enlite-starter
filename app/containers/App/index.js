@@ -6,7 +6,7 @@ import Application from './Application';
 import ThemeWrapper from './ThemeWrapper';
 import {
   Login, Register, ResetPassword,
-  LoginFullstack, RegisterFullstack, ResetPasswordFullstack,
+  LoginFirebase, RegisterFirebase, ResetPasswordFirebase,
   ComingSoon, Maintenance, NotFoundDedicated
 } from '../pageListAsync';
 
@@ -26,9 +26,9 @@ function App(props) {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="reset-password" element={<ResetPassword />} />
-            <Route path="login-firebase" element={<LoginFullstack />} />
-            <Route path="register-firebase" element={<RegisterFullstack />} />
-            <Route path="reset-password-firebase" element={<ResetPasswordFullstack />} />
+            <Route path="login-firebase" element={<LoginFirebase />} />
+            <Route path="register-firebase" element={<RegisterFirebase />} />
+            <Route path="reset-password-firebase" element={<ResetPasswordFirebase />} />
             <Route path="maintenance" element={<Maintenance />} />
             <Route path="coming-soon" element={<ComingSoon />} />
           </Route>

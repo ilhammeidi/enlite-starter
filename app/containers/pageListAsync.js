@@ -16,16 +16,16 @@ export const Form = loadable(() =>
   import ('./Pages/Forms/FormikForm'), {
     fallback: <Loading />,
   });
-export const LoginFullstack = loadable(() =>
-  import ('./Pages/UsersFullstack/Login'), {
+export const LoginFirebase = loadable(() =>
+  import ('./Pages/UsersFirebase/Login'), {
     fallback: <Loading />,
   });
-export const RegisterFullstack = loadable(() =>
-  import ('./Pages/UsersFullstack/Register'), {
+export const RegisterFirebase = loadable(() =>
+  import ('./Pages/UsersFirebase/Register'), {
     fallback: <Loading />,
   });
-export const ResetPasswordFullstack = loadable(() =>
-  import ('./Pages/UsersFullstack/ResetPassword'), {
+export const ResetPasswordFirebase = loadable(() =>
+  import ('./Pages/UsersFirebase/ResetPassword'), {
     fallback: <Loading />,
   });
 export const Login = loadable(() =>
