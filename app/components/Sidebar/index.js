@@ -8,7 +8,7 @@ import useStyles from './sidebar-jss';
 import SidebarContent from './SidebarContent';
 
 function Sidebar(props) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const lgUp = useMediaQuery(theme => theme.breakpoints.up('lg'));
   const lgDown = useMediaQuery(theme => theme.breakpoints.down('lg'));
 
@@ -70,7 +70,7 @@ function Sidebar(props) {
           open={open}
           anchor={leftSidebar ? 'left' : 'right'}
           classes={{
-            paperAnchorLeft: classes.drawerWrap
+            paperAnchorLeft: cx(classes.drawerWrap, !open ? classes.drawerClose : '')
           }}
         >
           <SidebarContent

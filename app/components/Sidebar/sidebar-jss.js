@@ -12,6 +12,9 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   drawer: {
     width: drawerWidth
   },
+  drawerClose: {
+    width: theme.spacing(8)
+  },
   drawerWrap: {
     position: 'relative',
     border: 'none',

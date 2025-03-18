@@ -136,7 +136,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     opacity: 0.5
   },
   contentPaddingLeft: {
-    paddingLeft: theme.spacing(10),
+    paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
   contentPaddingRight: {
