@@ -1,6 +1,6 @@
 {
   "name": "enlite_prime",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "React.js fullstack web template for expert and experienced fullstack developer",
   "private": true,
   "engines": {
@@ -131,6 +131,7 @@
     "chalk": "^2.4.2",
     "clsx": "^1.0.4",
     "compression": "1.7.4",
+    "copy-webpack-plugin": "^13.0.0",
     "core-js": "^3.21.1",
     "cross-env": "^5.2.1",
     "dandelion-animated-slider": "^1.0.0",
